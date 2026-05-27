@@ -45,17 +45,7 @@ const styles = StyleSheet.create({
   coverPage: {
     backgroundColor: "#fcf9f2",
     position: "relative",
-  },
-  coverContent: {
-    padding: 60,
-    paddingTop: 80,
-    paddingBottom: 80,
-    width: "100%",
-    height: "100%",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-    alignItems: "center",
+    padding: 0,
     fontFamily: "Roboto",
   },
   coverBackground: {
@@ -69,27 +59,28 @@ const styles = StyleSheet.create({
     zIndex: -1,
   },
   coverTopSection: {
+    marginTop: 120,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
   },
   brandLogo: {
-    fontSize: 14,
+    fontSize: 16,
     fontFamily: "Roboto",
     fontWeight: 700,
     color: "#4b5563",
-    letterSpacing: 8,
+    letterSpacing: 6,
     textTransform: "uppercase",
-    marginBottom: 80,
+    marginBottom: 60,
     textAlign: "center",
   },
   coverTitle: {
-    fontSize: 38,
+    fontSize: 36,
     fontWeight: 700,
     color: "#111827",
     marginBottom: 12,
     textTransform: "uppercase",
-    letterSpacing: 4,
+    letterSpacing: 2,
     textAlign: "center",
   },
   coverSubtitle: {
@@ -102,19 +93,29 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
   },
   coverBottomSection: {
+    position: "absolute",
+    bottom: 80,
+    left: 0,
+    right: 0,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    backgroundColor: "rgba(255, 255, 255, 0.6)",
-    padding: 20,
-    borderRadius: 4,
+  },
+  coverDetailsContainer: {
+    backgroundColor: "rgba(255, 255, 255, 0.75)",
+    paddingVertical: 20,
+    paddingHorizontal: 40,
+    borderRadius: 8,
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "rgba(200, 200, 200, 0.3)",
   },
   coverDetails: {
     fontSize: 14,
     fontWeight: 700,
     color: "#111827",
     textAlign: "center",
-    lineHeight: 2,
+    lineHeight: 1.8,
     letterSpacing: 1,
   },
   header: {
@@ -422,28 +423,26 @@ export function TarotReportTemplate({
         {coverBgBuffer && (
           <Image src={{ data: coverBgBuffer, format: "jpg" }} style={styles.coverBackground} />
         )}
-        <View style={styles.coverContent}>
-          <View style={styles.coverTopSection}>
-            <Text style={styles.brandLogo}>ARCHEYA</Text>
-            <Text style={styles.coverTitle}>Tarotowy Portret</Text>
-            <Text style={styles.coverTitle}>
-              {reportType === "INDIVIDUAL" ? "Indywidualny" : "Partnerski"}
-            </Text>
-            <Text style={styles.coverSubtitle}>
-              {reportType === "INDIVIDUAL" 
-                ? "— Odkryj ścieżki swojej duszy\ni głębię swojego wnętrza... —"
-                : "— Odkryjcie wspólną drogę\ni głębię Waszej relacji... —"}
-            </Text>
-          </View>
+        <View style={styles.coverTopSection}>
+          <Text style={styles.brandLogo}>ARCHEYA</Text>
+          <Text style={styles.coverTitle}>Tarotowy Portret</Text>
+          <Text style={styles.coverTitle}>
+            {reportType === "INDIVIDUAL" ? "Indywidualny" : "Partnerski"}
+          </Text>
+          <Text style={styles.coverSubtitle}>
+            {reportType === "INDIVIDUAL" 
+              ? "— Odkryj ścieżki swojej duszy\ni głębię swojego wnętrza... —"
+              : "— Odkryjcie wspólną drogę\ni głębię Waszej relacji... —"}
+          </Text>
+        </View>
 
-          <View style={styles.coverBottomSection}>
-            <View style={styles.coverDetails}>
-              {name && <Text>Dla: {name}</Text>}
-              <Text>
-                Data urodzenia: {formatDate(date1, "dd.MM.yyyy")}
-                {reportType === "PARTNERSHIP" && date2 && ` & ${formatDate(date2, "dd.MM.yyyy")}`}
-              </Text>
-            </View>
+        <View style={styles.coverBottomSection}>
+          <View style={styles.coverDetailsContainer}>
+            {name && <Text style={styles.coverDetails}>Dla: {name}</Text>}
+            <Text style={styles.coverDetails}>
+              Data urodzenia: {formatDate(date1, "dd.MM.yyyy")}
+              {reportType === "PARTNERSHIP" && date2 && ` & ${formatDate(date2, "dd.MM.yyyy")}`}
+            </Text>
           </View>
         </View>
       </Page>
