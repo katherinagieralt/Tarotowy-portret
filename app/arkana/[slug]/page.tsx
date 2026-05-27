@@ -4,6 +4,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import { notFound } from 'next/navigation';
 import { getAllArkanaPosts, getArkanaPostBySlug } from '@/lib/arkany';
 import { Metadata } from 'next';
+import CardMagnifier from '@/components/CardMagnifier';
 
 export async function generateMetadata({
   params,
@@ -126,19 +127,9 @@ export default async function ArkanaPage({
             </p>
           </div>
 
-          {/* Right: Big Card Image */}
-          <div className="w-full sm:w-2/3 md:w-2/5 flex-shrink-0 flex justify-center md:justify-end">
-            <div className="relative aspect-[180/305] w-full max-w-[320px] rounded-2xl overflow-hidden shadow-2xl border border-black/10 dark:border-white/10 bg-slate-200 dark:bg-[#050308] group">
-              <Image 
-                src={imagePath} 
-                alt={String(post.frontmatter.title)}
-                fill
-                className="object-contain p-2 md:p-3 transition-transform duration-700 group-hover:scale-105"
-                sizes="(max-width: 768px) 100vw, 33vw"
-                priority
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0A0710]/40 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-            </div>
+          {/* Right: Big Card Image with Magnifier */}
+          <div className="w-full sm:w-2/3 md:w-2/5 flex-shrink-0 flex justify-center md:justify-end z-10">
+            <CardMagnifier src={imagePath} alt={String(post.frontmatter.title)} />
           </div>
         </div>
 
