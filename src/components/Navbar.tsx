@@ -55,7 +55,6 @@ export function Navbar() {
             href="/" 
             className="flex items-center gap-2 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 rounded-lg"
           >
-            <Stars className="w-6 h-6 text-amber-500 group-hover:rotate-12 transition-transform duration-300" aria-hidden="true" />
             <span className="font-serif text-2xl tracking-[0.2em] text-amber-600 dark:text-amber-400 uppercase">
               Archeya
             </span>

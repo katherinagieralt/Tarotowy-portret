@@ -179,7 +179,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.05] dark:opacity-[0.15] mix-blend-overlay transition-opacity duration-500"></div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-6 py-20 sm:py-32 relative z-10 flex flex-col items-center">
+      <div className="max-w-4xl mx-auto px-6 pt-10 pb-16 sm:pt-16 sm:pb-32 relative z-10 flex flex-col items-center">
         {/* Header */}
         <motion.div 
           initial="hidden"
@@ -187,15 +187,11 @@ export default function Home() {
           variants={fadeInUp}
           className="text-center mb-16 space-y-6"
         >
-          <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/50 dark:bg-white/[0.03] border border-black/5 dark:border-white/5 backdrop-blur-xl shadow-sm dark:shadow-[0_0_30px_rgba(255,255,255,0.02)] transition-all">
-            <Stars className="w-4 h-4 text-amber-500 dark:text-amber-300" aria-hidden="true" />
-            <span className="text-xs font-semibold tracking-widest text-slate-700 dark:text-slate-200 uppercase">Darmowa Wersja Demonstracyjna</span>
-          </div>
           <h1 className="text-5xl sm:text-7xl font-light mb-6 tracking-tight font-serif text-slate-900 dark:text-white transition-colors duration-500">
-            Tarotowy <span className="italic text-transparent bg-clip-text bg-gradient-to-br from-amber-500 via-amber-600 to-amber-700 dark:from-amber-200 dark:via-amber-400 dark:to-amber-700">Portret Psychologiczny</span>
+            Tarotowy <span className="italic text-transparent bg-clip-text bg-gradient-to-br from-amber-500 via-amber-600 to-amber-700 dark:from-amber-200 dark:via-amber-400 dark:to-amber-700">Portret</span>
           </h1>
           <p className="text-lg text-slate-600 dark:text-slate-300 max-w-xl mx-auto font-light leading-relaxed transition-colors duration-500">
-            To narzędzie do autorefleksji, symbolicznej pracy z psychiką i odkrywania siebie.
+            To narzędzie do autorefleksji, symbolicznej pracy z psychiką <br className="hidden sm:block" /> i odkrywania siebie.
           </p>
         </motion.div>
 
@@ -309,7 +305,7 @@ export default function Home() {
                     {calculating ? (
                       <span className="flex items-center gap-2">Przeliczanie Energii <Sparkles className="w-4 h-4 animate-spin text-[#D4AF37]" aria-hidden="true" /></span>
                     ) : (
-                      <>Pokaż Zarys Portretu <Sparkles className="w-5 h-5 text-[#D4AF37] dark:text-[#B89B72]" aria-hidden="true" /></>
+                      <>Pokaż Zarys Portretu</>
                     )}
                   </span>
                 </button>
