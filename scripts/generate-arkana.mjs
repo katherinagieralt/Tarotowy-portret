@@ -34,6 +34,13 @@ if (!fs.existsSync(dir)) {
 
 cards.forEach(card => {
   const filepath = path.join(dir, `${card.slug}.mdx`);
+  
+  // Jeśli to Cesarzowa, którą już ręcznie wzbogaciliśmy, pominąć jej nadpisywanie
+  if (card.slug === '3-cesarzowa' && fs.existsSync(filepath)) {
+    console.log("Pominięto nadpisywanie: 3-cesarzowa");
+    return;
+  }
+
   const content = `---
 title: "${card.title}"
 description: "${card.desc}"
@@ -41,13 +48,37 @@ number: ${card.num}
 image: "/arkana/${card.img}.jpg"
 ---
 
-# ${card.title}
+## Archetyp i Znaczenie Ogólne
 
-*Ten opis zostanie uzupełniony wkrótce...*
+*Wprowadzenie archetypowe. Opis czym jest ta karta, jakie uniwersalne siły i idee reprezentuje w ludzkiej psychice i podróży bohatera (Głupca).*
 
-Oto miejsce na szczegółowy opis psychologicznego oraz archetypowego znaczenia tej karty w kontekście Twojego Portretu Tarotowego.
+## Psychologia i Wnętrze
+
+*Jak ta wibracja manifestuje się na poziomie psychicznym? Sposób myślenia, postrzegania świata, naturalne predyspozycje, fundamenty poczucia własnej wartości.*
+
+## Potencjał
+
+*Gdzie leży największa siła tej karty? Jakie talenty, zdolności i dary przynosi właścicielowi? Jak można wykorzystać jej wibrację do osiągnięcia sukcesu i spełnienia?*
+
+## Cień
+
+*Ciemna strona mocy. Co się dzieje, gdy energia karty nie jest zintegrowana lub działa w nadmiarze/niedoborze? Jakie destrukcyjne mechanizmy obronne, lęki lub pułapki ego aktywuje?*
+
+## Relacje i Emocje
+
+*Jak osoba z silną wibracją tej karty funkcjonuje w związkach? Czego potrzebuje, by czuć się bezpiecznie? Jakie są jej największe wyzwania w budowaniu intymności?*
+
+## Symbolika
+
+*   **Element 1:** *znaczenie*
+*   **Element 2:** *znaczenie*
+*   **Element 3:** *znaczenie*
+
+## Przykład Działania w Życiu
+
+*Konkretna, życiowa scenka lub metafora pokazująca, jak działa osoba z wiodącą energią tej karty na co dzień.*
 `;
   fs.writeFileSync(filepath, content, "utf8");
 });
 
-console.log("Wygenerowano 22 karty!");
+console.log("Wygenerowano strukturę szablonów dla kart!");
