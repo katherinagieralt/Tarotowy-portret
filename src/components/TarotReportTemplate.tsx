@@ -43,15 +43,20 @@ const styles = StyleSheet.create({
     opacity: 0.3,
   },
   coverPage: {
+    backgroundColor: "#fcf9f2",
+    position: "relative",
+  },
+  coverContent: {
     padding: 60,
-    backgroundColor: "#0f172a", // Fallback
-    color: "#ffffff",
-    fontFamily: "Roboto",
+    paddingTop: 80,
+    paddingBottom: 80,
+    width: "100%",
+    height: "100%",
     display: "flex",
     flexDirection: "column",
-    justifyContent: "space-between", // Rozsuwa zawartość na górę i dół
+    justifyContent: "space-between",
     alignItems: "center",
-    position: "relative",
+    fontFamily: "Roboto",
   },
   coverBackground: {
     position: "absolute",
@@ -62,55 +67,55 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     zIndex: -1,
-    objectFit: "cover",
   },
   coverTopSection: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    marginTop: 40,
   },
   brandLogo: {
-    fontSize: 24,
+    fontSize: 14,
     fontFamily: "Roboto",
     fontWeight: 700,
-    color: "#fde047", // Jasny złoty
+    color: "#4b5563",
     letterSpacing: 8,
     textTransform: "uppercase",
-    marginBottom: 60,
+    marginBottom: 80,
     textAlign: "center",
   },
   coverTitle: {
-    fontSize: 42,
+    fontSize: 38,
     fontWeight: 700,
-    color: "#fde047", // Złoty
-    marginBottom: 8,
+    color: "#111827",
+    marginBottom: 12,
     textTransform: "uppercase",
-    letterSpacing: 3,
+    letterSpacing: 4,
     textAlign: "center",
-    textShadow: "1px 1px 4px rgba(0,0,0,0.8)",
   },
   coverSubtitle: {
-    fontSize: 14,
-    color: "#fef08a",
-    marginTop: 30,
+    fontSize: 13,
+    color: "#4b5563",
+    marginTop: 40,
     textAlign: "center",
     maxWidth: 400,
     lineHeight: 1.6,
-    textShadow: "1px 1px 4px rgba(0,0,0,0.8)",
+    letterSpacing: 1,
   },
   coverBottomSection: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    marginBottom: 40,
+    backgroundColor: "rgba(255, 255, 255, 0.6)",
+    padding: 20,
+    borderRadius: 4,
   },
   coverDetails: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: 700,
-    color: "#1f2937", // Ciemny szary/czarny - będzie widoczny na jasnym dole okładki
+    color: "#111827",
     textAlign: "center",
     lineHeight: 2,
+    letterSpacing: 1,
   },
   header: {
     marginBottom: 30,
@@ -417,26 +422,28 @@ export function TarotReportTemplate({
         {coverBgBuffer && (
           <Image src={{ data: coverBgBuffer, format: "jpg" }} style={styles.coverBackground} />
         )}
-        <View style={styles.coverTopSection}>
-          <Text style={styles.brandLogo}>ARCHEYA</Text>
-          <Text style={styles.coverTitle}>Tarotowy Portret</Text>
-          <Text style={styles.coverTitle}>
-            {reportType === "INDIVIDUAL" ? "Indywidualny" : "Partnerski"}
-          </Text>
-          <Text style={styles.coverSubtitle}>
-            {reportType === "INDIVIDUAL" 
-              ? "— Odkryj ścieżki swojej duszy\ni głębię swojego wnętrza... —"
-              : "— Odkryjcie wspólną drogę\ni głębię Waszej relacji... —"}
-          </Text>
-        </View>
-
-        <View style={styles.coverBottomSection}>
-          <View style={styles.coverDetails}>
-            {name && <Text>Przygotowano dla: {name}</Text>}
-            <Text>
-              Data urodzenia: {formatDate(date1, "dd.MM.yyyy")}
-              {reportType === "PARTNERSHIP" && date2 && ` & ${formatDate(date2, "dd.MM.yyyy")}`}
+        <View style={styles.coverContent}>
+          <View style={styles.coverTopSection}>
+            <Text style={styles.brandLogo}>ARCHEYA</Text>
+            <Text style={styles.coverTitle}>Tarotowy Portret</Text>
+            <Text style={styles.coverTitle}>
+              {reportType === "INDIVIDUAL" ? "Indywidualny" : "Partnerski"}
             </Text>
+            <Text style={styles.coverSubtitle}>
+              {reportType === "INDIVIDUAL" 
+                ? "— Odkryj ścieżki swojej duszy\ni głębię swojego wnętrza... —"
+                : "— Odkryjcie wspólną drogę\ni głębię Waszej relacji... —"}
+            </Text>
+          </View>
+
+          <View style={styles.coverBottomSection}>
+            <View style={styles.coverDetails}>
+              {name && <Text>Dla: {name}</Text>}
+              <Text>
+                Data urodzenia: {formatDate(date1, "dd.MM.yyyy")}
+                {reportType === "PARTNERSHIP" && date2 && ` & ${formatDate(date2, "dd.MM.yyyy")}`}
+              </Text>
+            </View>
           </View>
         </View>
       </Page>
@@ -462,13 +469,13 @@ export function TarotReportTemplate({
           ) : (
             <>
               <Text style={styles.paragraphText}>
-                {formatText("Tarotowy Portret Partnerski to innowacyjna i niezwykle głęboka metoda poznania dynamiki relacji między dwojgiem ludzi. Oparty na 22 Wielkich Arkanach Tarota, raport ten nie służy przewidywaniu przyszłości, lecz zrozumieniu psychologicznych i archetypowych sił, które łączą, kształtują i czasem wystawiają na próbę Wasz związek.")}
+                {formatText("Tarotowy Portret Partnerski to innowacyjna i niezwykle głęboka metoda poznania dynamiki relacji między dwojgiem ludzi. Oparty na 22 Wielkich Arkanach Tarota, raport ten nie służy przewidywaniu przyszłości, lecz zrozumieniu psychologicznych i archetypowych sił, które łączą, kształtują i czasem wystawiają na próbę Waszą relację.")}
               </Text>
               <Text style={styles.paragraphText}>
-                {formatText("Obliczony na podstawie Waszych dat urodzenia, portret ukazuje wspólną architekturę Waszej relacji. Jest to mapa, która obnaża wspólne cele, potencjał, ale także punkty zapalne i karmiczne lekcje, które macie razem do przepracowania. Pomaga zidentyfikować „Cień relacji” – czyli obszary, w których nieświadomie możecie się ranić lub blokować, oraz wskazuje ścieżkę do osiągnięcia długotrwałej harmonii.")}
+                {formatText("Obliczony na podstawie Waszych dat urodzenia, portret ukazuje wspólną architekturę Waszej dynamiki. Jest to mapa, która obnaża wspólne cele, potencjał, ale także punkty zapalne i lekcje, które macie razem do przepracowania. Pomaga zidentyfikować „Cień relacji” – czyli obszary, w których nieświadomie możecie się ranić lub blokować, oraz wskazuje ścieżkę do osiągnięcia długotrwałej harmonii.")}
               </Text>
               <Text style={styles.paragraphText}>
-                {formatText("Każda karta w tym raporcie reprezentuje określoną wspólną energię i wyzwanie dla Waszego związku. Potraktujcie ten dokument jako psychologiczne lustro Waszej relacji. Zachęcamy do wspólnego czytania, z otwartym umysłem, wracając do poszczególnych pozycji wielokrotnie. Wiedza tu zawarta to kompas, który pomoże Wam świadomie budować bliskość i autentyczne porozumienie.")}
+                {formatText("Każda karta w tym raporcie reprezentuje określoną wspólną energię i wyzwanie dla Waszej relacji. Potraktujcie ten dokument jako psychologiczne lustro. Zachęcamy do wspólnego czytania, z otwartym umysłem, wracając do poszczególnych pozycji wielokrotnie. Wiedza tu zawarta to kompas, który pomoże Wam świadomie budować bliskość i autentyczne porozumienie.")}
               </Text>
             </>
           )}
@@ -564,13 +571,13 @@ export function TarotReportTemplate({
           ) : (
             <>
               <Text style={styles.paragraphText}>
-                {formatText("Dziękujemy za odbycie z nami tej fascynującej podróży w głąb Waszej relacji. Przeczytanie i przeanalizowanie wspólnego Portretu Partnerskiego to akt ogromnej dojrzałości. Niewiele par decyduje się na tak głębokie przyjrzenie się mechanizmom, które nimi kierują, i otwarte skonfrontowanie się ze wspólnymi wyzwaniami.")}
+                {formatText("Dziękujemy za odbycie z nami tej fascynującej podróży w głąb Waszej relacji. Przeczytanie i przeanalizowanie wspólnego Portretu Partnerskiego to akt dużej dojrzałości. Niewiele osób decyduje się na tak głębokie przyjrzenie się mechanizmom, które nimi kierują, i otwarte skonfrontowanie się ze wspólnymi wyzwaniami.")}
               </Text>
               <Text style={styles.paragraphText}>
-                {formatText("Posiadanie tego raportu świadczy o Waszej chęci budowania relacji opartej na autentycznym zrozumieniu i miłości. Jesteście na właściwej ścieżce, a wiedza, którą tu odkryliście, stanowi potężne narzędzie do pogłębiania więzi i wzajemnej transformacji. Pamiętajcie, że nie ma relacji idealnych – są tylko te, nad którymi dwoje ludzi świadomie pracuje.")}
+                {formatText("Posiadanie tego raportu świadczy o chęci budowania relacji opartej na autentycznym zrozumieniu i otwartości. Jesteście na właściwej ścieżce, a wiedza, którą tu odkryliście, stanowi potężne narzędzie do pogłębiania więzi i wzajemnej transformacji. Pamiętajcie, że nie ma relacji idealnych – są tylko te, nad którymi dwoje ludzi świadomie pracuje.")}
               </Text>
               <Text style={styles.paragraphText}>
-                {formatText("Gratulujemy zrobienia tego niezwykłego kroku na Waszej wspólnej drodze! Wracajcie do poszczególnych pozycji portretu w różnych momentach Waszego życia – odkryjecie w nich nowe, jeszcze głębsze warstwy prawdy o sobie nawzajem. Życzymy Wam ogromu cierpliwości, wzajemnego szacunku oraz pięknego budowania wspólnego potencjału, z którym weszliście w tę relację.")}
+                {formatText("Gratulujemy zrobienia tego niezwykłego kroku na Waszej wspólnej drodze! Wracajcie do poszczególnych pozycji portretu w różnych momentach – odkryjecie w nich nowe, jeszcze głębsze warstwy prawdy o sobie nawzajem. Życzymy Wam ogromu cierpliwości, wzajemnego szacunku oraz pięknego budowania wspólnego potencjału, z którym weszliście w tę relację.")}
               </Text>
             </>
           )}
