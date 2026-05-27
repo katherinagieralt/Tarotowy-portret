@@ -43,17 +43,18 @@ const styles = StyleSheet.create({
     opacity: 0.3,
   },
   coverPage: {
-    backgroundColor: "#fcf9f2",
-    position: "relative",
     padding: 0,
-    fontFamily: "Roboto",
+    backgroundColor: "#fcf9f2",
+  },
+  coverWrapper: {
+    width: "100%",
+    height: "100%",
+    position: "relative",
   },
   coverBackground: {
     position: "absolute",
     top: 0,
     left: 0,
-    right: 0,
-    bottom: 0,
     width: "100%",
     height: "100%",
     zIndex: -1,
@@ -420,29 +421,31 @@ export function TarotReportTemplate({
     <Document>
       {/* 1. OKŁADKA */}
       <Page size="A4" style={styles.coverPage}>
-        {coverBgBuffer && (
-          <Image src={{ data: coverBgBuffer, format: "jpg" }} style={styles.coverBackground} />
-        )}
-        <View style={styles.coverTopSection}>
-          <Text style={styles.brandLogo}>ARCHEYA</Text>
-          <Text style={styles.coverTitle}>Tarotowy Portret</Text>
-          <Text style={styles.coverTitle}>
-            {reportType === "INDIVIDUAL" ? "Indywidualny" : "Partnerski"}
-          </Text>
-          <Text style={styles.coverSubtitle}>
-            {reportType === "INDIVIDUAL" 
-              ? "— Odkryj ścieżki swojej duszy\ni głębię swojego wnętrza... —"
-              : "— Odkryjcie wspólną drogę\ni głębię Waszej relacji... —"}
-          </Text>
-        </View>
-
-        <View style={styles.coverBottomSection}>
-          <View style={styles.coverDetailsContainer}>
-            {name && <Text style={styles.coverDetails}>Dla: {name}</Text>}
-            <Text style={styles.coverDetails}>
-              Data urodzenia: {formatDate(date1, "dd.MM.yyyy")}
-              {reportType === "PARTNERSHIP" && date2 && ` & ${formatDate(date2, "dd.MM.yyyy")}`}
+        <View style={styles.coverWrapper}>
+          {coverBgBuffer && (
+            <Image src={{ data: coverBgBuffer, format: "jpg" }} style={styles.coverBackground} />
+          )}
+          <View style={styles.coverTopSection}>
+            <Text style={styles.brandLogo}>ARCHEYA</Text>
+            <Text style={styles.coverTitle}>Tarotowy Portret</Text>
+            <Text style={styles.coverTitle}>
+              {reportType === "INDIVIDUAL" ? "Indywidualny" : "Partnerski"}
             </Text>
+            <Text style={styles.coverSubtitle}>
+              {reportType === "INDIVIDUAL" 
+                ? "— Odkryj ścieżki swojej duszy\ni głębię swojego wnętrza... —"
+                : "— Odkryjcie wspólną drogę\ni głębię Waszej relacji... —"}
+            </Text>
+          </View>
+
+          <View style={styles.coverBottomSection}>
+            <View style={styles.coverDetailsContainer}>
+              {name && <Text style={styles.coverDetails}>Dla: {name}</Text>}
+              <Text style={styles.coverDetails}>
+                Data urodzenia: {formatDate(date1, "dd.MM.yyyy")}
+                {reportType === "PARTNERSHIP" && date2 && ` & ${formatDate(date2, "dd.MM.yyyy")}`}
+              </Text>
+            </View>
           </View>
         </View>
       </Page>
