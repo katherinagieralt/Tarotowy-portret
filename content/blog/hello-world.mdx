@@ -1,0 +1,92 @@
+---
+title: "Witaj w Matrycy!"
+description: "Poznaj naszą najnowszą platformę agencyjną dla profesjonalnych stron internetowych."
+author: "Zespół Tarot"
+date: 2025-01-17
+category: "Wiadomości"
+featured: true
+---
+
+# Witaj w Matrycy! 👋
+
+Tarotowy Portret to nowoczesny, w pełni zoptymalizowany boilerplate dla agencji cyfrowych, które chcą budować profesjonalne landing page'i w ekspresowym tempie.
+
+## Co to jest Tarot?
+
+Tarot to kompletna platforma zawierająca:
+
+- **Frontend**: Next.js 16 + React 19 + Tailwind CSS 4
+- **Backend**: Prisma ORM + PostgreSQL (z pgvector dla AI)
+- **Bezpieczeństwo**: Rate limiting + Cloudflare Turnstile + NextAuth
+- **Content**: MDX dla bloga i portfolio
+- **Pliki**: Uploadthing do zarządzania zdjęciami
+- **Automatyzacja**: GitHub Actions CI/CD pipeline
+
+## Dlaczego Tarot?
+
+### ⚡ Szybkość
+- <0.5s hot reload dzięki Docker Compose Watch
+- Multi-stage Docker builds
+- Turbopack dla lightning-fast rebuilds
+
+### 🔒 Bezpieczeństwo
+- 99% type-safety (TypeScript strict + Zod)
+- Rate limiting (3 zapytania/godzina na IP)
+- Cloudflare Turnstile bot protection
+- Pre-commit WCAG accessibility checks
+
+### 🎨 Nowoczesny Stack
+- Dark mode + light mode (system preference)
+- PWA - instalowalna na urządzeniach
+- Sonner toasts dla feedback'u
+- Framer Motion animacje
+
+### 🚀 Gotowa do produkcji
+- Pre-commit code quality gates
+- Pre-push type checking
+- GitHub Actions CI/CD
+- Logowanie strukturalne (Pino)
+- OG image generation
+
+## Rozpoczęcie pracy
+
+```bash
+# 1. Klonowanie
+git clone <repo>
+cd tarot
+
+# 2. Setup (zautomatyzowany)
+./setup.sh
+
+# 3. Start
+docker compose up
+
+# 4. Otwórz http://localhost:3000
+```
+
+## Następne kroki
+
+1. **Dodaj portfolio** — Użyj MDX i Uploadthing
+2. **Stwórz bloga** — Artykuły w `/content/blog`
+3. **Skonfiguruj email** — Resend dla notyfikacji
+4. **Wdróż na Vercel** — GitHub Actions CI/CD
+
+## Najlepsze praktyki
+
+- ✅ Zawsze pisz komponenty z `'use client'` jeśli potrzebują interaktywności
+- ✅ Validate wszystkie dane wejściowe z Zod
+- ✅ Używaj Tailwind utilities zamiast inline styles
+- ✅ Dodawaj alt text do obrazów (WCAG)
+- ✅ Commituj tylko po przejściu pre-commit hooks
+
+## Pytania?
+
+Przeczytaj dokumentację:
+- `MATRYCA_SYSTEM.md` — Architektura
+- `STANDARDS.md` — Development standards
+- `ENTERPRISE_UX_DX_HARDENING.md` — Enterprise features
+
+---
+
+**Tarotowy Portret** — Buduj szybciej. Łatwiej. Bezpieczniej.
+

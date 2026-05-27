@@ -1,0 +1,124 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database Service
+  postgres:
+    image: postgres:17-alpine
+    container_name: tarot-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+      POSTGRES_DB: ${DB_NAME:-tarot_db}
+      # Reduce log noise in development
+      POSTGRES_INITDB_ARGS: "-c log_min_messages=WARNING"
+    ports:
+      # Expose on localhost for Prisma Studio and external tools
+      - "5432:5432"
+    volumes:
+      # Persist database data between container restarts
+      - postgres_data:/var/lib/postgresql/data
+      # Optional: Mount init scripts if needed in future
+      # - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - tarot-network
+    # Don't buffer output - see logs immediately
+    stdin_open: true
+    tty: true
+
+  # Next.js Development Service
+  nextjs:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: tarot-nextjs
+    restart: unless-stopped
+    environment:
+      # Node environment
+      NODE_ENV: development
+      
+      # Database connection (PostgreSQL service on internal Docker network)
+      DATABASE_URL: postgresql://${DB_USER:-postgres}:${DB_PASSWORD:-postgres}@postgres:5432/${DB_NAME:-tarot_db}
+      
+      # Next.js specific
+      NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-http://localhost:3000}
+      
+      # Additional environment variables
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-development-secret-change-in-production}
+      NEXTAUTH_URL: ${NEXTAUTH_URL:-http://localhost:3000}
+      
+      # Prisma
+      PRISMA_CLI_QUERY_ENGINE_TYPE: binary
+      
+      # Reduce noise
+      NPM_CONFIG_LOGLEVEL: ${NPM_LOG_LEVEL:-warn}
+    
+    ports:
+      # Expose on all interfaces for Piny access from host
+      - "0.0.0.0:3000:3000"
+    
+    volumes:
+      # Mount source code with live reload
+      - .:/app
+      
+      # Exclude node_modules from sync (performance on Windows)
+      - /app/node_modules
+      
+      # Exclude .next build cache
+      - /app/.next
+      
+      # Exclude .turbo cache
+      - /app/.turbo
+      
+      # Exclude Prisma cache
+      - /app/.prisma
+      
+      # Exclude git directory
+      - /app/.git
+    
+    working_dir: /app
+    
+    # Keep container running and allow direct command execution
+    stdin_open: true
+    tty: true
+    
+    # Depends on PostgreSQL being healthy
+    depends_on:
+      postgres:
+        condition: service_healthy
+    
+    networks:
+      - tarot-network
+    
+    # Better handling of signals (Ctrl+C)
+    stop_signal: SIGTERM
+    stop_grace_period: 10s
+
+  # Optional: Adminer for database management UI
+  adminer:
+    image: adminer:latest
+    container_name: tarot-adminer
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      ADMINER_DEFAULT_SERVER: postgres
+    networks:
+      - tarot-network
+    depends_on:
+      - postgres
+
+volumes:
+  # Named volume for PostgreSQL data persistence
+  postgres_data:
+    driver: local
+
+networks:
+  # Internal Docker network for service communication
+  tarot-network:
+    driver: bridge

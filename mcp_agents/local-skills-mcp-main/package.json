@@ -1,0 +1,119 @@
+{
+  "name": "local-skills-mcp",
+  "version": "0.4.4",
+  "description": "Universal MCP server enabling any LLM or AI agent to utilize expert skills from your local filesystem. Reduces context consumption through lazy loading - only skill names visible initially, full content loads on-demand. Works with Claude, Cline, custom agents, and any MCP-compatible client.",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "local-skills-mcp": "dist/index.js"
+  },
+  "mcpName": "io.github.rkdpa/local-skills-mcp",
+  "files": [
+    "dist/**/*.js",
+    "dist/**/*.d.ts",
+    "!dist/**/*.test.js",
+    "!dist/**/*.test.d.ts",
+    "!dist/**/*.spec.js",
+    "!dist/**/*.spec.d.ts",
+    "skills/**/*",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "prepare": "husky || true",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:unit": "vitest run --exclude src/integration.test.ts --exclude src/e2e.test.ts",
+    "test:integration": "vitest run src/integration.test.ts",
+    "test:e2e": "vitest run src/e2e.test.ts",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "format": "prettier --write \"**/*.{ts,json,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,json,md}\"",
+    "typecheck": "tsc --noEmit",
+    "skills:benchmark-shipped": "node scripts/optimize-shipped-skills.js",
+    "skills:benchmark-shipped:eval": "node scripts/benchmark-shipped-skills.js",
+    "skills:optimize-shipped": "node scripts/optimize-shipped-skills.js --apply",
+    "verify:links": "node scripts/verify-links.js",
+    "generate:server-json": "node scripts/generate-server-json.js",
+    "docs": "typedoc",
+    "docs:watch": "typedoc --watch"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
+    ]
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "claude",
+    "claude-code",
+    "claude-desktop",
+    "cline",
+    "skills",
+    "local",
+    "ai",
+    "llm",
+    "prompts",
+    "anthropic",
+    "ai-agent",
+    "agent",
+    "gpt",
+    "prompt-library",
+    "prompt-engineering"
+  ],
+  "author": "KDPA",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kdpa-llc/local-skills-mcp.git"
+  },
+  "homepage": "https://github.com/kdpa-llc/local-skills-mcp#readme",
+  "bugs": {
+    "url": "https://github.com/kdpa-llc/local-skills-mcp/issues"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.24.3",
+    "yaml": "^2.8.2"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^20.2.0",
+    "@commitlint/config-conventional": "^20.2.0",
+    "@eslint/js": "^9.39.2",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/commit-analyzer": "^13.0.1",
+    "@semantic-release/exec": "^7.1.0",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^12.0.2",
+    "@semantic-release/npm": "^13.1.3",
+    "@semantic-release/release-notes-generator": "^14.1.0",
+    "@types/node": "^24.10.1",
+    "@typescript-eslint/eslint-plugin": "^8.49.0",
+    "@typescript-eslint/parser": "^8.49.0",
+    "@vitest/coverage-v8": "^2.1.8",
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "prettier": "^3.7.4",
+    "semantic-release": "^25.0.2",
+    "typedoc": "^0.28.15",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.49.0",
+    "vitest": "^2.1.8"
+  }
+}

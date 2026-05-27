@@ -1,0 +1,12 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "🔍 Running type checking before push..."
+npx tsc --noEmit
+
+if [ $? -ne 0 ]; then
+  echo "❌ TypeScript type checking failed. Fix errors before pushing."
+  exit 1
+fi
+
+echo "✅ Type checking passed!"

@@ -1,0 +1,111 @@
+{
+  "mcpServers": {
+    "ui-expert-mcp": {
+      "command": "node",
+      "args": [
+        "D:\\1 Moje\\PROJEKTY WEB\\TAROTOWY_PORTRET\\mcp_agents\\ui-expert-mcp\\dist\\index.js"
+      ],
+      "description": "Tailwind CSS 4 + React 19 design standards and UI/UX improvements",
+      "type": "stdio"
+    },
+    "local-skills-mcp": {
+      "command": "node",
+      "args": [
+        "D:\\1 Moje\\PROJEKTY WEB\\TAROTOWY_PORTRET\\mcp_agents\\local-skills-mcp-main\\dist\\index.js"
+      ],
+      "description": "Local filesystem operations, lazy-loaded skills management",
+      "env": {
+        "SKILLS_DIR": "./skills"
+      },
+      "type": "stdio"
+    },
+    "get-shit-done-main": {
+      "command": "node",
+      "args": [
+        "D:\\1 Moje\\PROJEKTY WEB\\TAROTOWY_PORTRET\\mcp_agents\\get-shit-done-for-antigravity-main\\dist\\index.js"
+      ],
+      "description": "Primary GSD agent for pipeline management",
+      "type": "stdio"
+    },
+    "agent-a11y": {
+      "command": "node",
+      "args": [
+        "D:\\1 Moje\\PROJEKTY WEB\\TAROTOWY_PORTRET\\mcp_agents\\agent-a11y-main\\dist\\index.js"
+      ],
+      "description": "Accessibility audits and WCAG compliance validation",
+      "type": "stdio"
+    },
+    "playwright-ai": {
+      "command": "node",
+      "args": [
+        "D:\\1 Moje\\PROJEKTY WEB\\TAROTOWY_PORTRET\\mcp_agents\\Playwright-AI-Agent-POM-MCP-Server-main\\dist\\index.js"
+      ],
+      "description": "E2E testing with Playwright and Page Object Model patterns",
+      "type": "stdio"
+    },
+    "marketingskills": {
+      "command": "node",
+      "args": [
+        "D:\\1 Moje\\PROJEKTY WEB\\TAROTOWY_PORTRET\\mcp_agents\\marketingskills-main\\dist\\index.js"
+      ],
+      "description": "SEO, content strategy, and marketing skill library",
+      "type": "stdio"
+    },
+    "servers": {
+      "command": "node",
+      "args": [
+        "D:\\1 Moje\\PROJEKTY WEB\\TAROTOWY_PORTRET\\mcp_agents\\servers-main\\dist\\index.js"
+      ],
+      "description": "Docker, Kubernetes, and environment management",
+      "type": "stdio"
+    },
+    "memory": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-everything",
+        "memory"
+      ],
+      "description": "Persistent memory via knowledge graph.",
+      "type": "stdio"
+    },
+    "sequential-thinking": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-everything",
+        "sequentialthinking"
+      ],
+      "description": "Step-by-step reasoning for complex problems.",
+      "type": "stdio"
+    },
+    "prisma-mcp": {
+      "command": "node",
+      "args": [
+        "D:\\1 Moje\\PROJEKTY WEB\\TAROTOWY_PORTRET\\mcp_agents\\prisma-mcp-stub\\index.js"
+      ],
+      "description": "Prisma schema management. Status: PLACEHOLDER",
+      "type": "stdio",
+      "disabled": true
+    },
+    "postgres-mcp": {
+      "command": "node",
+      "args": [
+        "D:\\1 Moje\\PROJEKTY WEB\\TAROTOWY_PORTRET\\mcp_agents\\postgres-mcp-stub\\index.js"
+      ],
+      "description": "PostgreSQL introspection. Status: PLACEHOLDER",
+      "type": "stdio",
+      "disabled": true
+    }
+  },
+  "standards": {
+    "validation": "All API inputs MUST be validated using Zod schemas. No exceptions.",
+    "authentication": "Every API route requires NextAuth.js middleware authentication.",
+    "database": "All database operations use Prisma ORM with strict type-safety.",
+    "styling": "Use Tailwind CSS 4 utility classes; no inline styles or CSS Modules.",
+    "components": "React 19 with Server Components by default; client-only marked with 'use client'.",
+    "hotReload": "Compose Watch (0.5s) syncs ./src, ./pages, ./app; .next and node_modules excluded.",
+    "memory": "Sequential Thinking + Memory agents enable persistent reasoning and user-specific behavior.",
+    "agents": "10 MCP agents integrated: 7 custom + 3 official"
+  }
+}

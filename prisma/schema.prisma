@@ -1,0 +1,72 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Lead {
+  id        String     @id @default(uuid())
+  name      String
+  email     String
+  phone     String?
+  message   String     @db.Text
+  sourceUrl String?
+  status    String     @default("NEW")
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@index([email])
+  @@index([createdAt])
+  @@map("leads")
+}
+
+model User {
+  id        String     @id @default(cuid())
+  email     String     @unique
+  name      String?
+  image     String?
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@map("users")
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  FAILED
+  DELIVERED
+}
+
+enum ReportType {
+  INDIVIDUAL
+  PARTNERSHIP
+}
+
+model Order {
+  id              String      @id @default(cuid())
+  email           String?
+  status          OrderStatus @default(PENDING)
+  reportType      ReportType
+  price           Int         // w groszach (np. 9900 = 99 PLN)
+  paymentIntentId String?     @unique
+  
+  // Dane wejściowe do kalkulatora
+  date1           DateTime
+  date2           DateTime?   // null dla raportu indywidualnego
+  
+  // Wygenerowany raport
+  pdfUrl          String?
+  pdfPath         String?     // ścieżka do wygenerowanego PDF dla chronionego download
+  
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  @@index([email])
+  @@index([status])
+  @@index([paymentIntentId])
+  @@map("orders")
+}

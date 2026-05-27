@@ -1,0 +1,114 @@
+import { prisma } from '@/lib/prisma';
+
+/**
+ * Database seeding script
+ * Creates sample data for development
+ * Run with: npm run prisma:seed
+ */
+
+const testimonials = [
+  {
+    name: 'Anna Kowalska',
+    role: 'CEO, TechStartup',
+    company: 'TechStartup Sp. z o.o.',
+    message:
+      'Matryca zaoszczędziła nam 3 miesiące czasu przy tworzeniu landing page\'a. Najlepsza inwestycja w infrastrukturę, jaką poczyniliśmy.',
+    rating: 5,
+    image: 'https://api.dicebear.com/9.x/avataaars/svg?seed=anna',
+  },
+  {
+    name: 'Piotr Nowak',
+    role: 'Product Lead',
+    company: 'Digital Agency Pro',
+    message:
+      'Boilerplate jest stabilny, dobrze dokumentowany i gotowy do produkcji. Polecam każdemu developerowi pracującemu z Next.js.',
+    rating: 5,
+    image: 'https://api.dicebear.com/9.x/avataaars/svg?seed=piotr',
+  },
+  {
+    name: 'Magdalena Lewandowska',
+    role: 'CTO',
+    company: 'CloudSolutions',
+    message:
+      'Architektura jest przemyślana. Prisma 7 + Docker Compose Watch pracują bez zarzutu. To jest jakość enterprise na licencji open source.',
+    rating: 5,
+    image: 'https://api.dicebear.com/9.x/avataaars/svg?seed=magdalena',
+  },
+];
+
+const projects = [
+  {
+    title: 'E-commerce Platform Redesign',
+    description: 'Kompletny redesign platformy e-commerce z integracją Stripe i inventory management.',
+    category: 'E-commerce',
+    image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&h=400&fit=crop',
+    resultMetrics: 'Wzrost konwersji: +45%, Ładowanie strony: -2.3s',
+    technologies: ['Next.js', 'Prisma', 'PostgreSQL', 'Stripe'],
+    url: 'https://example-project-1.com',
+  },
+  {
+    title: 'AI-Powered Analytics Dashboard',
+    description: 'Dashboard do analizy danych z integracją sztucznej inteligencji do prognozowania trendów.',
+    category: 'SaaS',
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop',
+    resultMetrics: 'Wydajność: +60%, Users: 5000+',
+    technologies: ['React', 'TypeScript', 'D3.js', 'Node.js'],
+    url: 'https://example-project-2.com',
+  },
+  {
+    title: 'Travel Booking Application',
+    description: 'Aplikacja do rezerwacji podróży z integracją kalendarza, płatności i systemem rekomendacji.',
+    category: 'Travel',
+    image: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600&h=400&fit=crop',
+    resultMetrics: 'Rezerwacje: +120%, SEO: +35 pozycji',
+    technologies: ['Next.js', 'Tailwind', 'Stripe', 'Google Maps API'],
+    url: 'https://example-project-3.com',
+  },
+];
+
+async function main() {
+  console.log('🌱 Starting database seed...\n');
+
+  try {
+    // Clear existing testimonials and projects (optional)
+    // await prisma.testimonial.deleteMany();
+    // await prisma.project.deleteMany();
+
+    // Check if data already exists
+    const existingTestimonials = await prisma.testimonial.count();
+    const existingProjects = await prisma.project.count();
+
+    if (existingTestimonials === 0) {
+      console.log('📝 Creating testimonials...');
+      for (const testimonial of testimonials) {
+        const created = await prisma.testimonial.create({
+          data: testimonial,
+        });
+        console.log(`  ✓ Created: ${created.name}`);
+      }
+    } else {
+      console.log(`⏭️  Testimonials already exist (${existingTestimonials} records), skipping...`);
+    }
+
+    if (existingProjects === 0) {
+      console.log('\n🎯 Creating projects...');
+      for (const project of projects) {
+        const created = await prisma.project.create({
+          data: project,
+        });
+        console.log(`  ✓ Created: ${created.title}`);
+      }
+    } else {
+      console.log(`\n⏭️  Projects already exist (${existingProjects} records), skipping...`);
+    }
+
+    console.log('\n✅ Seeding completed successfully!');
+  } catch (error) {
+    console.error('❌ Seeding failed:', error);
+    process.exit(1);
+  } finally {
+    await prisma.$disconnect();
+  }
+}
+
+main();

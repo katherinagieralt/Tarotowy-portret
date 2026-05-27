@@ -1,0 +1,23 @@
+# syntax=docker/dockerfile:1
+# Build stage - optimizes layer caching for faster rebuilds
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies with cache optimization
+RUN npm ci --prefer-offline --no-audit
+
+# Copy source code
+COPY . .
+
+# Generate Prisma client (required for compilation)
+RUN npx prisma generate
+
+# Expose port for development
+EXPOSE 3000
+
+# Use CMD instead of ENTRYPOINT for flexibility with compose overrides
+CMD ["sh", "-c", "npx prisma generate && npx prisma db push --skip-generate && npm run dev"]

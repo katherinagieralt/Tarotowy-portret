@@ -1,0 +1,67 @@
+# Source files (users only need dist/)
+src/
+tsconfig.json
+tsconfig.*.json
+*.ts
+!*.d.ts
+
+# Build artifacts
+*.tgz
+coverage/
+*.lcov
+
+# GitHub files
+.github/
+
+# Local settings
+.claude/
+
+# AI development files
+CLAUDE.md
+
+# Development files
+.vscode/
+.idea/
+
+# Test files
+test/
+tests/
+*.test.js
+*.spec.js
+*.test.ts
+*.spec.ts
+dist/*.test.js
+dist/*.test.d.ts
+dist/*.spec.js
+dist/*.spec.d.ts
+
+# Git files
+.git/
+.gitignore
+.gitattributes
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Editor files
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Temporary files
+.tmp/
+
+# Config files
+.eslintrc.*
+.prettierrc
+.prettierrc.*
+eslint.config.js
+prettier.config.js
+vitest.config.ts
+typedoc.json
+
+# Husky and Git hooks
+.husky/
