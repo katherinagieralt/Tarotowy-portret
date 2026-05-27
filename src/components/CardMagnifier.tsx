@@ -9,25 +9,25 @@ interface CardMagnifierProps {
 }
 
 export default function CardMagnifier({ src, alt }: CardMagnifierProps) {
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [showMagnifier, setShowMagnifier] = useState(false);
-  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Złoty środek powiększenia (3.5x) i promień lupy
+  const ZOOM_LEVEL = 3.5;
+  const LOUPE_SIZE = 200;
+  const LOUPE_RADIUS = LOUPE_SIZE / 2;
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!containerRef.current) return;
     const { left, top, width, height } = containerRef.current.getBoundingClientRect();
     
-    // Calculate mouse position relative to container
     const x = e.clientX - left;
     const y = e.clientY - top;
     
-    // Calculate percentage for background position (where exactly to zoom)
-    const xPercent = (x / width) * 100;
-    const yPercent = (y / height) * 100;
-
-    setPosition({ x: xPercent, y: yPercent });
-    setCursorPosition({ x, y });
+    setDimensions({ width, height });
+    setPosition({ x, y });
   };
 
   return (
@@ -51,13 +51,14 @@ export default function CardMagnifier({ src, alt }: CardMagnifierProps) {
       <div 
         className={`absolute pointer-events-none rounded-full border border-amber-500/50 shadow-[0_0_25px_rgba(245,158,11,0.3)] transition-opacity duration-200 ${showMagnifier ? 'opacity-100' : 'opacity-0'}`}
         style={{
-          width: '240px',
-          height: '240px',
-          left: `${cursorPosition.x - 120}px`, // center the loupe exactly on the cursor
-          top: `${cursorPosition.y - 120}px`,
+          width: `${LOUPE_SIZE}px`,
+          height: `${LOUPE_SIZE}px`,
+          left: `${position.x - LOUPE_RADIUS}px`, 
+          top: `${position.y - LOUPE_RADIUS}px`,
           backgroundImage: `url(${src})`,
-          backgroundPosition: `${position.x}% ${position.y}%`,
-          backgroundSize: '450%', // Increased zoom level
+          // Używamy dokładnych pikseli, co gwarantuje precyzyjne śledzenie aż do krawędzi obrazu
+          backgroundSize: `${dimensions.width * ZOOM_LEVEL}px ${dimensions.height * ZOOM_LEVEL}px`,
+          backgroundPosition: `${-position.x * ZOOM_LEVEL + LOUPE_RADIUS}px ${-position.y * ZOOM_LEVEL + LOUPE_RADIUS}px`,
           backgroundRepeat: 'no-repeat',
           zIndex: 50,
           backgroundColor: '#050308',
