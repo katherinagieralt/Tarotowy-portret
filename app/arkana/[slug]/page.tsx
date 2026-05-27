@@ -7,9 +7,10 @@ import { Metadata } from 'next';
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const post = await getArkanaPostBySlug(params.slug);
+  const resolvedParams = await params;
+  const post = await getArkanaPostBySlug(resolvedParams.slug);
 
   if (!post) {
     return notFound();
@@ -36,9 +37,10 @@ export async function generateStaticParams() {
 export default async function ArkanaPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const post = await getArkanaPostBySlug(params.slug);
+  const resolvedParams = await params;
+  const post = await getArkanaPostBySlug(resolvedParams.slug);
 
   if (!post) {
     notFound();
