@@ -15,7 +15,21 @@ export async function generatePersonalizedSummary(
     )
     .join("\n");
 
-  const prompt = `Jesteś wybitnym psychologiem posługującym się analizą archetypową (w stylu C.G. Junga). 
+  const isPartnership = reportType === "PARTNERSHIP";
+
+  const prompt = isPartnership 
+    ? `Jesteś wybitnym psychologiem i analitykiem archetypowym (w stylu C.G. Junga). 
+Zadanie: Napisz głęboki, holistyczny i spersonalizowany profil psychologiczny relacji (wstęp do portretu partnerskiego), której dynamikę opisują następujące karty:
+${cardsList}
+
+WAŻNE ZASADY:
+1. DŁUGOŚĆ: Tekst ma być ZWIĘZŁY i stanowić podsumowanie na maksymalnie 1 stronę A4 (około 2000-2500 znaków). Podziel go na logiczne akapity.
+2. STYL: Psychologiczny, analityczny, empatyczny, głęboki. Zwracaj się bezpośrednio do obu osób ("Wy", "Wasza relacja").
+3. RELACJA: Opisuj dynamikę DWOJGA LUDZI. Nie zakładaj, że jest to relacja romantyczna! Może to być relacja rodzic-dziecko, wspólnicy biznesowi, przyjaciele lub partnerzy życiowi. Pisz o "więzi", "współdziałaniu", "wspólnym wzrastaniu", unikając słów takich jak "miłość", "związek", czy "romantyzm".
+4. ZAKAZ WYMIENIANIA KART: Pod ŻADNYM pozorem nie wymieniaj w tekście nazw kart (np. nie pisz "Karta Cesarzowa wskazuje...").
+5. ZAKAZ WYMIENIANIA POZYCJI: Nie wymieniaj wprost pozycji z portretu (np. "w sferze trudności", "jako wspólne zadanie").
+6. TREŚĆ: Tekst ma być płynną, ogólną i holistyczną opowieścią o całej relacji jako jednym żywym organizmie. Skup się na głównej wibracji tej więzi, wspólnym potencjale oraz tym, jak te dwie osoby mogą nawzajem na siebie wpływać i uczyć się od siebie.`
+    : `Jesteś wybitnym psychologiem posługującym się analizą archetypową (w stylu C.G. Junga). 
 Zadanie: Napisz głęboki, holistyczny i spersonalizowany profil psychologiczny (wstęp do portretu) dla osoby, której układ kart to:
 ${cardsList}
 
@@ -46,6 +60,8 @@ WAŻNE ZASADY:
     return response.choices[0].message.content || "Brak podsumowania.";
   } catch (error) {
     console.error("Błąd podczas generowania podsumowania AI:", error);
-    return "Witaj w Twoim Tarotowym Portrecie. Każda z poniższych kart to fascynujący archetyp, który w unikalny sposób oświetla Twoje wnętrze. Zapraszamy do lektury głębokich analiz dla poszczególnych pozycji.";
+    return isPartnership
+      ? "Witajcie w Waszym Tarotowym Portrecie Partnerskim. Każda z kart w tym raporcie oświetla wyjątkową dynamikę Waszej relacji. Zapraszamy do lektury."
+      : "Witaj w Twoim Tarotowym Portrecie. Każda z poniższych kart to fascynujący archetyp, który w unikalny sposób oświetla Twoje wnętrze. Zapraszamy do lektury głębokich analiz dla poszczególnych pozycji.";
   }
 }
