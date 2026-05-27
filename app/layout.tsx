@@ -72,7 +72,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#0a0710" />
         <meta name="msapplication-TileColor" content="#0a0710" />
       </head>
-      <body className={`${inter.variable} ${playfair.variable} font-sans bg-[#F9F6EE] text-[#2A241F] dark:bg-[#0A0710] dark:text-[#E8E4D9] antialiased transition-colors duration-500`}>
+      <body suppressHydrationWarning className={`${inter.variable} ${playfair.variable} font-sans bg-[#F9F6EE] text-[#2A241F] dark:bg-[#0A0710] dark:text-[#E8E4D9] antialiased transition-colors duration-500`}>
         <ThemeWrapper>
           <div className="relative pt-20">
             {/* Background gradient */}
