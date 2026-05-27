@@ -44,6 +44,7 @@ cards.forEach(card => {
   const content = `---
 title: "${card.title}"
 description: "${card.desc}"
+summary: "Ten archetyp czeka na swoje głębsze podsumowanie. Zwiastuje ważne procesy na poziomie psychicznym i duchowym."
 number: ${card.num}
 image: "/arkana/${card.img}.jpg"
 ---
