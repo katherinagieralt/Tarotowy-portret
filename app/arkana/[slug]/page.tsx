@@ -44,16 +44,18 @@ export default async function ArkanaPage({
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-slate-950 to-slate-900 py-20 px-4">
-      <article className="max-w-3xl mx-auto bg-slate-900 rounded-lg border border-slate-700 p-8">
-        <header className="mb-8 pb-8 border-b border-slate-700">
-          <h1 className="text-4xl font-bold text-white mb-4">
+    <main className="min-h-screen bg-[#F9F6EE] dark:bg-[#0A0710] py-20 px-4 transition-colors duration-500">
+      <article className="max-w-3xl mx-auto bg-white/80 dark:bg-slate-900/80 backdrop-blur-md rounded-xl border border-black/5 dark:border-white/5 p-8 shadow-xl">
+        <header className="mb-8 pb-8 border-b border-black/5 dark:border-slate-700">
+          <h1 className="text-4xl font-serif font-bold text-slate-900 dark:text-white mb-4">
             {String(post.frontmatter.title)}
           </h1>
-          <p className="text-slate-400">{String(post.frontmatter.description)}</p>
+          <p className="text-slate-600 dark:text-slate-400 italic text-lg">
+            {String(post.frontmatter.description)}
+          </p>
         </header>
 
-        <div className="prose prose-invert max-w-none">
+        <div className="prose prose-slate dark:prose-invert max-w-none prose-headings:font-serif prose-a:text-amber-600 dark:prose-a:text-amber-400">
           <MDXRemote source={post.content} />
         </div>
       </article>

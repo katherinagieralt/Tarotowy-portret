@@ -10,8 +10,7 @@ import { ThemeToggle } from "./ThemeToggle";
 const navLinks = [
   { name: "Kalkulator", href: "/" },
   { name: "Wielkie Arkana", href: "/arkany" },
-  { name: "Blog", href: "/blog" },
-  { name: "Kontakt", href: "/contact" },
+  { name: "Pozycje portretu", href: "/pozycje-portretu" },
 ];
 
 export function Navbar() {
