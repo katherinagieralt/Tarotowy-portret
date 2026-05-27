@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { notFound } from 'next/navigation';
 import { getAllArkanaPosts, getArkanaPostBySlug } from '@/lib/arkany';
@@ -82,12 +83,31 @@ export default async function ArkanaPage({
     notFound();
   }
 
+  const allPosts = await getAllArkanaPosts();
+  const currentIndex = allPosts.findIndex(p => p.slug === resolvedParams.slug);
+  
+  const prevPost = currentIndex > 0 ? allPosts[currentIndex - 1] : allPosts[allPosts.length - 1];
+  const nextPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : allPosts[0];
+
   const imagePath = post.frontmatter.image as string || '/images/cover_bg.jpg';
 
   return (
     <main className="min-h-screen bg-[#F9F6EE] dark:bg-[#0A0710] py-20 px-4 transition-colors duration-500">
       <div className="max-w-5xl mx-auto">
         
+        {/* Breadcrumbs */}
+        <nav className="mb-12 flex items-center text-sm font-medium text-slate-500 dark:text-slate-400">
+          <Link href="/" className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
+            Strona główna
+          </Link>
+          <span className="mx-3 text-slate-300 dark:text-slate-600">/</span>
+          <Link href="/arkany" className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
+            Wielkie Arkana
+          </Link>
+          <span className="mx-3 text-slate-300 dark:text-slate-600">/</span>
+          <span className="text-amber-600 dark:text-amber-400">{String(post.frontmatter.title)}</span>
+        </nav>
+
         {/* Top Section: Split layout (Text Left, Image Right) */}
         <div className="flex flex-col md:flex-row gap-12 md:gap-16 items-center md:items-start mb-20">
           
@@ -123,11 +143,36 @@ export default async function ArkanaPage({
         </div>
 
         {/* Bottom Section: MDX Content inside a delicate container */}
-        <article className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-md rounded-2xl border border-black/5 dark:border-white/5 p-6 md:p-12 shadow-xl">
+        <article className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-md rounded-2xl border border-black/5 dark:border-white/5 p-6 md:p-12 shadow-xl mb-16">
           <div className="max-w-4xl mx-auto">
             <MDXRemote source={post.content} components={mdxComponents} />
           </div>
         </article>
+
+        {/* Next / Prev Navigation */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12 border-t border-black/5 dark:border-white/5 pt-12">
+          {prevPost && (
+            <Link href={`/arkana/${prevPost.slug}`} className="group flex flex-col items-start bg-white/40 dark:bg-slate-900/40 hover:bg-white/80 dark:hover:bg-slate-800/80 p-6 rounded-2xl border border-transparent hover:border-amber-500/30 transition-all duration-300">
+              <span className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-2 uppercase tracking-wider flex items-center gap-2">
+                <span className="group-hover:-translate-x-1 transition-transform">←</span> Poprzednia karta
+              </span>
+              <span className="text-xl font-serif font-bold text-slate-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
+                {String(prevPost.frontmatter.title)}
+              </span>
+            </Link>
+          )}
+          
+          {nextPost && (
+            <Link href={`/arkana/${nextPost.slug}`} className="group flex flex-col items-end text-right bg-white/40 dark:bg-slate-900/40 hover:bg-white/80 dark:hover:bg-slate-800/80 p-6 rounded-2xl border border-transparent hover:border-amber-500/30 transition-all duration-300">
+              <span className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-2 uppercase tracking-wider flex items-center gap-2">
+                Następna karta <span className="group-hover:translate-x-1 transition-transform">→</span>
+              </span>
+              <span className="text-xl font-serif font-bold text-slate-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
+                {String(nextPost.frontmatter.title)}
+              </span>
+            </Link>
+          )}
+        </div>
 
       </div>
     </main>
