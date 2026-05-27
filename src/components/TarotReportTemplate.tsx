@@ -424,7 +424,9 @@ export function TarotReportTemplate({
             {reportType === "INDIVIDUAL" ? "Indywidualny" : "Partnerski"}
           </Text>
           <Text style={styles.coverSubtitle}>
-            — Odkryj ścieżki swojej duszy{"\n"}i głębię swojego wnętrza... —
+            {reportType === "INDIVIDUAL" 
+              ? "— Odkryj ścieżki swojej duszy\ni głębię swojego wnętrza... —"
+              : "— Odkryjcie wspólną drogę\ni głębię Waszej relacji... —"}
           </Text>
         </View>
 
@@ -445,15 +447,31 @@ export function TarotReportTemplate({
           <PageMarker id="wstep" />
           <Text style={styles.sectionTitle}>Czym jest ten raport?</Text>
           <View style={styles.sectionDivider} />
-          <Text style={styles.paragraphText}>
-            {formatText("Tarotowy Portret Psychologiczny to innowacyjna i niezwykle głęboka metoda poznania samego siebie. Choć opiera się na 22 Wielkich Arkanach Tarota, nie służy on przewidywaniu przyszłości ani wróżeniu. Jest to potężne narzędzie analityczne i psychologiczne, które korzysta z symboliki archetypów – pradawnych, uniwersalnych wzorców ludzkich zachowań i doświadczeń, zdefiniowanych przez wybitnego psychiatrę Carla Gustava Junga.")}
-          </Text>
-          <Text style={styles.paragraphText}>
-            {formatText("Obliczony na podstawie Twojej dokładnej daty urodzenia, portret ukazuje niezwykle precyzyjną, wewnętrzną architekturę Twojej psychiki. Jest to osobista mapa Twojej duszy, która obnaża Twoje wrodzone talenty, wczesnodziecięce schematy, ukryte mechanizmy podświadomości, a także życiowe powołanie. Pomaga zidentyfikować „Cień” – czyli te wyparte lub trudne obszary osobowości, które nieświadomie sabotują Twoje działania, oraz wskazuje ścieżkę do osiągnięcia pełni swojego potencjału.")}
-          </Text>
-          <Text style={styles.paragraphText}>
-            {formatText("Każda karta, którą zobaczysz w tym raporcie, reprezentuje określoną energię i lekcję do przerobienia. Potraktuj ten dokument jako psychologiczne lustro. Zachęcamy, abyś czytał(a) ten e-book powoli, z otwartym umysłem, wracając do poszczególnych pozycji wielokrotnie na przestrzeni kolejnych miesięcy. Wiedza tu zawarta to kompas, który pomoże Ci świadomie kierować swoim życiem, lepiej rozumieć swoje emocje, motywacje i odnaleźć autentyczną wersję siebie.")}
-          </Text>
+          {reportType === "INDIVIDUAL" ? (
+            <>
+              <Text style={styles.paragraphText}>
+                {formatText("Tarotowy Portret Psychologiczny to innowacyjna i niezwykle głęboka metoda poznania samego siebie. Choć opiera się na 22 Wielkich Arkanach Tarota, nie służy on przewidywaniu przyszłości ani wróżeniu. Jest to potężne narzędzie analityczne i psychologiczne, które korzysta z symboliki archetypów – pradawnych, uniwersalnych wzorców ludzkich zachowań i doświadczeń, zdefiniowanych przez wybitnego psychiatrę Carla Gustava Junga.")}
+              </Text>
+              <Text style={styles.paragraphText}>
+                {formatText("Obliczony na podstawie Twojej dokładnej daty urodzenia, portret ukazuje niezwykle precyzyjną, wewnętrzną architekturę Twojej psychiki. Jest to osobista mapa Twojej duszy, która obnaża Twoje wrodzone talenty, wczesnodziecięce schematy, ukryte mechanizmy podświadomości, a także życiowe powołanie. Pomaga zidentyfikować „Cień” – czyli te wyparte lub trudne obszary osobowości, które nieświadomie sabotują Twoje działania, oraz wskazuje ścieżkę do osiągnięcia pełni swojego potencjału.")}
+              </Text>
+              <Text style={styles.paragraphText}>
+                {formatText("Każda karta, którą zobaczysz w tym raporcie, reprezentuje określoną energię i lekcję do przerobienia. Potraktuj ten dokument jako psychologiczne lustro. Zachęcamy, abyś czytał(a) ten e-book powoli, z otwartym umysłem, wracając do poszczególnych pozycji wielokrotnie na przestrzeni kolejnych miesięcy. Wiedza tu zawarta to kompas, który pomoże Ci świadomie kierować swoim życiem, lepiej rozumieć swoje emocje, motywacje i odnaleźć autentyczną wersję siebie.")}
+              </Text>
+            </>
+          ) : (
+            <>
+              <Text style={styles.paragraphText}>
+                {formatText("Tarotowy Portret Partnerski to innowacyjna i niezwykle głęboka metoda poznania dynamiki relacji między dwojgiem ludzi. Oparty na 22 Wielkich Arkanach Tarota, raport ten nie służy przewidywaniu przyszłości, lecz zrozumieniu psychologicznych i archetypowych sił, które łączą, kształtują i czasem wystawiają na próbę Wasz związek.")}
+              </Text>
+              <Text style={styles.paragraphText}>
+                {formatText("Obliczony na podstawie Waszych dat urodzenia, portret ukazuje wspólną architekturę Waszej relacji. Jest to mapa, która obnaża wspólne cele, potencjał, ale także punkty zapalne i karmiczne lekcje, które macie razem do przepracowania. Pomaga zidentyfikować „Cień relacji” – czyli obszary, w których nieświadomie możecie się ranić lub blokować, oraz wskazuje ścieżkę do osiągnięcia długotrwałej harmonii.")}
+              </Text>
+              <Text style={styles.paragraphText}>
+                {formatText("Każda karta w tym raporcie reprezentuje określoną wspólną energię i wyzwanie dla Waszego związku. Potraktujcie ten dokument jako psychologiczne lustro Waszej relacji. Zachęcamy do wspólnego czytania, z otwartym umysłem, wracając do poszczególnych pozycji wielokrotnie. Wiedza tu zawarta to kompas, który pomoże Wam świadomie budować bliskość i autentyczne porozumienie.")}
+              </Text>
+            </>
+          )}
         </View>
 
         <View style={styles.section} break id="spis_tresci">
@@ -470,7 +488,9 @@ export function TarotReportTemplate({
 
           <View style={styles.tocItemRow}>
             <Link src="#profil" style={styles.tocLink}>
-              <Text style={styles.tocItemText}>Twój Archetypowy Profil</Text>
+              <Text style={styles.tocItemText}>
+                {reportType === "INDIVIDUAL" ? "Twój Archetypowy Profil" : "Archetypowy Profil Waszej Relacji"}
+              </Text>
             </Link>
             <View style={styles.tocDots} />
             <Text style={styles.tocPageNumber}>{pageNumbers["profil"] || "-"}</Text>
@@ -488,7 +508,9 @@ export function TarotReportTemplate({
           
           <View style={styles.tocItemRow}>
             <Link src="#zakonczenie" style={styles.tocLink}>
-              <Text style={styles.tocItemText}>Zakończenie: Twój kolejny krok na tej drodze</Text>
+              <Text style={styles.tocItemText}>
+                {reportType === "INDIVIDUAL" ? "Zakończenie: Twój kolejny krok na tej drodze" : "Zakończenie: Kolejny krok na Waszej drodze"}
+              </Text>
             </Link>
             <View style={styles.tocDots} />
             <Text style={styles.tocPageNumber}>{pageNumbers["zakonczenie"] || "-"}</Text>
@@ -501,7 +523,9 @@ export function TarotReportTemplate({
         <PageWrapper>
           <View style={styles.section} id="profil">
             <PageMarker id="profil" />
-            <Text style={styles.sectionTitle}>Twój Archetypowy Profil</Text>
+            <Text style={styles.sectionTitle}>
+              {reportType === "INDIVIDUAL" ? "Twój Archetypowy Profil" : "Archetypowy Profil Waszej Relacji"}
+            </Text>
             <View style={styles.sectionDivider} />
             {aiSummary.split('\n\n').map((paragraph, i) => (
               paragraph.trim() ? (
@@ -520,17 +544,37 @@ export function TarotReportTemplate({
         
         <View style={styles.section} id="zakonczenie">
           <PageMarker id="zakonczenie" />
-          <Text style={styles.sectionTitle}>Twój kolejny krok na tej drodze</Text>
+          <Text style={styles.sectionTitle}>
+            {reportType === "INDIVIDUAL" ? "Twój kolejny krok na tej drodze" : "Kolejny krok na Waszej drodze"}
+          </Text>
           <View style={styles.sectionDivider} />
-          <Text style={styles.paragraphText}>
-            {formatText("Dziękujemy za odbycie z nami tej fascynującej podróży w głąb Twojej duszy. Przeczytanie i przeanalizowanie własnego Portretu Psychologicznego to akt ogromnej odwagi i dojrzałości. Niewiele osób decyduje się na to, by zajrzeć w swoje wnętrze, skonfrontować się ze swoimi ukrytymi lękami i stanąć w prawdzie przed samym sobą.")}
-          </Text>
-          <Text style={styles.paragraphText}>
-            {formatText("To, że posiadasz ten raport, jest dowodem na to, że pragniesz autentycznego rozwoju. Posiadasz w sobie gotowość do zmiany i chęć lepszego zrozumienia mechanizmów, które Tobą kierują. Jesteś na właściwej ścieżce, a wiedza, którą tu odkryłeś(aś), stanowi potężne narzędzie wewnętrznej transformacji. To nie jest koniec pracy – to dopiero wspaniały początek procesu pogłębiania Twojej samoświadomości.")}
-          </Text>
-          <Text style={styles.paragraphText}>
-            {formatText("Gratulujemy Ci zrobienia tego niezwykłego kroku na Twojej życiowej drodze! Pamiętaj, aby wracać do poszczególnych pozycji tego portretu w różnych momentach swojego życia – za każdym razem odkryjesz w nich nową, jeszcze głębszą warstwę prawdy o sobie. Życzymy Ci samych sukcesów, nieskończonego spokoju oraz ogromnej odwagi w eksplorowaniu pięknego potencjału, z którym przyszedłeś/przyszłaś na ten świat.")}
-          </Text>
+          
+          {reportType === "INDIVIDUAL" ? (
+            <>
+              <Text style={styles.paragraphText}>
+                {formatText("Dziękujemy za odbycie z nami tej fascynującej podróży w głąb Twojej duszy. Przeczytanie i przeanalizowanie własnego Portretu Psychologicznego to akt ogromnej odwagi i dojrzałości. Niewiele osób decyduje się na to, by zajrzeć w swoje wnętrze, skonfrontować się ze swoimi ukrytymi lękami i stanąć w prawdzie przed samym sobą.")}
+              </Text>
+              <Text style={styles.paragraphText}>
+                {formatText("To, że posiadasz ten raport, jest dowodem na to, że pragniesz autentycznego rozwoju. Posiadasz w sobie gotowość do zmiany i chęć lepszego zrozumienia mechanizmów, które Tobą kierują. Jesteś na właściwej ścieżce, a wiedza, którą tu odkryłeś(aś), stanowi potężne narzędzie wewnętrznej transformacji. To nie jest koniec pracy – to dopiero wspaniały początek procesu pogłębiania Twojej samoświadomości.")}
+              </Text>
+              <Text style={styles.paragraphText}>
+                {formatText("Gratulujemy Ci zrobienia tego niezwykłego kroku na Twojej życiowej drodze! Pamiętaj, aby wracać do poszczególnych pozycji tego portretu w różnych momentach swojego życia – za każdym razem odkryjesz w nich nową, jeszcze głębszą warstwę prawdy o sobie. Życzymy Ci samych sukcesów, nieskończonego spokoju oraz ogromnej odwagi w eksplorowaniu pięknego potencjału, z którym przyszedłeś/przyszłaś na ten świat.")}
+              </Text>
+            </>
+          ) : (
+            <>
+              <Text style={styles.paragraphText}>
+                {formatText("Dziękujemy za odbycie z nami tej fascynującej podróży w głąb Waszej relacji. Przeczytanie i przeanalizowanie wspólnego Portretu Partnerskiego to akt ogromnej dojrzałości. Niewiele par decyduje się na tak głębokie przyjrzenie się mechanizmom, które nimi kierują, i otwarte skonfrontowanie się ze wspólnymi wyzwaniami.")}
+              </Text>
+              <Text style={styles.paragraphText}>
+                {formatText("Posiadanie tego raportu świadczy o Waszej chęci budowania relacji opartej na autentycznym zrozumieniu i miłości. Jesteście na właściwej ścieżce, a wiedza, którą tu odkryliście, stanowi potężne narzędzie do pogłębiania więzi i wzajemnej transformacji. Pamiętajcie, że nie ma relacji idealnych – są tylko te, nad którymi dwoje ludzi świadomie pracuje.")}
+              </Text>
+              <Text style={styles.paragraphText}>
+                {formatText("Gratulujemy zrobienia tego niezwykłego kroku na Waszej wspólnej drodze! Wracajcie do poszczególnych pozycji portretu w różnych momentach Waszego życia – odkryjecie w nich nowe, jeszcze głębsze warstwy prawdy o sobie nawzajem. Życzymy Wam ogromu cierpliwości, wzajemnego szacunku oraz pięknego budowania wspólnego potencjału, z którym weszliście w tę relację.")}
+              </Text>
+            </>
+          )}
+
           <Text style={styles.cardTitle}>
             Z mocą archetypów,{"\n"}Archeya
           </Text>
