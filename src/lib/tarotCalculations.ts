@@ -73,14 +73,14 @@ export const individualPositionMeanings: Record<string, { title: string; descrip
 };
 
 export const partnerPositionMeanings: Record<string, { title: string; description: string }> = {
-  p1: { title: "Początek relacji", description: "Pokazuje energię pierwszego spotkania, wzajemnego przyciągania oraz początkowej dynamiki relacji." },
-  p2: { title: "Rozwój relacji", description: "Opisuje sposób rozwoju związku, wspólnego budowania relacji oraz kierunek emocjonalnego wzrostu." },
-  p3: { title: "Schyłek relacji", description: "Pokazuje końcowy etap relacji, możliwe zakończenia oraz sposób transformacji związku w czasie." },
-  p4: { title: "Trudności relacji", description: "Opisuje największe konflikty, wyzwania, napięcia oraz problemy pojawiające się między partnerami." },
-  p5: { title: "Wspólne cele", description: "Pokazuje wspólne marzenia, potrzeby, kierunki działania oraz wartości budujące relację." },
-  p6: { title: "Rozwój związku", description: "Opisuje dynamikę emocjonalną i duchową relacji oraz sposób ewolucji partnerstwa." },
-  p7: { title: "Zadanie relacji", description: "Pokazuje główną lekcję związku, karmiczne zadanie relacji oraz sens spotkania partnerów." },
-  p8: { title: "Jak realizować zadanie relacji", description: "Opisuje sposób harmonijnego rozwijania relacji oraz narzędzia potrzebne do realizacji wspólnego celu." },
+  p1: { title: "Początek relacji", description: "Pokazuje energię pierwszego spotkania, wzajemnego przyciągania oraz początkowej dynamiki." },
+  p2: { title: "Rozwój relacji", description: "Opisuje sposób rozwoju relacji, wspólnego budowania więzi oraz kierunek wspólnego wzrostu." },
+  p3: { title: "Transformacja relacji", description: "Pokazuje etap ewolucji relacji, możliwe zakończenia lub sposób, w jaki dynamika zmienia się w czasie." },
+  p4: { title: "Trudności relacji", description: "Opisuje największe wyzwania, napięcia oraz potencjalne pola konfliktów między osobami." },
+  p5: { title: "Wspólne cele", description: "Pokazuje wspólne dążenia, potrzeby, kierunki działania oraz wartości spajające relację." },
+  p6: { title: "Dojrzewanie relacji", description: "Opisuje głęboką dynamikę porozumienia oraz ewolucję współpracy lub więzi." },
+  p7: { title: "Zadanie relacji", description: "Pokazuje główną lekcję do odrobienia, wyższe zadanie relacji oraz głębszy sens spotkania." },
+  p8: { title: "Jak realizować zadanie relacji", description: "Opisuje sposób harmonijnego współdziałania oraz narzędzia potrzebne do realizacji wspólnego celu." },
 };
 
 // =========================
