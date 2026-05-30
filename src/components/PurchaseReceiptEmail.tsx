@@ -38,7 +38,7 @@ export function PurchaseReceiptEmail({
           <div class="wrapper">
             <div class="container">
               <div class="header">
-                <h1>Tarotowy Portret</h1>
+                <h1>Archeya</h1>
               </div>
               
               <div class="content" style="padding: 20px 40px 40px 40px; text-align: center; color: #111827;">
@@ -70,7 +70,7 @@ export function PurchaseReceiptEmail({
               </div>
               
               <div class="footer">
-                <p class="footer-text">© 2026 Tarotowy Portret. Wszystkie prawa zastrzeżone.</p>
+                <p class="footer-text">© 2026 Archeya. Wszystkie prawa zastrzeżone.</p>
                 <p class="footer-text">Wysłano na adres: ${email}</p>
               </div>
             </div>
@@ -79,7 +79,7 @@ export function PurchaseReceiptEmail({
       </html>
     `,
     text: `
-Tarotowy Portret - Raport Gotowy!
+Archeya - Raport Gotowy!
 
 Dziękujemy za zakup!
 
@@ -95,9 +95,9 @@ Jeśli link nie działa, skopiuj powyższy URL do przeglądarki.
 ---
 
 Ten raport został wygenerowany automatycznie na podstawie Twojej daty urodzenia. 
-Jest przeznaczony wyłącznie do celów rozrywkowych i duchowych.
+Jest przeznaczony wyłącznie do celów rozwojowych i samopoznawczych.
 
-© 2025 Tarotowy Portret
+© 2026 Archeya
     `,
   };
 }

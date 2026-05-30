@@ -2,12 +2,36 @@
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { Suspense } from "react";
-import { CheckCircle2 } from "lucide-react";
+import { Suspense, useEffect, useState } from "react";
+import { CheckCircle2, Loader2 } from "lucide-react";
+import { toast } from "sonner";
 
 function SuccessContent() {
   const searchParams = useSearchParams();
   const orderId = searchParams.get("orderId");
+  const [simulating, setSimulating] = useState(false);
+
+  useEffect(() => {
+    // Automatyczna symulacja webhooka tylko na localhost
+    if (orderId && window.location.hostname === "localhost") {
+      setSimulating(true);
+      fetch("/api/dev/simulate-webhook", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ orderId }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            toast.success("Lokalny webhook wysłany! PDF jest generowany.");
+          } else {
+            toast.error("Błąd symulacji webhooka: " + (data.error || "Nieznany błąd"));
+          }
+        })
+        .catch(() => toast.error("Błąd połączenia podczas symulacji webhooka."))
+        .finally(() => setSimulating(false));
+    }
+  }, [orderId]);
 
   return (
     <div className="max-w-xl mx-auto w-full text-center relative z-10">
@@ -38,6 +62,13 @@ function SuccessContent() {
           (oraz folder SPAM na wszelki wypadek).
         </p>
 
+        {simulating && (
+          <div className="flex items-center justify-center gap-2 mb-8 text-amber-600 dark:text-amber-500 text-sm font-medium bg-amber-50 dark:bg-amber-900/20 p-3 rounded-lg border border-amber-200 dark:border-amber-800/30">
+            <Loader2 className="w-4 h-4 animate-spin" />
+            <span>[Lokalnie] Symulowanie płatności Stripe i generowanie PDF... Trwa to ok. 20 sek.</span>
+          </div>
+        )}
+
         <div className="space-y-4">
           <Link
             href="/"
@@ -54,7 +85,7 @@ function SuccessContent() {
         </div>
 
         <p className="text-slate-400 dark:text-slate-500 text-xs mt-8 transition-colors">
-          Masz pytania? Napisz na: hello@tarotowy-portret.pl
+          Masz pytania? Napisz na: kontakt@getarcheya.com
         </p>
       </div>
     </div>

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { notFound } from 'next/navigation';
 import { getAllArkanaPosts, getArkanaPostBySlug } from '@/lib/arkany';
+import { individualPositionMeanings, partnerPositionMeanings, generatePositionSlug } from '@/lib/tarotCalculations';
 import { Metadata } from 'next';
 import CardMagnifier from '@/components/CardMagnifier';
 
@@ -140,8 +141,82 @@ export default async function ArkanaPage({
           </div>
         </article>
 
+        {/* Pozycje portretu (SEO Long Tail) */}
+        <section className="mb-16">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-serif text-slate-900 dark:text-white mb-2">
+              Znaczenie w pozycjach Portretu
+            </h2>
+            <p className="text-slate-600 dark:text-slate-400 font-light">
+              Sprawdź, jak {String(post.frontmatter.title)} wpływa na konkretne sfery Twojego życia, gdy pojawi się na danej pozycji.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Indywidualny */}
+            <div>
+              <h3 className="text-2xl font-serif text-slate-900 dark:text-white mb-6 flex items-center gap-3">
+                <span className="w-8 h-px bg-amber-500"></span>
+                Portret Indywidualny
+              </h3>
+              
+              <div className="flex flex-col">
+                {Object.entries(individualPositionMeanings).map(([key, pos]) => (
+                  <Link 
+                    key={key} 
+                    href={`/znaczenie/${generatePositionSlug(post.slug, false, key)}`}
+                    className="group flex items-center justify-between py-3.5 border-b border-black/5 dark:border-white/5 hover:border-amber-500/30 transition-colors"
+                  >
+                    <div className="flex items-center gap-5">
+                      <span className="font-serif text-amber-600/70 dark:text-amber-400/70 text-sm font-bold w-5 text-right tracking-widest">
+                        {key.replace('p', '').padStart(2, '0')}
+                      </span>
+                      <span className="text-sm sm:text-base text-slate-700 dark:text-slate-300 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
+                        {pos.title}
+                      </span>
+                    </div>
+                    <span className="text-amber-500 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all font-serif">
+                      →
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* Partnerski */}
+            <div>
+              <h3 className="text-2xl font-serif text-slate-900 dark:text-white mb-6 flex items-center gap-3">
+                <span className="w-8 h-px bg-amber-500"></span>
+                Portret Partnerski
+              </h3>
+              
+              <div className="flex flex-col">
+                {Object.entries(partnerPositionMeanings).map(([key, pos]) => (
+                  <Link 
+                    key={key} 
+                    href={`/znaczenie/${generatePositionSlug(post.slug, true, key)}`}
+                    className="group flex items-center justify-between py-3.5 border-b border-black/5 dark:border-white/5 hover:border-amber-500/30 transition-colors"
+                  >
+                    <div className="flex items-center gap-5">
+                      <span className="font-serif text-amber-600/70 dark:text-amber-400/70 text-sm font-bold w-5 text-right tracking-widest">
+                        {key.replace('p', '').padStart(2, '0')}
+                      </span>
+                      <span className="text-sm sm:text-base text-slate-700 dark:text-slate-300 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
+                        {pos.title}
+                      </span>
+                    </div>
+                    <span className="text-amber-500 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all font-serif">
+                      →
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Next / Prev Navigation */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12 border-t border-black/5 dark:border-white/5 pt-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 border-t border-black/5 dark:border-white/5 pt-12">
           {prevPost && (
             <Link href={`/arkana/${prevPost.slug}`} className="group flex flex-col items-start bg-white/40 dark:bg-slate-900/40 hover:bg-white/80 dark:hover:bg-slate-800/80 p-6 rounded-2xl border border-transparent hover:border-amber-500/30 transition-all duration-300">
               <span className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-2 uppercase tracking-wider flex items-center gap-2">

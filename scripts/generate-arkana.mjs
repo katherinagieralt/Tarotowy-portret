@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 
 const cards = [
-  { slug: "0-glupiec", num: 0, title: "0. Głupiec", img: 22, desc: "Wewnętrzne dziecko, potencjał, nowy początek, spontaniczność." },
+  { slug: "22-glupiec", num: 22, title: "XXII. Głupiec", img: 22, desc: "Wewnętrzne dziecko, potencjał, nowy początek, spontaniczność." },
   { slug: "1-mag", num: 1, title: "I. Mag", img: 1, desc: "Wola, działanie, umiejętności, komunikacja, inteligencja." },
   { slug: "2-kaplanka", num: 2, title: "II. Kapłanka", img: 2, desc: "Intuicja, tajemnica, mądrość, ukryty potencjał, podświadomość." },
   { slug: "3-cesarzowa", num: 3, title: "III. Cesarzowa", img: 3, desc: "Obfitość, kreacja, płodność, matczyna opieka, natura." },

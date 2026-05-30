@@ -81,23 +81,15 @@ export function ContactForm() {
     <div className="w-full max-w-2xl mx-auto">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="space-y-6 bg-slate-900 dark:bg-slate-900 rounded-2xl p-8 shadow-2xl border border-slate-800 dark:border-slate-800"
+        className="space-y-6 bg-white/60 dark:bg-[#130F24]/40 backdrop-blur-md rounded-3xl p-8 sm:p-12 shadow-xl border border-black/5 dark:border-white/10 transition-colors duration-500"
       >
-        {/* Header */}
-        <div>
-          <h2 className="text-3xl font-bold text-white dark:text-white mb-2">
-            Skontaktuj się z nami
-          </h2>
-          <p className="text-slate-400 dark:text-slate-400">
-            Wypełnij formularz poniżej, a my odpowiemy w ciągu 24 godzin.
-          </p>
-        </div>
+        {/* Nagłówek znajduje się teraz na poziomie strony (page.tsx) */}
 
         {/* Name Field */}
         <div>
           <label
             htmlFor="name"
-            className="block text-sm font-semibold text-slate-200 dark:text-slate-200 mb-2"
+            className="block text-xs font-bold tracking-widest text-slate-600 dark:text-slate-300 uppercase px-1 mb-2 transition-colors"
           >
             Imię i Nazwisko
           </label>
@@ -107,10 +99,10 @@ export function ContactForm() {
             id="name"
             placeholder="Jan Kowalski"
             disabled={isSubmitting || submitStatus === 'loading'}
-            className="w-full px-4 py-3 bg-slate-800 dark:bg-slate-800 border border-slate-700 dark:border-slate-700 rounded-lg text-white dark:text-white placeholder-slate-500 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full px-5 py-4 bg-white/50 dark:bg-white/[0.03] border border-black/10 dark:border-white/20 hover:border-black/20 dark:hover:border-white/30 rounded-2xl text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:bg-white dark:focus:bg-white/[0.08] focus:border-amber-500 focus:ring-2 focus:ring-amber-500/50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
           />
           {errors.name && (
-            <p className="text-red-400 dark:text-red-400 text-sm mt-1">{errors.name.message}</p>
+            <p className="text-red-500 dark:text-red-400 text-sm mt-1 px-2">{errors.name.message}</p>
           )}
         </div>
 
@@ -118,7 +110,7 @@ export function ContactForm() {
         <div>
           <label
             htmlFor="email"
-            className="block text-sm font-semibold text-slate-200 dark:text-slate-200 mb-2"
+            className="block text-xs font-bold tracking-widest text-slate-600 dark:text-slate-300 uppercase px-1 mb-2 transition-colors"
           >
             Adres E-mail
           </label>
@@ -128,31 +120,10 @@ export function ContactForm() {
             id="email"
             placeholder="jan@example.com"
             disabled={isSubmitting || submitStatus === 'loading'}
-            className="w-full px-4 py-3 bg-slate-800 dark:bg-slate-800 border border-slate-700 dark:border-slate-700 rounded-lg text-white dark:text-white placeholder-slate-500 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full px-5 py-4 bg-white/50 dark:bg-white/[0.03] border border-black/10 dark:border-white/20 hover:border-black/20 dark:hover:border-white/30 rounded-2xl text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:bg-white dark:focus:bg-white/[0.08] focus:border-amber-500 focus:ring-2 focus:ring-amber-500/50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
           />
           {errors.email && (
-            <p className="text-red-400 dark:text-red-400 text-sm mt-1">{errors.email.message}</p>
-          )}
-        </div>
-
-        {/* Phone Field */}
-        <div>
-          <label
-            htmlFor="phone"
-            className="block text-sm font-semibold text-slate-200 dark:text-slate-200 mb-2"
-          >
-            Numer Telefonu (opcjonalnie)
-          </label>
-          <input
-            {...register('phone')}
-            type="tel"
-            id="phone"
-            placeholder="+48 123 456 789"
-            disabled={isSubmitting || submitStatus === 'loading'}
-            className="w-full px-4 py-3 bg-slate-800 dark:bg-slate-800 border border-slate-700 dark:border-slate-700 rounded-lg text-white dark:text-white placeholder-slate-500 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-          />
-          {errors.phone && (
-            <p className="text-red-400 dark:text-red-400 text-sm mt-1">{errors.phone.message}</p>
+            <p className="text-red-500 dark:text-red-400 text-sm mt-1 px-2">{errors.email.message}</p>
           )}
         </div>
 
@@ -160,7 +131,7 @@ export function ContactForm() {
         <div>
           <label
             htmlFor="message"
-            className="block text-sm font-semibold text-slate-200 dark:text-slate-200 mb-2"
+            className="block text-xs font-bold tracking-widest text-slate-600 dark:text-slate-300 uppercase px-1 mb-2 transition-colors"
           >
             Wiadomość
           </label>
@@ -170,10 +141,10 @@ export function ContactForm() {
             placeholder="Opisz swoją sprawę..."
             rows={5}
             disabled={isSubmitting || submitStatus === 'loading'}
-            className="w-full px-4 py-3 bg-slate-800 dark:bg-slate-800 border border-slate-700 dark:border-slate-700 rounded-lg text-white dark:text-white placeholder-slate-500 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all disabled:opacity-50 disabled:cursor-not-allowed resize-none"
+            className="w-full px-5 py-4 bg-white/50 dark:bg-white/[0.03] border border-black/10 dark:border-white/20 hover:border-black/20 dark:hover:border-white/30 rounded-2xl text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:bg-white dark:focus:bg-white/[0.08] focus:border-amber-500 focus:ring-2 focus:ring-amber-500/50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed resize-none"
           />
           {errors.message && (
-            <p className="text-red-400 dark:text-red-400 text-sm mt-1">{errors.message.message}</p>
+            <p className="text-red-500 dark:text-red-400 text-sm mt-1 px-2">{errors.message.message}</p>
           )}
         </div>
 
@@ -192,9 +163,11 @@ export function ContactForm() {
         <button
           type="submit"
           disabled={isSubmitting || submitStatus === 'loading' || !turnstileToken}
-          className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-600 dark:to-blue-700 text-white dark:text-white font-semibold rounded-lg hover:from-blue-700 hover:to-blue-800 dark:hover:from-blue-700 dark:hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-slate-900 dark:focus:ring-offset-slate-900 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+          className="w-full relative overflow-hidden bg-[#2A241F] dark:bg-[#E8E4D9] text-[#F9F6EE] dark:text-[#0A0710] font-semibold tracking-wide py-4 px-8 rounded-2xl transition-all duration-500 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-70 disabled:scale-100 disabled:cursor-not-allowed group shadow-lg dark:shadow-[0_0_40px_rgba(232,228,217,0.1)] hover:shadow-xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-amber-500/50 flex items-center justify-center gap-2"
         >
-          {submitStatus === 'loading' ? (
+          <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 dark:via-black/10 to-transparent group-hover:animate-shimmer" aria-hidden="true"></div>
+          <span className="relative flex items-center gap-2">
+            {submitStatus === 'loading' ? (
             <>
               <svg
                 className="animate-spin h-5 w-5"
@@ -221,6 +194,7 @@ export function ContactForm() {
           ) : (
             'Wyślij Wiadomość'
           )}
+          </span>
         </button>
 
         {/* Privacy Notice */}

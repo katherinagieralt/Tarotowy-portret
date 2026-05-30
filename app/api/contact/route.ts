@@ -104,7 +104,6 @@ export async function POST(req: NextRequest) {
       data: {
         name: validatedData.name,
         email: validatedData.email,
-        phone: validatedData.phone || null,
         message: validatedData.message,
         sourceUrl: sourceUrl,
         status: 'NEW',

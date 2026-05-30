@@ -1,86 +1,53 @@
-import fs from 'fs';
+import { promises as fs } from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 
-export interface BlogPostMetadata {
-  title: string;
-  description: string;
-  author: string;
-  date: string;
-  category: string;
-  featured?: boolean;
-  slug?: string;
-}
+export async function getAllBlogPosts() {
+  const blogDir = path.join(process.cwd(), 'content/blog');
+  
+  try {
+    const files = await fs.readdir(blogDir);
+    const posts = await Promise.all(
+      files
+        .filter((file) => file.endsWith('.mdx'))
+        .map(async (file) => {
+          const filePath = path.join(blogDir, file);
+          const content = await fs.readFile(filePath, 'utf8');
+          const { data } = matter(content);
+          
+          return {
+            slug: file.replace('.mdx', ''),
+            frontmatter: data as Record<string, unknown>,
+          };
+        })
+    );
 
-export interface BlogPost {
-  metadata: BlogPostMetadata;
-  content: string;
-  slug: string;
-}
-
-const BLOG_DIR = path.join(process.cwd(), 'content', 'blog');
-
-/**
- * Get all blog posts
- */
-export function getAllBlogPosts(): BlogPost[] {
-  if (!fs.existsSync(BLOG_DIR)) {
-    return [];
-  }
-
-  const files = fs.readdirSync(BLOG_DIR).filter((file) => file.endsWith('.mdx'));
-
-  return files
-    .map((file) => {
-      const slug = file.replace('.mdx', '');
-      const filePath = path.join(BLOG_DIR, file);
-      const fileContent = fs.readFileSync(filePath, 'utf-8');
-      const { data, content } = matter(fileContent);
-
-      return {
-        slug,
-        metadata: {
-          ...(data as BlogPostMetadata),
-          slug,
-        },
-        content,
-      };
-    })
-    .sort((a, b) => {
-      const dateA = new Date(a.metadata.date).getTime();
-      const dateB = new Date(b.metadata.date).getTime();
+    // Sort by date descending
+    return posts.sort((a, b) => {
+      const dateA = new Date((a.frontmatter.date as string) || 0).getTime();
+      const dateB = new Date((b.frontmatter.date as string) || 0).getTime();
       return dateB - dateA;
     });
+  } catch (error) {
+    console.warn('Blog directory not found, returning empty array');
+    return [];
+  }
 }
 
-/**
- * Get single blog post by slug
- */
-export function getBlogPostBySlug(slug: string): BlogPost | null {
-  const filePath = path.join(BLOG_DIR, `${slug}.mdx`);
+export async function getBlogPostBySlug(slug: string) {
+  const blogDir = path.join(process.cwd(), 'content/blog');
+  const filePath = path.join(blogDir, `${slug}.mdx`);
 
-  if (!fs.existsSync(filePath)) {
+  try {
+    const content = await fs.readFile(filePath, 'utf8');
+    const { data, content: mdxContent } = matter(content);
+
+    return {
+      slug,
+      frontmatter: data as Record<string, unknown>,
+      content: mdxContent,
+    };
+  } catch (error) {
     return null;
   }
-
-  const fileContent = fs.readFileSync(filePath, 'utf-8');
-  const { data, content } = matter(fileContent);
-
-  return {
-    slug,
-    metadata: {
-      ...(data as BlogPostMetadata),
-      slug,
-    },
-    content,
-  };
-}
-
-/**
- * Get featured blog posts
- */
-export function getFeaturedBlogPosts(limit: number = 3): BlogPost[] {
-  return getAllBlogPosts()
-    .filter((post) => post.metadata.featured)
-    .slice(0, limit);
 }

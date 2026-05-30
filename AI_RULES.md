@@ -10,6 +10,7 @@ Before implementing features, fixing bugs, or refactoring, you must analyze the 
 - **Architecture:** `docs/architecture-rules.md`
 - **Frontend/UI:** `docs/frontend-standards.md`
 - **Backend/API:** `docs/backend-standards.md`
+- **Content & Typography:** `docs/typography-rules.md`
 - **Quality Assurance:** Checklists for [Accessibility](docs/accessibility-checklist.md), [Performance](docs/performance-checklist.md), and [Deployment](docs/deployment-checklist.md).
 
 ## 🛑 Hard Constraints for AI

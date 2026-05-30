@@ -10,12 +10,7 @@ export const ContactFormSchema = z.object({
     .string()
     .email('Podaj prawidłowy adres e-mail')
     .max(255, 'E-mail nie może przekraczać 255 znaków'),
-  phone: z
-    .string()
-    .regex(/^[\d\s\-\+\(\)]+$/, 'Podaj prawidłowy numer telefonu')
-    .max(20, 'Numer telefonu nie może przekraczać 20 znaków')
-    .optional()
-    .or(z.literal('')),
+
   message: z
     .string()
     .min(10, 'Wiadomość musi mieć co najmniej 10 znaków')

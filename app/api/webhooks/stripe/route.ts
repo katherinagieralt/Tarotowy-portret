@@ -129,14 +129,19 @@ export async function POST(request: NextRequest) {
           reportType: order.reportType,
         });
 
-        await resend.emails.send({
-          // Tymczasowy adres do testów lokalnych (wymaga podania Twojego własnego maila w Stripe!)
+        const emailRes = await resend.emails.send({
           from: "Archeya <onboarding@resend.dev>",
           to: customerEmail,
           subject: "Twój Tarotowy Portret – Raport gotowy!",
           html: emailContent.html,
           text: emailContent.text,
         });
+
+        if (emailRes.error) {
+          console.error("[webhook] Resend Error (Success Email):", emailRes.error);
+        } else {
+          console.log(`[webhook] Success email sent to ${customerEmail}`);
+        }
 
         console.log(`[webhook] Order ${orderId} processed successfully`);
       } catch (pdfError) {
@@ -150,12 +155,17 @@ export async function POST(request: NextRequest) {
 
         // Wyślij email z informacją o błędzie
         if (customerEmail) {
-          await resend.emails.send({
+          const errorEmailRes = await resend.emails.send({
             from: "Archeya <onboarding@resend.dev>",
             to: customerEmail,
             subject: "Błąd przy generowaniu Twojego raportu",
             text: "Przepraszamy, ale nie udało nam się wygenerować Twojego raportu. Prosimy spróbować ponownie lub skontaktuj się z nami.",
           });
+          if (errorEmailRes.error) {
+            console.error("[webhook] Resend Error (Failure Email):", errorEmailRes.error);
+          } else {
+            console.log(`[webhook] Error email sent to ${customerEmail}`);
+          }
         }
       }
     }

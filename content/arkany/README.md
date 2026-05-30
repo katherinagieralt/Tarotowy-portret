@@ -26,7 +26,7 @@ description: "Krótki opis dla SEO"
 
 | Nr | Nazwa | Plik |
 |----|-------|------|
-| 0 | Głupiec | `00-glupiec.mdx` ✅ |
+| 22 | Głupiec | `22-glupiec.mdx` ✅ |
 | 1 | Mag | `01-mag.mdx` ✅ |
 | 2 | Papieżna | `02-papiez.mdx` |
 | 3 | Cesarzowa | `03-cesarzowa.mdx` |

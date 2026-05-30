@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Stars } from "lucide-react";
@@ -11,6 +12,8 @@ const navLinks = [
   { name: "Kalkulator", href: "/" },
   { name: "Wielkie Arkana", href: "/arkany" },
   { name: "Pozycje portretu", href: "/pozycje-portretu" },
+  { name: "Kompendium Wiedzy", href: "/blog" },
+  { name: "O nas & Kontakt", href: "/kontakt" },
 ];
 
 export function Navbar() {
@@ -45,19 +48,40 @@ export function Navbar() {
       <header
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
           scrolled 
-            ? "bg-white/70 dark:bg-[#030308]/70 backdrop-blur-xl border-b border-black/5 dark:border-white/10 shadow-sm" 
+            ? "bg-white/70 dark:bg-[#030308]/70 backdrop-blur-xl" 
             : "bg-transparent"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-6 h-24 md:h-28 flex items-center justify-between transition-all duration-300">
           {/* Logo */}
           <Link 
             href="/" 
-            className="flex items-center gap-2 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 rounded-lg"
+            onClick={(e) => {
+              if (pathname === "/") {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }
+            }}
+            className="flex items-center gap-2 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 rounded-lg py-1"
           >
-            <span className="font-serif text-2xl tracking-[0.2em] text-amber-600 dark:text-amber-400 uppercase">
-              Archeya
-            </span>
+            {/* Logo dla jasnego motywu (Czarne logo) */}
+            <Image 
+              src="/logo/PNG/archeya-logo-horizontal-dark.png" 
+              alt="Archeya Logo" 
+              width={400} 
+              height={120} 
+              className="h-20 w-auto md:h-24 transition-all duration-300 dark:hidden"
+              priority
+            />
+            {/* Logo dla ciemnego motywu (Białe logo) */}
+            <Image 
+              src="/logo/PNG/archeya-logo-horizontal-light.png" 
+              alt="Archeya Logo" 
+              width={400} 
+              height={120} 
+              className="h-20 w-auto md:h-24 transition-all duration-300 hidden dark:block"
+              priority
+            />
           </Link>
 
           {/* Desktop Navigation */}

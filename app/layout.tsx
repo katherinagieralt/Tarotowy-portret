@@ -4,6 +4,8 @@ import { Toaster } from 'sonner';
 import { Playfair_Display, Inter } from 'next/font/google';
 import { ThemeWrapper } from '@/components/ThemeWrapper';
 import { Navbar } from '@/components/Navbar';
+import { Footer } from '@/components/Footer';
+import { CookieBanner } from '@/components/CookieBanner';
 import './globals.css';
 
 const playfair = Playfair_Display({
@@ -74,14 +76,18 @@ export default function RootLayout({
       </head>
       <body suppressHydrationWarning className={`${inter.variable} ${playfair.variable} font-sans bg-[#F9F6EE] text-[#2A241F] dark:bg-[#0A0710] dark:text-[#E8E4D9] antialiased transition-colors duration-500`}>
         <ThemeWrapper>
-          <div className="relative pt-20">
+          <div className="relative pt-20 min-h-screen flex flex-col">
             {/* Background gradient */}
             <div className="fixed inset-0 -z-10 h-full w-full bg-gradient-to-br from-[#FDFBF7] via-[#F9F6EE] to-[#E3DBCB] dark:from-[#0B0914] dark:via-[#0A0710] dark:to-[#050308] transition-colors duration-500" />
 
             <Navbar />
 
             {/* Content */}
-            {children}
+            <main className="flex-grow flex flex-col">
+              {children}
+            </main>
+            
+            <Footer />
 
             {/* Toast notifications */}
             <Toaster
@@ -91,6 +97,9 @@ export default function RootLayout({
               theme="system"
               duration={3000}
             />
+
+            {/* Cookie Banner */}
+            <CookieBanner />
           </div>
         </ThemeWrapper>
       </body>

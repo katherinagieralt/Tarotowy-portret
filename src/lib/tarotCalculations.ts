@@ -241,3 +241,29 @@ export function getBasicCardsPartnership(portrait: ReturnType<typeof calculatePa
     portrait.detailedCards.p3,
   ];
 }
+
+export function slugify(text: string): string {
+  return text.toString().toLowerCase()
+    .replace(/[ą]/g, 'a')
+    .replace(/[ć]/g, 'c')
+    .replace(/[ę]/g, 'e')
+    .replace(/[ł]/g, 'l')
+    .replace(/[ń]/g, 'n')
+    .replace(/[ó]/g, 'o')
+    .replace(/[ś]/g, 's')
+    .replace(/[źż]/g, 'z')
+    .replace(/\s+/g, '-')
+    .replace(/[^\w\-]+/g, '')
+    .replace(/\-\-+/g, '-')
+    .replace(/^-+/, '')
+    .replace(/-+$/, '');
+}
+
+export function generatePositionSlug(cardSlug: string, isPartner: boolean, posKey: string): string {
+  const position = isPartner ? partnerPositionMeanings[posKey] : individualPositionMeanings[posKey];
+  if (!position) return `${cardSlug}-pozycja-${isPartner ? 'part-' : ''}${posKey}`;
+  const posNumber = posKey.replace('p', '');
+  const slugifiedTitle = slugify(position.title);
+  return `${cardSlug}-pozycja-${isPartner ? 'part-' : ''}${posNumber}-${slugifiedTitle}`;
+}
+

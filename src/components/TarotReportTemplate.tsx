@@ -1,4 +1,4 @@
-import { Document, Page, Text, View, StyleSheet, Font, Image, Link } from "@react-pdf/renderer";
+import { Document, Page, Text, View, StyleSheet, Font, Image, Link, Svg, Defs, LinearGradient, Stop, Rect } from "@react-pdf/renderer";
 import { formatDate } from "date-fns";
 import { pl } from "date-fns/locale";
 import {
@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
   coverPage: {
     padding: 0,
     backgroundColor: "#fcf9f2",
+    fontFamily: "Roboto",
   },
   coverWrapper: {
     width: "100%",
@@ -66,27 +67,33 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   brandLogo: {
-    fontSize: 16,
-    fontFamily: "Roboto",
-    fontWeight: 700,
-    color: "#4b5563",
-    letterSpacing: 6,
-    textTransform: "uppercase",
-    marginBottom: 60,
-    textAlign: "center",
+    width: 200,
+    height: 180,
+    marginBottom: 40,
+    alignSelf: "center",
+    objectFit: "contain",
   },
   coverTitle: {
-    fontSize: 36,
+    fontSize: 42,
     fontWeight: 700,
-    color: "#111827",
-    marginBottom: 12,
+    color: "#ffffff",
+    marginBottom: 6,
     textTransform: "uppercase",
-    letterSpacing: 2,
+    letterSpacing: 4,
+    textAlign: "center",
+  },
+  coverTitleLight: {
+    fontSize: 26,
+    fontWeight: 400,
+    color: "#d4af37",
+    marginBottom: 16,
+    textTransform: "uppercase",
+    letterSpacing: 6,
     textAlign: "center",
   },
   coverSubtitle: {
     fontSize: 13,
-    color: "#4b5563",
+    color: "#e5e7eb",
     marginTop: 40,
     textAlign: "center",
     maxWidth: 400,
@@ -103,18 +110,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   coverDetailsContainer: {
-    backgroundColor: "rgba(255, 255, 255, 0.75)",
+    backgroundColor: "rgba(0, 0, 0, 0.65)",
     paddingVertical: 20,
     paddingHorizontal: 40,
-    borderRadius: 8,
+    borderRadius: 12,
     alignItems: "center",
     borderWidth: 1,
-    borderColor: "rgba(200, 200, 200, 0.3)",
+    borderColor: "rgba(212, 175, 55, 0.5)",
   },
   coverDetails: {
     fontSize: 14,
     fontWeight: 700,
-    color: "#111827",
+    color: "#ffffff",
     textAlign: "center",
     lineHeight: 1.8,
     letterSpacing: 1,
@@ -134,12 +141,10 @@ const styles = StyleSheet.create({
     marginBottom: 25,
   },
   headerLogo: {
-    fontSize: 14,
-    fontWeight: 700,
-    color: "#d4af37",
-    letterSpacing: 4,
-    textTransform: "uppercase",
+    width: 60,
+    height: 50,
     marginBottom: 4,
+    objectFit: "contain",
   },
   title: {
     fontSize: 20,
@@ -324,35 +329,35 @@ export function TarotReportTemplate({
           </View>
 
           {interp.mainMeaning && (
-            <View>
+            <View wrap={false}>
               <Text style={styles.paragraphHeading}>Główny sens</Text>
               <Text style={styles.paragraphText}>{formatText(interp.mainMeaning)}</Text>
             </View>
           )}
 
           {interp.psychologicalPattern && (
-            <View>
+            <View wrap={false}>
               <Text style={styles.paragraphHeading}>Wzorzec psychologiczny</Text>
               <Text style={styles.paragraphText}>{formatText(interp.psychologicalPattern)}</Text>
             </View>
           )}
 
           {interp.potential && (
-            <View>
+            <View wrap={false}>
               <Text style={styles.paragraphHeading}>Potencjał</Text>
               <Text style={styles.paragraphText}>{formatText(interp.potential)}</Text>
             </View>
           )}
 
           {interp.shadow && (
-            <View>
+            <View wrap={false}>
               <Text style={styles.paragraphHeading}>Cień i trudności</Text>
               <Text style={styles.paragraphText}>{formatText(interp.shadow)}</Text>
             </View>
           )}
 
           {interp.reflectionQuestions && interp.reflectionQuestions.length > 0 && (
-            <View>
+            <View wrap={false}>
               <Text style={styles.paragraphHeading}>Pytania do refleksji</Text>
               {interp.reflectionQuestions.map((q: string, idx: number) => (
                 <Text key={idx} style={styles.bulletPoint}>• {formatText(q)}</Text>
@@ -361,7 +366,7 @@ export function TarotReportTemplate({
           )}
 
           {interp.developmentTip && (
-            <View>
+            <View wrap={false}>
               <Text style={styles.paragraphHeading}>Wskazówka rozwojowa</Text>
               <Text style={styles.paragraphText}>{formatText(interp.developmentTip)}</Text>
             </View>
@@ -373,7 +378,6 @@ export function TarotReportTemplate({
 
   const PageHeader = () => (
     <View style={styles.header} fixed>
-      <Text style={styles.headerLogo}>ARCHEYA</Text>
       <Text style={styles.title}>Tarotowy Portret</Text>
       <Text style={styles.subtitle}>
         {reportType === "INDIVIDUAL" ? "Indywidualny" : "Partnerski"}
@@ -395,6 +399,21 @@ export function TarotReportTemplate({
   const PageWrapper = ({ children }: { children: React.ReactNode }) => (
     <Page size="A4" style={styles.page}>
       <View style={styles.pageBorder} fixed />
+      {symbolDarkBuffer && (
+        <Image 
+          src={{ data: symbolDarkBuffer, format: "png" }} 
+          fixed
+          style={{ 
+            position: "absolute", 
+            width: 500, 
+            height: 500, 
+            left: 47.5, 
+            top: 171,
+            opacity: 0.02,
+            zIndex: -1,
+          }} 
+        />
+      )}
       <PageHeader />
       {children}
       <PageFooter />
@@ -405,6 +424,24 @@ export function TarotReportTemplate({
   let coverBgBuffer: Buffer | null = null;
   if (fs.existsSync(coverBgPath)) {
     coverBgBuffer = fs.readFileSync(coverBgPath);
+  }
+
+  const logoLightPath = path.join(process.cwd(), "public", "logo", "PNG", "archeya-logo-vertical-light.png");
+  let logoLightBuffer: Buffer | null = null;
+  if (fs.existsSync(logoLightPath)) {
+    logoLightBuffer = fs.readFileSync(logoLightPath);
+  }
+
+  const logoDarkPath = path.join(process.cwd(), "public", "logo", "PNG", "archeya-logo-vertical-dark.png");
+  let logoDarkBuffer: Buffer | null = null;
+  if (fs.existsSync(logoDarkPath)) {
+    logoDarkBuffer = fs.readFileSync(logoDarkPath);
+  }
+
+  const symbolDarkPath = path.join(process.cwd(), "public", "logo", "PNG", "archeya-symbol-dark.png");
+  let symbolDarkBuffer: Buffer | null = null;
+  if (fs.existsSync(symbolDarkPath)) {
+    symbolDarkBuffer = fs.readFileSync(symbolDarkPath);
   }
 
   const PageMarker = ({ id }: { id: string }) => (
@@ -426,9 +463,11 @@ export function TarotReportTemplate({
             <Image src={{ data: coverBgBuffer, format: "jpg" }} style={styles.coverBackground} />
           )}
           <View style={styles.coverTopSection}>
-            <Text style={styles.brandLogo}>ARCHEYA</Text>
+            {logoLightBuffer && (
+              <Image src={{ data: logoLightBuffer, format: "png" }} style={styles.brandLogo} />
+            )}
             <Text style={styles.coverTitle}>Tarotowy Portret</Text>
-            <Text style={styles.coverTitle}>
+            <Text style={styles.coverTitleLight}>
               {reportType === "INDIVIDUAL" ? "Indywidualny" : "Partnerski"}
             </Text>
             <Text style={styles.coverSubtitle}>
@@ -450,8 +489,12 @@ export function TarotReportTemplate({
         </View>
       </Page>
 
-      {/* 2. WPROWADZENIE I SPIS TREŚCI */}
       <PageWrapper>
+        {logoDarkBuffer && (
+          <View style={{ width: "100%", alignItems: "center", marginBottom: 30, marginTop: 10 }}>
+            <Image src={{ data: logoDarkBuffer, format: "png" }} style={{ width: 140, height: 120, objectFit: "contain" }} />
+          </View>
+        )}
         <View style={styles.section} id="wstep">
           <PageMarker id="wstep" />
           <Text style={styles.sectionTitle}>Czym jest ten raport?</Text>
@@ -459,7 +502,7 @@ export function TarotReportTemplate({
           {reportType === "INDIVIDUAL" ? (
             <>
               <Text style={styles.paragraphText}>
-                {formatText("Tarotowy Portret Psychologiczny to innowacyjna i niezwykle głęboka metoda poznania samego siebie. Choć opiera się na 22 Wielkich Arkanach Tarota, nie służy on przewidywaniu przyszłości ani wróżeniu. Jest to potężne narzędzie analityczne i psychologiczne, które korzysta z symboliki archetypów – pradawnych, uniwersalnych wzorców ludzkich zachowań i doświadczeń, zdefiniowanych przez wybitnego psychiatrę Carla Gustava Junga.")}
+                {formatText("Tarotowy Portret to innowacyjna i niezwykle głęboka metoda poznania samego siebie. Choć opiera się na 22 Wielkich Arkanach Tarota, nie służy on przewidywaniu przyszłości ani wróżeniu. Jest to potężne narzędzie analityczne i psychologiczne, które korzysta z symboliki archetypów – pradawnych, uniwersalnych wzorców ludzkich zachowań i doświadczeń, zdefiniowanych przez wybitnego psychiatrę Carla Gustava Junga.")}
               </Text>
               <Text style={styles.paragraphText}>
                 {formatText("Obliczony na podstawie Twojej dokładnej daty urodzenia, portret ukazuje niezwykle precyzyjną, wewnętrzną architekturę Twojej psychiki. Jest to osobista mapa Twojej duszy, która obnaża Twoje wrodzone talenty, wczesnodziecięce schematy, ukryte mechanizmy podświadomości, a także życiowe powołanie. Pomaga zidentyfikować „Cień” – czyli te wyparte lub trudne obszary osobowości, które nieświadomie sabotują Twoje działania, oraz wskazuje ścieżkę do osiągnięcia pełni swojego potencjału.")}
@@ -561,13 +604,13 @@ export function TarotReportTemplate({
           {reportType === "INDIVIDUAL" ? (
             <>
               <Text style={styles.paragraphText}>
-                {formatText("Dziękujemy za odbycie z nami tej fascynującej podróży w głąb Twojej duszy. Przeczytanie i przeanalizowanie własnego Portretu Psychologicznego to akt ogromnej odwagi i dojrzałości. Niewiele osób decyduje się na to, by zajrzeć w swoje wnętrze, skonfrontować się ze swoimi ukrytymi lękami i stanąć w prawdzie przed samym sobą.")}
+                {formatText("Dziękujemy za odbycie z nami tej fascynującej podróży w głąb Twojej duszy. Przeczytanie i przeanalizowanie własnego Portretu to akt ogromnej odwagi i dojrzałości. Niewiele osób decyduje się na to, by zajrzeć w swoje wnętrze, skonfrontować się ze swoimi ukrytymi lękami i stanąć w prawdzie przed sobą.")}
               </Text>
               <Text style={styles.paragraphText}>
-                {formatText("To, że posiadasz ten raport, jest dowodem na to, że pragniesz autentycznego rozwoju. Posiadasz w sobie gotowość do zmiany i chęć lepszego zrozumienia mechanizmów, które Tobą kierują. Jesteś na właściwej ścieżce, a wiedza, którą tu odkryłeś(aś), stanowi potężne narzędzie wewnętrznej transformacji. To nie jest koniec pracy – to dopiero wspaniały początek procesu pogłębiania Twojej samoświadomości.")}
+                {formatText("To, że posiadasz ten raport, jest dowodem na to, że pragniesz autentycznego rozwoju. Posiadasz w sobie gotowość do zmiany i chęć lepszego zrozumienia mechanizmów, które Tobą kierują. Jesteś na właściwej ścieżce, a wiedza, którą tu odkrywasz, stanowi potężne narzędzie wewnętrznej transformacji. To nie jest koniec pracy – to dopiero wspaniały początek procesu pogłębiania Twojej samoświadomości.")}
               </Text>
               <Text style={styles.paragraphText}>
-                {formatText("Gratulujemy Ci zrobienia tego niezwykłego kroku na Twojej życiowej drodze! Pamiętaj, aby wracać do poszczególnych pozycji tego portretu w różnych momentach swojego życia – za każdym razem odkryjesz w nich nową, jeszcze głębszą warstwę prawdy o sobie. Życzymy Ci samych sukcesów, nieskończonego spokoju oraz ogromnej odwagi w eksplorowaniu pięknego potencjału, z którym przyszedłeś/przyszłaś na ten świat.")}
+                {formatText("Gratulujemy Ci zrobienia tego niezwykłego kroku na Twojej życiowej drodze! Pamiętaj, aby wracać do poszczególnych pozycji tego portretu w różnych momentach swojego życia – za każdym razem odkryjesz w nich nową, jeszcze głębszą warstwę prawdy o sobie. Życzymy Ci samych sukcesów, nieskończonego spokoju oraz ogromnej odwagi w eksplorowaniu pięknego potencjału, z którym wyruszasz w tę podróż.")}
               </Text>
             </>
           ) : (
@@ -583,10 +626,11 @@ export function TarotReportTemplate({
               </Text>
             </>
           )}
-
-          <Text style={styles.cardTitle}>
-            Z mocą archetypów,{"\n"}Archeya
-          </Text>
+          {logoDarkBuffer && (
+            <View style={{ width: "100%", alignItems: "center", marginTop: 40, marginBottom: 20 }}>
+              <Image src={{ data: logoDarkBuffer, format: "png" }} style={{ width: 160, height: 140, objectFit: "contain" }} />
+            </View>
+          )}
         </View>
       </PageWrapper>
     </Document>

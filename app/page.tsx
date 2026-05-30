@@ -74,7 +74,7 @@ export default function Home() {
 
   const onCalculate = async (data: FormData) => {
     if (data.reportType === "PARTNERSHIP" && (!data.name2 || !data.date2)) {
-      toast.error("Wypełnij dane partnera");
+      toast.error("Wypełnij dane Drugiej Osoby");
       return;
     }
 
@@ -188,7 +188,7 @@ export default function Home() {
           className="text-center mb-16 space-y-6"
         >
           <h1 className="text-5xl sm:text-7xl font-light mb-6 tracking-tight font-serif text-slate-900 dark:text-white transition-colors duration-500">
-            Tarotowy <span className="italic text-transparent bg-clip-text bg-gradient-to-br from-amber-500 via-amber-600 to-amber-700 dark:from-amber-200 dark:via-amber-400 dark:to-amber-700">Portret</span>
+            Tarotowy <span className="italic text-transparent bg-clip-text bg-gradient-to-br from-amber-500 via-amber-600 to-amber-700 dark:from-amber-200 dark:via-amber-400 dark:to-amber-700 pr-2 pb-1">Portret</span>
           </h1>
           <p className="text-lg text-slate-600 dark:text-slate-300 max-w-xl mx-auto font-light leading-relaxed transition-colors duration-500">
             To narzędzie do autorefleksji, symbolicznej pracy z psychiką <br className="hidden sm:block" /> i odkrywania siebie.
@@ -268,7 +268,7 @@ export default function Home() {
                     className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2"
                   >
                     <div className="space-y-2">
-                      <label htmlFor="name2" className="block text-xs font-bold tracking-widest text-slate-600 dark:text-slate-300 uppercase px-1 transition-colors">Imię Partnera</label>
+                      <label htmlFor="name2" className="block text-xs font-bold tracking-widest text-slate-600 dark:text-slate-300 uppercase px-1 transition-colors">Imię (Partner / Partnerka)</label>
                       <input
                         id="name2"
                         type="text"
@@ -280,7 +280,7 @@ export default function Home() {
                     </div>
                     
                     <div className="space-y-2">
-                      <label htmlFor="date2" className="block text-xs font-bold tracking-widest text-slate-600 dark:text-slate-300 uppercase px-1 transition-colors">Data urodzenia partnera</label>
+                      <label htmlFor="date2" className="block text-xs font-bold tracking-widest text-slate-600 dark:text-slate-300 uppercase px-1 transition-colors">Data urodzenia (Partner / Partnerka)</label>
                       <input
                         id="date2"
                         type="date"
@@ -322,7 +322,7 @@ export default function Home() {
             id="result-section" 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="w-full border-t border-black/5 dark:border-white/5 bg-[#FDFBF7]/80 dark:bg-[#0B0914]/80 backdrop-blur-3xl py-24 sm:py-32 relative z-10 transition-colors duration-500"
+            className="w-full border-t border-black/5 dark:border-white/5 bg-[#FDFBF7]/80 dark:bg-[#0B0914]/80 backdrop-blur-3xl py-24 sm:py-32 relative z-10 transition-colors duration-500 scroll-mt-24"
           >
             <div className="max-w-6xl mx-auto px-6">
               
@@ -357,7 +357,7 @@ export default function Home() {
                       className="flex flex-col items-center"
                     >
                       {/* Modern Tarot Card Representation with Flip Effect */}
-                      <div className="w-48 h-80 mb-8 [perspective:1000px] group" aria-hidden="true">
+                      <div className="w-52 h-[22rem] shrink-0 mb-8 [perspective:1000px] group" aria-hidden="true">
                         {/* Translate Y wrapper */}
                         <div className="relative w-full h-full transition-transform duration-700 group-hover:-translate-y-4">
                           {/* 3D Rotate wrapper */}
@@ -369,7 +369,7 @@ export default function Home() {
                                 src={`/arkana/${card.number}.jpg`}
                                 alt={card.name}
                                 fill
-                                sizes="(max-width: 768px) 192px, 192px"
+                                sizes="(max-width: 768px) 208px, 208px"
                                 className="object-cover object-center"
                               />
                               
@@ -381,7 +381,7 @@ export default function Home() {
                             <div className="absolute inset-0 w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-xl bg-[#F9F6EE] dark:bg-[#130F24] border border-[#D4AF37]/40 dark:border-[#B89B72]/30 overflow-hidden flex flex-col items-center justify-center p-5 text-center shadow-xl z-20">
                               <div className="absolute inset-0 opacity-[0.03] dark:opacity-10 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] mix-blend-overlay pointer-events-none"></div>
                               <h4 className="text-[#8C6D46] dark:text-[#B89B72] font-serif text-lg mb-2 leading-tight">{card.name}</h4>
-                              <p className="text-[0.65rem] sm:text-[0.7rem] text-slate-700 dark:text-[#E8E4D9]/80 leading-relaxed overflow-y-auto custom-scrollbar pr-1 pb-2">
+                              <p className="text-[0.65rem] sm:text-[0.7rem] text-slate-700 dark:text-[#E8E4D9]/80 leading-relaxed overflow-hidden line-clamp-[12]">
                                 {card.description}
                               </p>
                               
@@ -415,42 +415,7 @@ export default function Home() {
                 })}
               </div>
 
-              {/* Premium Paywall Section */}
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1 }}
-                className="mt-32 relative rounded-[3rem] p-[1px] overflow-hidden group"
-              >
-                {/* Animated gradient border */}
-                <div className="absolute inset-0 bg-gradient-to-r from-amber-400/50 via-orange-400/80 to-amber-600/50 dark:from-amber-500/20 dark:via-orange-500/50 dark:to-purple-500/20 opacity-100 dark:opacity-50 transition-opacity duration-1000"></div>
-                
-                <div className="bg-white/95 dark:bg-[#050511]/90 backdrop-blur-2xl rounded-[3rem] p-10 sm:p-20 relative z-10 flex flex-col items-center text-center transition-colors duration-500">
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-100 dark:from-amber-400/20 to-transparent flex items-center justify-center border border-amber-300 dark:border-amber-500/40 mb-8 transition-colors">
-                    <Lock className="w-6 h-6 text-amber-600 dark:text-amber-400" aria-hidden="true" />
-                  </div>
-                  
-                  <h4 className="text-4xl sm:text-5xl font-serif font-light text-slate-900 dark:text-white mb-6 transition-colors">
-                    Rozkoduj Całą <span className="italic text-amber-600 dark:text-amber-400">Prawdę</span>
-                  </h4>
-                  
-                  <p className="text-slate-600 dark:text-slate-300 text-lg sm:text-xl font-light max-w-3xl mb-12 leading-relaxed transition-colors">
-                    Widzisz tylko szkielet. Dowiedz się, co te karty mówią o Twojej przeszłości, jak wpływają na Twoją teraźniejszość i dokąd prowadzą Cię w przyszłości. Otrzymasz <strong className="text-slate-900 dark:text-white font-medium">ponad 20-stronicowy, dogłębny dokument PDF</strong> pełen psychologicznej analizy.
-                  </p>
-                  
-                  <button
-                    onClick={handleCheckout}
-                    disabled={checkingOut}
-                    className="relative overflow-hidden bg-gradient-to-r from-amber-500 to-orange-500 dark:to-orange-400 text-white dark:text-black font-bold text-lg py-5 px-12 rounded-full transition-all duration-300 flex items-center justify-center gap-3 shadow-lg hover:shadow-xl disabled:opacity-70 disabled:cursor-not-allowed hover:scale-105 active:scale-95 group focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-amber-500/50"
-                  >
-                    <div className="absolute inset-0 bg-white/30 dark:bg-white/20 w-full translate-x-[-100%] group-hover:animate-shimmer pointer-events-none" aria-hidden="true"></div>
-                    {checkingOut ? "Przetwarzam Magię..." : (
-                      <>Kup Pełny Raport ({reportType === "INDIVIDUAL" ? "99" : "179"} PLN) <ChevronRight className="w-5 h-5" aria-hidden="true" /></>
-                    )}
-                  </button>
-                </div>
-              </motion.div>
+
 
               {/* Enhanced Sales Landing Page for PDF */}
               <SalesLanding 
