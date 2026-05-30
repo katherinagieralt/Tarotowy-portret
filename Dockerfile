@@ -18,7 +18,6 @@ RUN npm ci
 
 # Copy source and configs
 COPY src ./src
-COPY pages ./pages
 COPY app ./app
 COPY public ./public
 COPY prisma ./prisma
