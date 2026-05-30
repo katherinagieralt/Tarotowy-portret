@@ -18,7 +18,7 @@ fi
 
 # Zbudowanie obrazów produkcyjnych i uruchomienie kontenerów w tle (-d)
 echo "🏗️ Budowanie i uruchamianie kontenerów..."
-docker-compose -f docker-compose.prod.yml up -d --build
+docker compose -f docker-compose.prod.yml up -d --build
 
 # Zastosowanie migracji bazy danych (tylko w przypadku używania Prisma)
 echo "🗄️ Aktualizacja bazy danych (Prisma db push)..."
