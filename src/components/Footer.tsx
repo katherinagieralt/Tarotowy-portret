@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 const SocialIcon = ({ href, children }: { href: string, children: React.ReactNode }) => (
   <a 
@@ -16,6 +17,11 @@ const SocialIcon = ({ href, children }: { href: string, children: React.ReactNod
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
+  const pathname = usePathname();
+
+  if (pathname.startsWith('/admin')) {
+    return null;
+  }
 
   return (
     <footer className="w-full bg-[#FDFBF7] dark:bg-[#050308] pt-20 pb-12 sm:pb-8 mt-auto border-t border-black/5 dark:border-white/5 transition-colors duration-500 relative z-10 overflow-hidden">

@@ -104,6 +104,7 @@ export async function POST(req: NextRequest) {
       data: {
         name: validatedData.name,
         email: validatedData.email,
+        subject: validatedData.subject,
         message: validatedData.message,
         sourceUrl: sourceUrl,
         status: 'NEW',
@@ -119,6 +120,7 @@ export async function POST(req: NextRequest) {
         name: lead.name,
         email: lead.email,
         phone: lead.phone || undefined,
+        subject: lead.subject || undefined,
         message: lead.message,
         sourceUrl: lead.sourceUrl || undefined,
         createdAt: lead.createdAt,

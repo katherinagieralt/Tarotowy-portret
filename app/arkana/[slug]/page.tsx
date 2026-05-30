@@ -142,42 +142,48 @@ export default async function ArkanaPage({
         </article>
 
         {/* Pozycje portretu (SEO Long Tail) */}
-        <section className="mb-16">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-serif text-slate-900 dark:text-white mb-2">
+        <section className="mb-20">
+          <div className="text-center mb-16">
+            <span className="text-amber-600 dark:text-amber-400 font-bold tracking-widest uppercase text-xs mb-3 block">
+              Zgłębiaj wiedzę
+            </span>
+            <h2 className="text-3xl md:text-4xl font-serif text-slate-900 dark:text-white mb-4">
               Znaczenie w pozycjach Portretu
             </h2>
-            <p className="text-slate-600 dark:text-slate-400 font-light">
-              Sprawdź, jak {String(post.frontmatter.title)} wpływa na konkretne sfery Twojego życia, gdy pojawi się na danej pozycji.
+            <p className="text-slate-600 dark:text-slate-400 font-light max-w-2xl mx-auto">
+              Wybierz konkretną pozycję, aby sprawdzić, jak energia karty <strong className="font-medium text-slate-800 dark:text-slate-200">{String(post.frontmatter.title)}</strong> manifestuje się w różnych sferach Twojego życia.
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="space-y-16">
             {/* Indywidualny */}
             <div>
-              <h3 className="text-2xl font-serif text-slate-900 dark:text-white mb-6 flex items-center gap-3">
-                <span className="w-8 h-px bg-amber-500"></span>
-                Portret Indywidualny
-              </h3>
+              <div className="flex items-center gap-6 mb-8">
+                <h3 className="text-xl font-serif font-bold text-slate-900 dark:text-white whitespace-nowrap">
+                  Portret Indywidualny
+                </h3>
+                <div className="h-px bg-gradient-to-r from-amber-500/30 to-transparent flex-1"></div>
+              </div>
               
-              <div className="flex flex-col">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                 {Object.entries(individualPositionMeanings).map(([key, pos]) => (
                   <Link 
                     key={key} 
                     href={`/znaczenie/${generatePositionSlug(post.slug, false, key)}`}
-                    className="group flex items-center justify-between py-3.5 border-b border-black/5 dark:border-white/5 hover:border-amber-500/30 transition-colors"
+                    className="group relative bg-white/40 dark:bg-slate-900/40 backdrop-blur-sm border border-black/5 dark:border-white/5 p-5 rounded-2xl hover:bg-white/80 dark:hover:bg-slate-800/80 hover:border-amber-500/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full overflow-hidden"
                   >
-                    <div className="flex items-center gap-5">
-                      <span className="font-serif text-amber-600/70 dark:text-amber-400/70 text-sm font-bold w-5 text-right tracking-widest">
+                    <div className="absolute -right-4 -top-4 w-16 h-16 bg-amber-500/5 rounded-full blur-xl group-hover:bg-amber-500/20 transition-all duration-500"></div>
+                    <div className="flex justify-between items-start mb-6 relative z-10">
+                      <span className="text-3xl font-serif font-bold text-slate-200 dark:text-slate-800 group-hover:text-amber-500/30 transition-colors">
                         {key.replace('p', '').padStart(2, '0')}
                       </span>
-                      <span className="text-sm sm:text-base text-slate-700 dark:text-slate-300 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
-                        {pos.title}
+                      <span className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800/80 flex items-center justify-center text-slate-400 group-hover:text-amber-600 dark:group-hover:text-amber-400 group-hover:bg-amber-50 dark:group-hover:bg-amber-900/30 transition-colors">
+                        →
                       </span>
                     </div>
-                    <span className="text-amber-500 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all font-serif">
-                      →
-                    </span>
+                    <h4 className="font-medium text-slate-800 dark:text-slate-200 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors relative z-10 pr-2 leading-snug">
+                      {pos.title}
+                    </h4>
                   </Link>
                 ))}
               </div>
@@ -185,29 +191,32 @@ export default async function ArkanaPage({
 
             {/* Partnerski */}
             <div>
-              <h3 className="text-2xl font-serif text-slate-900 dark:text-white mb-6 flex items-center gap-3">
-                <span className="w-8 h-px bg-amber-500"></span>
-                Portret Partnerski
-              </h3>
+              <div className="flex items-center gap-6 mb-8">
+                <h3 className="text-xl font-serif font-bold text-slate-900 dark:text-white whitespace-nowrap">
+                  Portret Partnerski
+                </h3>
+                <div className="h-px bg-gradient-to-r from-amber-500/30 to-transparent flex-1"></div>
+              </div>
               
-              <div className="flex flex-col">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                 {Object.entries(partnerPositionMeanings).map(([key, pos]) => (
                   <Link 
                     key={key} 
                     href={`/znaczenie/${generatePositionSlug(post.slug, true, key)}`}
-                    className="group flex items-center justify-between py-3.5 border-b border-black/5 dark:border-white/5 hover:border-amber-500/30 transition-colors"
+                    className="group relative bg-white/40 dark:bg-slate-900/40 backdrop-blur-sm border border-black/5 dark:border-white/5 p-5 rounded-2xl hover:bg-white/80 dark:hover:bg-slate-800/80 hover:border-amber-500/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full overflow-hidden"
                   >
-                    <div className="flex items-center gap-5">
-                      <span className="font-serif text-amber-600/70 dark:text-amber-400/70 text-sm font-bold w-5 text-right tracking-widest">
+                    <div className="absolute -right-4 -top-4 w-16 h-16 bg-amber-500/5 rounded-full blur-xl group-hover:bg-amber-500/20 transition-all duration-500"></div>
+                    <div className="flex justify-between items-start mb-6 relative z-10">
+                      <span className="text-3xl font-serif font-bold text-slate-200 dark:text-slate-800 group-hover:text-amber-500/30 transition-colors">
                         {key.replace('p', '').padStart(2, '0')}
                       </span>
-                      <span className="text-sm sm:text-base text-slate-700 dark:text-slate-300 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
-                        {pos.title}
+                      <span className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800/80 flex items-center justify-center text-slate-400 group-hover:text-amber-600 dark:group-hover:text-amber-400 group-hover:bg-amber-50 dark:group-hover:bg-amber-900/30 transition-colors">
+                        →
                       </span>
                     </div>
-                    <span className="text-amber-500 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all font-serif">
-                      →
-                    </span>
+                    <h4 className="font-medium text-slate-800 dark:text-slate-200 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors relative z-10 pr-2 leading-snug">
+                      {pos.title}
+                    </h4>
                   </Link>
                 ))}
               </div>

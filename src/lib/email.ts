@@ -7,6 +7,7 @@ export interface LeadNotificationData {
   name: string;
   email: string;
   phone?: string;
+  subject?: string;
   message: string;
   sourceUrl?: string;
   createdAt: Date;
@@ -64,6 +65,13 @@ export async function sendLeadNotification(lead: LeadNotificationData) {
               </div>
               ` : ''}
               
+              ${lead.subject ? `
+              <div class="field">
+                <div class="label">Temat</div>
+                <div class="value">${escapeHtml(lead.subject)}</div>
+              </div>
+              ` : ''}
+              
               <div class="field">
                 <div class="label">Wiadomość</div>
                 <div class="value">${escapeHtml(lead.message).replace(/\n/g, '<br>')}</div>
@@ -95,7 +103,7 @@ export async function sendLeadNotification(lead: LeadNotificationData) {
     const result = await resend.emails.send({
       from: 'noreply@tarot.pl',
       to: process.env.ADMIN_EMAIL,
-      subject: `[Lead] Nowe zgłoszenie od ${lead.name}`,
+      subject: `[Kontakt - ${lead.subject || 'Ogólne'}] Nowe zgłoszenie od ${lead.name}`,
       html,
       replyTo: lead.email,
     });

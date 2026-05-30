@@ -9,12 +9,14 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
-        // Replace with actual authentication logic
-        if (credentials?.email === 'admin@example.com' && credentials?.password === 'password') {
+        const adminEmail = process.env.ADMIN_EMAIL || 'admin@archeya.pl';
+        const adminPassword = process.env.ADMIN_PASSWORD || 'archeya2026';
+
+        if (credentials?.email === adminEmail && credentials?.password === adminPassword) {
           return {
             id: '1',
             email: credentials.email,
-            name: 'Admin User',
+            name: 'Archeya Admin',
           };
         }
         return null;

@@ -127,6 +127,38 @@ export function ContactForm() {
           )}
         </div>
 
+        {/* Subject Dropdown Field */}
+        <div>
+          <label
+            htmlFor="subject"
+            className="block text-xs font-bold tracking-widest text-slate-600 dark:text-slate-300 uppercase px-1 mb-2 transition-colors"
+          >
+            Temat Wiadomości
+          </label>
+          <div className="relative">
+            <select
+              {...register('subject')}
+              id="subject"
+              disabled={isSubmitting || submitStatus === 'loading'}
+              className="w-full px-5 py-4 appearance-none bg-white/50 dark:bg-white/[0.03] border border-black/10 dark:border-white/20 hover:border-black/20 dark:hover:border-white/30 rounded-2xl text-slate-900 dark:text-white focus:outline-none focus:bg-white dark:focus:bg-white/[0.08] focus:border-amber-500 focus:ring-2 focus:ring-amber-500/50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <option value="" disabled className="text-slate-400">Wybierz główny powód kontaktu...</option>
+              <option value="Mail z raportem nie doszedł">Mail z raportem nie doszedł</option>
+              <option value="Zła data urodzenia w zamówieniu">Zła data urodzenia w zamówieniu</option>
+              <option value="Zamienione daty w portrecie partnerskim">Zamienione daty w portrecie partnerskim</option>
+              <option value="Problem z plikiem PDF">Problem z plikiem PDF (np. nie otwiera się)</option>
+              <option value="Problem z płatnością">Problem z płatnością</option>
+              <option value="Inne / Zapytanie ogólne">Inne / Zapytanie ogólne</option>
+            </select>
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-5 text-slate-500">
+              <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+            </div>
+          </div>
+          {errors.subject && (
+            <p className="text-red-500 dark:text-red-400 text-sm mt-1 px-2">{errors.subject.message}</p>
+          )}
+        </div>
+
         {/* Message Field */}
         <div>
           <label

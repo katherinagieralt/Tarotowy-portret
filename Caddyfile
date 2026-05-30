@@ -1,0 +1,8 @@
+# Zmień na swoją docelową domenę
+getarcheya.com, www.getarcheya.com {
+    # Reverse proxy kierujące ruch do kontenera Next.js
+    reverse_proxy nextjs:3000
+    
+    # Kompresja GZIP dla lepszej wydajności
+    encode gzip zstd
+}

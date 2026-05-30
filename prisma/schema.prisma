@@ -12,6 +12,7 @@ model Lead {
   name      String
   email     String
   phone     String?
+  subject   String?
   message   String     @db.Text
   sourceUrl String?
   status    String     @default("NEW")
@@ -70,3 +71,58 @@ model Order {
   @@index([paymentIntentId])
   @@map("orders")
 }
+
+enum LogLevel {
+  INFO
+  WARNING
+  ERROR
+  CRITICAL
+}
+
+model SystemLog {
+  id        String   @id @default(cuid())
+  level     LogLevel @default(INFO)
+  type      String   // e.g. "WEBHOOK_ERROR", "PDF_GENERATION", "EMAIL"
+  message   String
+  stack     String?  @db.Text
+  orderId   String?
+  resolved  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([level])
+  @@index([type])
+  @@index([orderId])
+  @@map("system_logs")
+}
+
+enum EventType {
+  CALCULATOR_USED
+  CHECKOUT_STARTED
+  PAYMENT_SUCCEEDED
+  PDF_GENERATED
+  EMAIL_SENT
+  REPORT_DOWNLOADED
+}
+
+model AnalyticsEvent {
+  id        String    @id @default(cuid())
+  type      EventType
+  metadata  Json?     // np. {"arkana": ["Głupiec"], "reportType": "INDIVIDUAL"}
+  createdAt DateTime  @default(now())
+
+  @@index([type])
+  @@index([createdAt])
+  @@map("analytics_events")
+}
+
+model SystemSetting {
+  key   String @id
+  value String @db.Text
+  
+  updatedAt DateTime @updatedAt
+  
+  @@map("system_settings")
+}
+
+

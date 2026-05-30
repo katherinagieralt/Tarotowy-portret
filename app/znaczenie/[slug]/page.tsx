@@ -23,6 +23,8 @@ export async function generateStaticParams() {
   return params;
 }
 
+import { ACTIVE_SEO_BATCH, getCombinationSeoBatch, isContentIndexable } from '@/config/seo';
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const resolvedParams = await params;
   const match = resolvedParams.slug.match(/^(.*)-pozycja-(part-)?(?:p)?(\d+)(?:-.*)?$/);
@@ -35,13 +37,23 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   
   if (!card) return { title: 'Znaczenie - Archeya' };
 
-  const position = isPartner ? partnerPositionMeanings[posKey] : individualPositionMeanings[posKey];
+  const position = !!isPartner ? partnerPositionMeanings[posKey] : individualPositionMeanings[posKey];
   if (!position) return { title: 'Znaczenie - Archeya' };
 
   const title = `${card.frontmatter.title} w pozycji ${posKey.replace('p', '')} (${position.title}) | Archeya`;
   const description = `Dowiedz się, co oznacza ${card.frontmatter.title} na pozycji ${posKey.replace('p', '')} (${position.title}) w Twoim Tarotowym Portrecie.`;
 
-  return { title, description };
+  const batch = getCombinationSeoBatch(!!isPartner, posKey);
+  const indexable = isContentIndexable(batch);
+
+  return { 
+    title, 
+    description,
+    robots: {
+      index: indexable,
+      follow: true,
+    }
+  };
 }
 
 export default async function MeaningPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -76,6 +88,41 @@ export default async function MeaningPage({ params }: { params: Promise<{ slug: 
   const cardNumber = String(card.frontmatter.number || card.slug.split('-')[0]);
   const interpretations = interpretationsData as any;
   const essence = interpretations[typeKey]?.[posKey]?.[cardNumber]?.essence || null;
+
+  // Generate 3 related combinations for exploration
+  const relatedCombinations = [];
+  const cardIndex = posts.findIndex(p => p.slug === cardSlug);
+  
+  // 1. Same card, next position
+  const allPosKeys = Object.keys(isPartner ? partnerPositionMeanings : individualPositionMeanings);
+  const posIndex = allPosKeys.indexOf(posKey);
+  const nextPosKey1 = allPosKeys[(posIndex + 1) % allPosKeys.length];
+  const nextPosKey2 = allPosKeys[(posIndex + 2) % allPosKeys.length];
+  
+  // 2. Next card, same position
+  const nextCardIndex = (cardIndex + 1) % posts.length;
+  const nextCard = posts[nextCardIndex];
+
+  relatedCombinations.push({
+    card: card,
+    positionKey: nextPosKey1,
+    position: (isPartner ? partnerPositionMeanings : individualPositionMeanings)[nextPosKey1],
+    isPartner
+  });
+  
+  relatedCombinations.push({
+    card: card,
+    positionKey: nextPosKey2,
+    position: (isPartner ? partnerPositionMeanings : individualPositionMeanings)[nextPosKey2],
+    isPartner
+  });
+
+  relatedCombinations.push({
+    card: nextCard,
+    positionKey: posKey,
+    position: position,
+    isPartner
+  });
 
   return (
     <main className="min-h-screen bg-[#F9F6EE] dark:bg-[#0A0710] py-24 px-6 transition-colors duration-500">
@@ -140,6 +187,44 @@ export default async function MeaningPage({ params }: { params: Promise<{ slug: 
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* Explore More Section */}
+        <div className="mb-16">
+          <div className="flex items-center gap-6 mb-8">
+            <h3 className="text-2xl font-serif font-bold text-slate-900 dark:text-white whitespace-nowrap">
+              Eksploruj dalej
+            </h3>
+            <div className="h-px bg-gradient-to-r from-amber-500/30 to-transparent flex-1"></div>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {relatedCombinations.map((combo, idx) => (
+              <Link
+                key={idx}
+                href={`/znaczenie/${generatePositionSlug(combo.card.slug, combo.isPartner, combo.positionKey)}`}
+                className="group relative bg-white/40 dark:bg-slate-900/40 backdrop-blur-sm border border-black/5 dark:border-white/5 p-6 rounded-2xl hover:bg-white/80 dark:hover:bg-slate-800/80 hover:border-amber-500/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between overflow-hidden"
+              >
+                <div className="absolute -right-4 -top-4 w-16 h-16 bg-amber-500/5 rounded-full blur-xl group-hover:bg-amber-500/20 transition-all duration-500"></div>
+                <div className="flex justify-between items-start mb-4 relative z-10">
+                  <span className="text-amber-600/70 dark:text-amber-400/70 text-xs font-bold uppercase tracking-wider">
+                    {combo.isPartner ? "Partnerski" : "Indywidualny"}
+                  </span>
+                  <span className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800/80 flex items-center justify-center text-slate-400 group-hover:text-amber-600 dark:group-hover:text-amber-400 group-hover:bg-amber-50 dark:group-hover:bg-amber-900/30 transition-colors">
+                    →
+                  </span>
+                </div>
+                <div className="relative z-10">
+                  <h4 className="font-serif text-xl font-bold text-slate-900 dark:text-white mb-1 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
+                    {String(combo.card.frontmatter.title)}
+                  </h4>
+                  <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-2">
+                    Pozycja {combo.positionKey.replace('p', '')}: {combo.position.title}
+                  </p>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
 

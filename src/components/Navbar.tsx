@@ -12,7 +12,6 @@ const navLinks = [
   { name: "Kalkulator", href: "/" },
   { name: "Wielkie Arkana", href: "/arkany" },
   { name: "Pozycje portretu", href: "/pozycje-portretu" },
-  { name: "Kompendium Wiedzy", href: "/blog" },
   { name: "O nas & Kontakt", href: "/kontakt" },
 ];
 
@@ -20,6 +19,10 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+
+  if (pathname.startsWith('/admin')) {
+    return null;
+  }
 
   useEffect(() => {
     const handleScroll = () => {
