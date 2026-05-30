@@ -12,7 +12,6 @@ RUN apk add --no-cache python3 make g++
 COPY package*.json ./
 COPY tsconfig.json ./
 COPY next.config.js ./
-COPY prisma.config.js ./
 
 # Install dependencies with Sharp prebuilt binaries
 RUN npm ci
@@ -45,7 +44,6 @@ COPY package*.json ./
 RUN npm ci --omit=dev
 
 # Copy Prisma config and schema
-COPY prisma.config.js ./
 COPY prisma ./prisma
 
 # Copy built artifacts from builder
