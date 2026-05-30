@@ -40,7 +40,7 @@ export function Footer() {
             >
               {/* Logo dla jasnego motywu (Czarne logo) */}
               <Image 
-                src="/logo/PNG/archeya-logo-vertical-dark.png" 
+                src="/Logo/PNG/archeya-logo-vertical-dark.png" 
                 alt="Archeya Logo" 
                 width={300} 
                 height={300} 
@@ -49,7 +49,7 @@ export function Footer() {
               />
               {/* Logo dla ciemnego motywu (Białe logo) */}
               <Image 
-                src="/logo/PNG/archeya-logo-vertical-light.png" 
+                src="/Logo/PNG/archeya-logo-vertical-light.png" 
                 alt="Archeya Logo" 
                 width={300} 
                 height={300} 

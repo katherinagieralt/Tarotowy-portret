@@ -426,13 +426,13 @@ export function TarotReportTemplate({
     coverBgBuffer = fs.readFileSync(coverBgPath);
   }
 
-  const logoLightPath = path.join(process.cwd(), "public", "logo", "PNG", "archeya-logo-vertical-light.png");
+  const logoLightPath = path.join(process.cwd(), "public", "Logo", "PNG", "archeya-logo-vertical-light.png");
   let logoLightBuffer: Buffer | null = null;
   if (fs.existsSync(logoLightPath)) {
     logoLightBuffer = fs.readFileSync(logoLightPath);
   }
 
-  const logoDarkPath = path.join(process.cwd(), "public", "logo", "PNG", "archeya-logo-vertical-dark.png");
+  const logoDarkPath = path.join(process.cwd(), "public", "Logo", "PNG", "archeya-logo-vertical-dark.png");
   let logoDarkBuffer: Buffer | null = null;
   if (fs.existsSync(logoDarkPath)) {
     logoDarkBuffer = fs.readFileSync(logoDarkPath);

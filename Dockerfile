@@ -20,6 +20,7 @@ RUN npm ci
 COPY src ./src
 COPY app ./app
 COPY public ./public
+COPY content ./content
 COPY prisma ./prisma
 COPY tailwind.config.ts ./
 COPY postcss.config.mjs ./
@@ -50,6 +51,7 @@ COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
 COPY --from=builder /app/node_modules/sharp ./node_modules/sharp
 COPY --from=builder /app/public ./public
+COPY --from=builder /app/content ./content
 
 # Create non-root user for security
 RUN addgroup -g 1001 -S nodejs && \

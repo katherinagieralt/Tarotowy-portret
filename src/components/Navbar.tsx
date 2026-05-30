@@ -69,7 +69,7 @@ export function Navbar() {
           >
             {/* Logo dla jasnego motywu (Czarne logo) */}
             <Image 
-              src="/logo/PNG/archeya-logo-horizontal-dark.png" 
+              src="/Logo/PNG/archeya-logo-horizontal-dark.png" 
               alt="Archeya Logo" 
               width={400} 
               height={120} 
@@ -78,7 +78,7 @@ export function Navbar() {
             />
             {/* Logo dla ciemnego motywu (Białe logo) */}
             <Image 
-              src="/logo/PNG/archeya-logo-horizontal-light.png" 
+              src="/Logo/PNG/archeya-logo-horizontal-light.png" 
               alt="Archeya Logo" 
               width={400} 
               height={120} 
