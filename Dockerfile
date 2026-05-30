@@ -5,8 +5,8 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-# Install system dependencies for Sharp (image processing)
-RUN apk add --no-cache python3 make g++
+# Install system dependencies for Sharp (image processing) and Prisma
+RUN apk add --no-cache python3 make g++ openssl
 
 # Copy dependency files
 COPY package*.json ./
@@ -35,8 +35,8 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-# Install runtime dependencies for Sharp
-RUN apk add --no-cache cairo jpeg libpng giflib pixman
+# Install runtime dependencies for Sharp and Prisma
+RUN apk add --no-cache cairo jpeg libpng giflib pixman openssl
 
 # Install only production dependencies
 COPY package*.json ./
