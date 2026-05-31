@@ -170,7 +170,7 @@ export async function POST(req: NextRequest) {
     if (error instanceof Error) {
       if (error.message.includes('unique constraint')) {
         return NextResponse.json(
-          { error: body?.isEnglish ? 'This email address already exists in our database.' : 'Ten adres e-mail już istnieje w naszej bazie' },
+          { error: 'Ten adres e-mail już istnieje w naszej bazie / Email already exists' },
           { status: 400 }
         );
       }
@@ -178,7 +178,7 @@ export async function POST(req: NextRequest) {
 
     // Generic server error
     return NextResponse.json(
-      { error: body?.isEnglish ? 'Failed to process request. Try again.' : 'Nie udało się przetworzyć żądania. Spróbuj ponownie.' },
+      { error: 'Nie udało się przetworzyć żądania. Spróbuj ponownie. / Failed to process request.' },
       { status: 500 }
     );
   }
