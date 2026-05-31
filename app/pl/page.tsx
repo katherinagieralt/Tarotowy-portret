@@ -251,6 +251,7 @@ export default function Home() {
                   <input
                     id="date1"
                     type="date"
+                    lang="pl"
                     {...form.register("date1")}
                     className="w-full px-5 py-4 bg-white/50 dark:bg-white/[0.03] border border-black/10 dark:border-white/20 hover:border-black/20 dark:hover:border-white/30 rounded-2xl text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:bg-white dark:focus:bg-white/[0.08] focus:border-amber-500 focus:ring-2 focus:ring-amber-500/50 transition-all duration-300 dark:[color-scheme:dark]"
                     aria-invalid={form.formState.errors.date1 ? "true" : "false"}
@@ -285,6 +286,7 @@ export default function Home() {
                       <input
                         id="date2"
                         type="date"
+                        lang="pl"
                         {...form.register("date2")}
                         className="w-full px-5 py-4 bg-white/50 dark:bg-white/[0.03] border border-black/10 dark:border-white/20 hover:border-black/20 dark:hover:border-white/30 rounded-2xl text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:bg-white dark:focus:bg-white/[0.08] focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all duration-300 dark:[color-scheme:dark]"
                         aria-invalid={form.formState.errors.date2 ? "true" : "false"}

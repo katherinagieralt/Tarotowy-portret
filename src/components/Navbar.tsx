@@ -85,7 +85,7 @@ export function Navbar() {
               alt="Archeya Logo" 
               width={300} 
               height={80} 
-              className="h-16 w-auto md:h-20 transition-all duration-300 dark:hidden"
+              className="h-20 w-auto md:h-24 transition-all duration-300 dark:hidden"
               priority
             />
             {/* Logo dla ciemnego motywu (Białe logo) */}
@@ -94,7 +94,7 @@ export function Navbar() {
               alt="Archeya Logo" 
               width={300} 
               height={80} 
-              className="h-16 w-auto md:h-20 transition-all duration-300 hidden dark:block"
+              className="h-20 w-auto md:h-24 transition-all duration-300 hidden dark:block"
               priority
             />
           </Link>
