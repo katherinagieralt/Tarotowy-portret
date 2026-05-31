@@ -3,11 +3,11 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ContactFormSchema, type ContactFormInput } from '@/schemas/contact';
+import { ContactFormSchema, ContactFormSchemaEn, type ContactFormInput } from '@/schemas/contact';
 import { toastService } from '@/lib/toast';
 import { TurnstileToken } from './TurnstileToken';
 
-export function ContactForm() {
+export function ContactForm({ isEnglish = false }: { isEnglish?: boolean }) {
   const [submitStatus, setSubmitStatus] = useState<
     'idle' | 'loading' | 'success' | 'error'
   >('idle');
@@ -19,19 +19,19 @@ export function ContactForm() {
     reset,
     formState: { errors, isSubmitting },
   } = useForm<ContactFormInput>({
-    resolver: zodResolver(ContactFormSchema),
+    resolver: zodResolver(isEnglish ? ContactFormSchemaEn : ContactFormSchema),
     mode: 'onBlur',
   });
 
   async function onSubmit(data: ContactFormInput) {
     // Check Turnstile token
     if (!turnstileToken) {
-      toastService.error('Weryfikacja nie powiodła się', 'Spróbuj jeszcze raz');
+      toastService.error(isEnglish ? 'Verification failed' : 'Weryfikacja nie powiodła się', isEnglish ? 'Try again' : 'Spróbuj jeszcze raz');
       return;
     }
 
     setSubmitStatus('loading');
-    const loadingToastId = toastService.loading('Wysyłanie wiadomości...');
+    const loadingToastId = toastService.loading(isEnglish ? 'Sending message...' : 'Wysyłanie wiadomości...');
 
     try {
       const response = await fetch('/api/contact', {
@@ -42,6 +42,7 @@ export function ContactForm() {
         body: JSON.stringify({
           ...data,
           turnstileToken,
+          isEnglish,
         }),
       });
 
@@ -52,16 +53,16 @@ export function ContactForm() {
       if (!response.ok) {
         setSubmitStatus('error');
         toastService.error(
-          'Błąd wysyłania',
-          result.error || 'Nie udało się wysłać wiadomości. Spróbuj ponownie.'
+          isEnglish ? 'Sending error' : 'Błąd wysyłania',
+          result.error || (isEnglish ? 'Failed to send message. Try again.' : 'Nie udało się wysłać wiadomości. Spróbuj ponownie.')
         );
         return;
       }
 
       setSubmitStatus('success');
       toastService.success(
-        'Wiadomość wysłana!',
-        'Odpowiemy w ciągu 24 godzin.'
+        isEnglish ? 'Message sent!' : 'Wiadomość wysłana!',
+        isEnglish ? 'We will reply within 24 hours.' : 'Odpowiemy w ciągu 24 godzin.'
       );
       reset();
       setTurnstileToken('');
@@ -70,8 +71,8 @@ export function ContactForm() {
       setSubmitStatus('error');
       toastService.dismiss(loadingToastId);
       toastService.error(
-        'Błąd połączenia',
-        'Sprawdź swoją sieć i spróbuj ponownie.'
+        isEnglish ? 'Connection error' : 'Błąd połączenia',
+        isEnglish ? 'Check your network and try again.' : 'Sprawdź swoją sieć i spróbuj ponownie.'
       );
       console.error('Form submission error:', error);
     }
@@ -91,13 +92,13 @@ export function ContactForm() {
             htmlFor="name"
             className="block text-xs font-bold tracking-widest text-slate-600 dark:text-slate-300 uppercase px-1 mb-2 transition-colors"
           >
-            Imię i Nazwisko
+            {isEnglish ? 'Full Name' : 'Imię i Nazwisko'}
           </label>
           <input
             {...register('name')}
             type="text"
             id="name"
-            placeholder="Jan Kowalski"
+            placeholder={isEnglish ? 'John Doe' : 'Jan Kowalski'}
             disabled={isSubmitting || submitStatus === 'loading'}
             className="w-full px-5 py-4 bg-white/50 dark:bg-white/[0.03] border border-black/10 dark:border-white/20 hover:border-black/20 dark:hover:border-white/30 rounded-2xl text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:bg-white dark:focus:bg-white/[0.08] focus:border-amber-500 focus:ring-2 focus:ring-amber-500/50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
           />
@@ -112,13 +113,13 @@ export function ContactForm() {
             htmlFor="email"
             className="block text-xs font-bold tracking-widest text-slate-600 dark:text-slate-300 uppercase px-1 mb-2 transition-colors"
           >
-            Adres E-mail
+            {isEnglish ? 'Email Address' : 'Adres E-mail'}
           </label>
           <input
             {...register('email')}
             type="email"
             id="email"
-            placeholder="jan@example.com"
+            placeholder={isEnglish ? 'john@example.com' : 'jan@example.com'}
             disabled={isSubmitting || submitStatus === 'loading'}
             className="w-full px-5 py-4 bg-white/50 dark:bg-white/[0.03] border border-black/10 dark:border-white/20 hover:border-black/20 dark:hover:border-white/30 rounded-2xl text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:bg-white dark:focus:bg-white/[0.08] focus:border-amber-500 focus:ring-2 focus:ring-amber-500/50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
           />
@@ -133,7 +134,7 @@ export function ContactForm() {
             htmlFor="subject"
             className="block text-xs font-bold tracking-widest text-slate-600 dark:text-slate-300 uppercase px-1 mb-2 transition-colors"
           >
-            Temat Wiadomości
+            {isEnglish ? 'Subject' : 'Temat Wiadomości'}
           </label>
           <div className="relative">
             <select
@@ -142,13 +143,13 @@ export function ContactForm() {
               disabled={isSubmitting || submitStatus === 'loading'}
               className="w-full px-5 py-4 appearance-none bg-white/50 dark:bg-white/[0.03] border border-black/10 dark:border-white/20 hover:border-black/20 dark:hover:border-white/30 rounded-2xl text-slate-900 dark:text-white focus:outline-none focus:bg-white dark:focus:bg-white/[0.08] focus:border-amber-500 focus:ring-2 focus:ring-amber-500/50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <option value="" disabled className="text-slate-400">Wybierz główny powód kontaktu...</option>
-              <option value="Mail z raportem nie doszedł">Mail z raportem nie doszedł</option>
-              <option value="Zła data urodzenia w zamówieniu">Zła data urodzenia w zamówieniu</option>
-              <option value="Zamienione daty w portrecie partnerskim">Zamienione daty w portrecie partnerskim</option>
-              <option value="Problem z plikiem PDF">Problem z plikiem PDF (np. nie otwiera się)</option>
-              <option value="Problem z płatnością">Problem z płatnością</option>
-              <option value="Inne / Zapytanie ogólne">Inne / Zapytanie ogólne</option>
+              <option value="" disabled className="text-slate-400">{isEnglish ? 'Select the main reason for contact...' : 'Wybierz główny powód kontaktu...'}</option>
+              <option value={isEnglish ? 'Email with the report didn\'t arrive' : 'Mail z raportem nie doszedł'}>{isEnglish ? 'Email with the report didn\'t arrive' : 'Mail z raportem nie doszedł'}</option>
+              <option value={isEnglish ? 'Wrong date of birth in the order' : 'Zła data urodzenia w zamówieniu'}>{isEnglish ? 'Wrong date of birth in the order' : 'Zła data urodzenia w zamówieniu'}</option>
+              <option value={isEnglish ? 'Swapped dates in the partnership portrait' : 'Zamienione daty w portrecie partnerskim'}>{isEnglish ? 'Swapped dates in the partnership portrait' : 'Zamienione daty w portrecie partnerskim'}</option>
+              <option value={isEnglish ? 'Problem with PDF file (e.g., won\'t open)' : 'Problem z plikiem PDF (np. nie otwiera się)'}>{isEnglish ? 'Problem with PDF file (e.g., won\'t open)' : 'Problem z plikiem PDF (np. nie otwiera się)'}</option>
+              <option value={isEnglish ? 'Payment problem' : 'Problem z płatnością'}>{isEnglish ? 'Payment problem' : 'Problem z płatnością'}</option>
+              <option value={isEnglish ? 'Other / General inquiry' : 'Inne / Zapytanie ogólne'}>{isEnglish ? 'Other / General inquiry' : 'Inne / Zapytanie ogólne'}</option>
             </select>
             <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-5 text-slate-500">
               <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
@@ -165,12 +166,12 @@ export function ContactForm() {
             htmlFor="message"
             className="block text-xs font-bold tracking-widest text-slate-600 dark:text-slate-300 uppercase px-1 mb-2 transition-colors"
           >
-            Wiadomość
+            {isEnglish ? 'Message' : 'Wiadomość'}
           </label>
           <textarea
             {...register('message')}
             id="message"
-            placeholder="Opisz swoją sprawę..."
+            placeholder={isEnglish ? 'Describe your issue...' : 'Opisz swoją sprawę...'}
             rows={5}
             disabled={isSubmitting || submitStatus === 'loading'}
             className="w-full px-5 py-4 bg-white/50 dark:bg-white/[0.03] border border-black/10 dark:border-white/20 hover:border-black/20 dark:hover:border-white/30 rounded-2xl text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:bg-white dark:focus:bg-white/[0.08] focus:border-amber-500 focus:ring-2 focus:ring-amber-500/50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed resize-none"
@@ -185,7 +186,7 @@ export function ContactForm() {
           <TurnstileToken
             onToken={setTurnstileToken}
             onError={() => {
-              toastService.error('Weryfikacja nie powiodła się');
+              toastService.error(isEnglish ? 'Verification failed' : 'Weryfikacja nie powiodła się');
               setTurnstileToken('');
             }}
           />
@@ -221,17 +222,19 @@ export function ContactForm() {
                   d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                 />
               </svg>
-              Wysyłanie...
+              {isEnglish ? 'Sending...' : 'Wysyłanie...'}
             </>
           ) : (
-            'Wyślij Wiadomość'
+            isEnglish ? 'Send Message' : 'Wyślij Wiadomość'
           )}
           </span>
         </button>
 
         {/* Privacy Notice */}
         <p className="text-xs text-slate-500 dark:text-slate-500 text-center">
-          Twoje dane będą przetwarzane zgodnie z naszą polityką prywatności. Chronione przez Cloudflare Turnstile.
+          {isEnglish 
+            ? 'Your data will be processed according to our privacy policy. Protected by Cloudflare Turnstile.' 
+            : 'Twoje dane będą przetwarzane zgodnie z naszą polityką prywatności. Chronione przez Cloudflare Turnstile.'}
         </p>
       </form>
     </div>

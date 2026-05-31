@@ -2,8 +2,8 @@ import { promises as fs } from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 
-export async function getAllArkanaPosts() {
-  const arkanasDir = path.join(process.cwd(), 'content/arkany');
+export async function getAllArkanaPosts(locale: string = 'pl') {
+  const arkanasDir = path.join(process.cwd(), locale === 'en' ? 'content/arkany/en' : 'content/arkany');
   
   try {
     const files = await fs.readdir(arkanasDir);
@@ -33,8 +33,8 @@ export async function getAllArkanaPosts() {
   }
 }
 
-export async function getArkanaPostBySlug(slug: string) {
-  const arkanasDir = path.join(process.cwd(), 'content/arkany');
+export async function getArkanaPostBySlug(slug: string, locale: string = 'pl') {
+  const arkanasDir = path.join(process.cwd(), locale === 'en' ? 'content/arkany/en' : 'content/arkany');
   const filePath = path.join(arkanasDir, `${slug}.mdx`);
 
   try {

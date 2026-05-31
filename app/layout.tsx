@@ -25,8 +25,9 @@ export const viewport = {
 };
 
 export const metadata: Metadata = {
-  title: 'Archeya — Tarotowy Portret',
-  description: 'Twój osobisty przewodnik po świecie tarota. Zrozum siebie i odkryj swój potencjał dzięki głębokiej analizie.',
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://getarcheya.com'),
+  title: 'Archeya, Tarot Portrait',
+  description: 'Your personal guide to the world of tarot. Understand yourself and discover your potential through deep analysis.',
   robots: 'index, follow',
   appleWebApp: {
     capable: true,
@@ -37,8 +38,8 @@ export const metadata: Metadata = {
     telephone: false,
   },
   openGraph: {
-    title: 'Archeya — Tarotowy Portret',
-    description: 'Twój osobisty przewodnik po świecie tarota. Zrozum siebie i odkryj swój potencjał dzięki głębokiej analizie.',
+    title: 'Archeya, Tarot Portrait',
+    description: 'Your personal guide to the world of tarot. Understand yourself and discover your potential through deep analysis.',
     type: 'website',
     url: process.env.NEXTAUTH_URL || 'http://localhost:3000',
     images: [
@@ -52,8 +53,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Archeya — Tarotowy Portret',
-    description: 'Twój osobisty przewodnik po świecie tarota. Zrozum siebie i odkryj swój potencjał dzięki głębokiej analizie.',
+    title: 'Archeya, Tarot Portrait',
+    description: 'Your personal guide to the world of tarot. Understand yourself and discover your potential through deep analysis.',
   },
   manifest: '/manifest.json',
   icons: {
@@ -68,11 +69,34 @@ export default function RootLayout({
   children: ReactNode;
 }) {
   return (
-    <html lang="pl" className="scroll-smooth" suppressHydrationWarning>
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
         <meta name="theme-color" content="#0a0710" />
         <meta name="msapplication-TileColor" content="#0a0710" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'WebSite',
+              name: 'Archeya, Tarot Portrait',
+              url: 'https://getarcheya.com',
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Organization',
+              name: 'Archeya',
+              url: 'https://getarcheya.com',
+              logo: 'https://getarcheya.com/favicon.ico',
+            }),
+          }}
+        />
       </head>
       <body suppressHydrationWarning className={`${inter.variable} ${playfair.variable} font-sans bg-[#F9F6EE] text-[#2A241F] dark:bg-[#0A0710] dark:text-[#E8E4D9] antialiased transition-colors duration-500`}>
         <ThemeWrapper>

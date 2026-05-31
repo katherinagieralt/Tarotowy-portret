@@ -50,7 +50,7 @@ export function HeroSection() {
             <div className="text-3xl mb-2">💫</div>
             <h3 className="text-white font-bold mb-2">Portret Partnerski</h3>
             <p className="text-slate-400 text-sm">
-              Odkryj energię waszej relacji — 129 zł za parę
+              Odkryj energię waszej relacji, 129 zł za parę
             </p>
           </div>
         </div>

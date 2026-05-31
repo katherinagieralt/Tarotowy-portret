@@ -8,12 +8,12 @@ import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sparkles, User, Users, Lock, ChevronRight, Stars } from "lucide-react";
 import Image from "next/image";
-import { SalesLanding } from "@/components/SalesLanding";
+import { SalesLandingEn } from "@/components/SalesLandingEn";
 
 const formSchema = z.object({
   reportType: z.enum(["INDIVIDUAL", "PARTNERSHIP"]),
-  name1: z.string().min(1, "Podaj swoje imię"),
-  date1: z.string().min(1, "Wybierz datę"),
+  name1: z.string().min(1, "Please enter your name"),
+  date1: z.string().min(1, "Please select a date"),
   name2: z.string().optional(),
   date2: z.string().optional(),
 });
@@ -33,7 +33,7 @@ const staggerContainer = {
   },
 };
 
-export default function Home() {
+export default function HomeEn() {
   const [calculating, setCalculating] = useState(false);
   const [result, setResult] = useState<any>(null);
   const [checkingOut, setCheckingOut] = useState(false);
@@ -53,7 +53,7 @@ export default function Home() {
   const watchReportType = form.watch("reportType");
 
   useEffect(() => {
-    const saved = localStorage.getItem("tarotFormState");
+    const saved = localStorage.getItem("tarotFormStateEn");
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
@@ -67,14 +67,14 @@ export default function Home() {
 
   useEffect(() => {
     const subscription = form.watch((value) => {
-      localStorage.setItem("tarotFormState", JSON.stringify(value));
+      localStorage.setItem("tarotFormStateEn", JSON.stringify(value));
     });
     return () => subscription.unsubscribe();
   }, [form.watch]);
 
   const onCalculate = async (data: FormData) => {
     if (data.reportType === "PARTNERSHIP" && (!data.name2 || !data.date2)) {
-      toast.error("Wypełnij dane Drugiej Osoby");
+      toast.error("Please fill in the Second Person's details");
       return;
     }
 
@@ -89,13 +89,14 @@ export default function Home() {
           date1: data.date1,
           name2: data.name2 || undefined,
           date2: data.date2 || undefined,
+          locale: "en",
         }),
       });
 
       const json = await response.json();
 
       if (!json.success) {
-        toast.error(json.error || "Nie udało się obliczyć portretu");
+        toast.error(json.error || "Failed to calculate the portrait");
         return;
       }
 
@@ -112,14 +113,14 @@ export default function Home() {
         document.getElementById('result-section')?.scrollIntoView({ behavior: 'smooth' });
       }, 300);
     } catch (error) {
-      toast.error("Błąd połączenia z serwerem");
+      toast.error("Connection error");
       console.error(error);
     } finally {
       setCalculating(false);
     }
   };
 
-  const handleCheckout = async () => {
+  const handleCheckout = async (currency: string = "usd") => {
     setCheckingOut(true);
     try {
       const formValues = form.getValues();
@@ -132,32 +133,25 @@ export default function Home() {
           date1: formValues.date1,
           name2: formValues.name2 || undefined,
           date2: formValues.date2 || undefined,
+          locale: "en",
+          currency: currency,
         }),
       });
 
       const json = await response.json();
 
       if (!json.success || !json.sessionUrl) {
-        toast.error(json.error || "Nie udało się stworzyć sesji płatności");
+        toast.error(json.error || "Failed to create checkout session");
         return;
       }
 
       window.location.href = json.sessionUrl;
     } catch (error) {
-      toast.error("Błąd podczas przygotowania płatności");
+      toast.error("Error during checkout preparation");
       console.error(error);
     } finally {
       setCheckingOut(false);
     }
-  };
-
-  const toRoman = (num: number): string => {
-    const romanMap: Record<number, string> = {
-      1: "I", 2: "II", 3: "III", 4: "IV", 5: "V", 6: "VI", 7: "VII", 8: "VIII", 9: "IX", 10: "X",
-      11: "XI", 12: "XII", 13: "XIII", 14: "XIV", 15: "XV", 16: "XVI", 17: "XVII", 18: "XVIII", 19: "XIX", 20: "XX",
-      21: "XXI", 22: "XXII"
-    };
-    return romanMap[num] || String(num);
   };
 
   return (
@@ -188,10 +182,10 @@ export default function Home() {
           className="text-center mb-16 space-y-6"
         >
           <h1 className="text-5xl sm:text-7xl font-light mb-6 tracking-tight font-serif text-slate-900 dark:text-white transition-colors duration-500">
-            Tarotowy <span className="italic text-transparent bg-clip-text bg-gradient-to-br from-amber-500 via-amber-600 to-amber-700 dark:from-amber-200 dark:via-amber-400 dark:to-amber-700 pr-2 pb-1">Portret</span>
+            Tarot <span className="italic text-transparent bg-clip-text bg-gradient-to-br from-amber-500 via-amber-600 to-amber-700 dark:from-amber-200 dark:via-amber-400 dark:to-amber-700 pr-2 pb-1">Portrait</span>
           </h1>
           <p className="text-lg text-slate-600 dark:text-slate-300 max-w-xl mx-auto font-light leading-relaxed transition-colors duration-500">
-            To narzędzie do autorefleksji, symbolicznej pracy z psychiką <br className="hidden sm:block" /> i odkrywania siebie.
+            A tool for self-reflection, symbolic work with the psyche, <br className="hidden sm:block" /> and inner discovery.
           </p>
         </motion.div>
 
@@ -209,20 +203,20 @@ export default function Home() {
               {/* Report Type Selector */}
               <motion.div variants={fadeInUp} className="space-y-4">
                 <fieldset>
-                  <legend className="block text-sm font-medium text-slate-700 dark:text-slate-300 text-center mb-4 transition-colors">Rodzaj Portretu</legend>
+                  <legend className="block text-sm font-medium text-slate-700 dark:text-slate-300 text-center mb-4 transition-colors">Portrait Type</legend>
                   <div className="grid grid-cols-2 gap-4">
                     <label className={`relative cursor-pointer rounded-2xl border p-4 transition-all duration-300 flex flex-col items-center justify-center text-center gap-2 focus-within:ring-2 focus-within:ring-amber-500 ${watchReportType === 'INDIVIDUAL' ? 'bg-amber-100 dark:bg-amber-500/10 border-amber-300 dark:border-amber-500/50 text-amber-800 dark:text-amber-300 shadow-sm dark:shadow-[0_0_15px_rgba(245,158,11,0.1)]' : 'bg-white/50 dark:bg-slate-900/50 border-black/10 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-800'}`}>
                       <input type="radio" value="INDIVIDUAL" {...form.register("reportType")} className="sr-only peer" />
                       <div className={`flex items-center justify-center gap-2 py-3 rounded-xl transition-all duration-500 peer-checked:bg-transparent ${watchReportType === 'INDIVIDUAL' ? 'text-amber-700 dark:text-amber-300' : 'text-slate-500 dark:text-slate-400'}`}>
                         <User className="w-4 h-4" aria-hidden="true" />
-                        <span className="text-sm font-medium tracking-wide">Indywidualny</span>
+                        <span className="text-sm font-medium tracking-wide">Individual</span>
                       </div>
                     </label>
                     <label className={`relative cursor-pointer rounded-2xl border p-4 transition-all duration-300 flex flex-col items-center justify-center text-center gap-2 focus-within:ring-2 focus-within:ring-purple-500 ${watchReportType === 'PARTNERSHIP' ? 'bg-purple-100 dark:bg-purple-500/10 border-purple-300 dark:border-purple-500/50 text-purple-800 dark:text-purple-300 shadow-sm dark:shadow-[0_0_15px_rgba(168,85,247,0.1)]' : 'bg-white/50 dark:bg-slate-900/50 border-black/10 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-800'}`}>
                       <input type="radio" value="PARTNERSHIP" {...form.register("reportType")} className="sr-only peer" />
                       <div className={`flex items-center justify-center gap-2 py-3 rounded-xl transition-all duration-500 peer-checked:bg-transparent ${watchReportType === 'PARTNERSHIP' ? 'text-purple-700 dark:text-purple-300' : 'text-slate-500 dark:text-slate-400'}`}>
                         <Users className="w-4 h-4" aria-hidden="true" />
-                        <span className="text-sm font-medium tracking-wide">Partnerski</span>
+                        <span className="text-sm font-medium tracking-wide">Partnership</span>
                       </div>
                     </label>
                   </div>
@@ -232,13 +226,13 @@ export default function Home() {
               <motion.div variants={fadeInUp} className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label htmlFor="name1" className="block text-xs font-bold tracking-widest text-slate-600 dark:text-slate-300 uppercase px-1 transition-colors">
-                    {watchReportType === 'PARTNERSHIP' ? 'Twoje Imię' : 'Imię'}
+                    {watchReportType === 'PARTNERSHIP' ? 'Your Name' : 'Name'}
                   </label>
                   <input
                     id="name1"
                     type="text"
                     {...form.register("name1")}
-                    placeholder="np. Anna"
+                    placeholder="e.g. Anna"
                     className="w-full px-5 py-4 bg-white/50 dark:bg-white/[0.03] border border-black/10 dark:border-white/20 hover:border-black/20 dark:hover:border-white/30 rounded-2xl text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:bg-white dark:focus:bg-white/[0.08] focus:border-amber-500 focus:ring-2 focus:ring-amber-500/50 transition-all duration-300"
                     aria-invalid={form.formState.errors.name1 ? "true" : "false"}
                   />
@@ -246,7 +240,7 @@ export default function Home() {
                 </div>
                 
                 <div className="space-y-2">
-                  <label htmlFor="date1" className="block text-xs font-bold tracking-widest text-slate-600 dark:text-slate-300 uppercase px-1 transition-colors">Data urodzenia</label>
+                  <label htmlFor="date1" className="block text-xs font-bold tracking-widest text-slate-600 dark:text-slate-300 uppercase px-1 transition-colors">Birth Date</label>
                   <input
                     id="date1"
                     type="date"
@@ -268,19 +262,19 @@ export default function Home() {
                     className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2"
                   >
                     <div className="space-y-2">
-                      <label htmlFor="name2" className="block text-xs font-bold tracking-widest text-slate-600 dark:text-slate-300 uppercase px-1 transition-colors">Imię (Partner / Partnerka)</label>
+                      <label htmlFor="name2" className="block text-xs font-bold tracking-widest text-slate-600 dark:text-slate-300 uppercase px-1 transition-colors">Second Person's Name</label>
                       <input
                         id="name2"
                         type="text"
                         {...form.register("name2")}
-                        placeholder="np. Marek"
+                        placeholder="e.g. Mark"
                         className="w-full px-5 py-4 bg-white/50 dark:bg-white/[0.03] border border-black/10 dark:border-white/20 hover:border-black/20 dark:hover:border-white/30 rounded-2xl text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:bg-white dark:focus:bg-white/[0.08] focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all duration-300"
                         aria-invalid={form.formState.errors.name2 ? "true" : "false"}
                       />
                     </div>
                     
                     <div className="space-y-2">
-                      <label htmlFor="date2" className="block text-xs font-bold tracking-widest text-slate-600 dark:text-slate-300 uppercase px-1 transition-colors">Data urodzenia (Partner / Partnerka)</label>
+                      <label htmlFor="date2" className="block text-xs font-bold tracking-widest text-slate-600 dark:text-slate-300 uppercase px-1 transition-colors">Second Person's Birth Date</label>
                       <input
                         id="date2"
                         type="date"
@@ -303,9 +297,9 @@ export default function Home() {
                   
                   <span className="relative flex items-center justify-center gap-3">
                     {calculating ? (
-                      <span className="flex items-center gap-2">Przeliczanie Energii <Sparkles className="w-4 h-4 animate-spin text-[#D4AF37]" aria-hidden="true" /></span>
+                      <span className="flex items-center gap-2">Calculating Energy <Sparkles className="w-4 h-4 animate-spin text-[#D4AF37]" aria-hidden="true" /></span>
                     ) : (
-                      <>Pokaż Zarys Portretu</>
+                      <>Reveal Portrait Outline</>
                     )}
                   </span>
                 </button>
@@ -333,10 +327,10 @@ export default function Home() {
                 className="text-center mb-20"
               >
                 <span className="px-4 py-1.5 rounded-full bg-[#EBE5D9]/50 dark:bg-white/[0.03] border border-[#8C6D46]/20 dark:border-white/10 text-[#5C4505] dark:text-[#E8E4D9] text-xs font-semibold tracking-widest uppercase mb-6 inline-block shadow-sm transition-colors duration-500">
-                  {reportType === "INDIVIDUAL" ? 'Portret Indywidualny' : 'Portret Partnerski'}
+                  {reportType === "INDIVIDUAL" ? 'Individual Portrait' : 'Partnership Portrait'}
                 </span>
                 <h2 className="text-4xl sm:text-5xl font-serif font-light text-[#2A241F] dark:text-white mb-2 transition-colors duration-500">
-                  Zarys Twojego <span className="italic text-[#8C6D46] dark:text-[#B89B72]">Przeznaczenia</span>
+                  The Outline of Your <span className="italic text-[#8C6D46] dark:text-[#B89B72]">Destiny</span>
                 </h2>
                 <p className="text-3xl sm:text-4xl font-serif text-[#8C6D46] dark:text-[#B89B72] font-medium max-w-xl mx-auto transition-colors duration-500 mt-2 mb-6">
                   {reportType === "PARTNERSHIP" ? `${result.names.person1} & ${result.names.person2}` : result.names.person1}
@@ -415,10 +409,8 @@ export default function Home() {
                 })}
               </div>
 
-
-
               {/* Enhanced Sales Landing Page for PDF */}
-              <SalesLanding 
+              <SalesLandingEn 
                 reportType={reportType}
                 onCheckout={handleCheckout}
                 checkingOut={checkingOut}

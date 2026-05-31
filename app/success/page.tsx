@@ -23,12 +23,12 @@ function SuccessContent() {
         .then((res) => res.json())
         .then((data) => {
           if (data.success) {
-            toast.success("Lokalny webhook wysłany! PDF jest generowany.");
+            toast.success("Local webhook sent! PDF is generating.");
           } else {
-            toast.error("Błąd symulacji webhooka: " + (data.error || "Nieznany błąd"));
+            toast.error("Webhook simulation error: " + (data.error || "Unknown error"));
           }
         })
-        .catch(() => toast.error("Błąd połączenia podczas symulacji webhooka."))
+        .catch(() => toast.error("Connection error during webhook simulation."))
         .finally(() => setSimulating(false));
     }
   }, [orderId]);
@@ -43,49 +43,49 @@ function SuccessContent() {
         </div>
         
         <h1 className="text-4xl font-serif font-light text-slate-900 dark:text-white mb-4 transition-colors">
-          Płatność <span className="italic text-green-600 dark:text-green-400">Zatwierdzona</span>
+          Payment <span className="italic text-green-600 dark:text-green-400">Approved</span>
         </h1>
         
         <p className="text-lg text-slate-600 dark:text-slate-300 mb-8 font-light leading-relaxed transition-colors">
-          Dziękujemy za zakup! Twój szczegółowy raport jest właśnie przygotowywany i niedługo znajdzie się w Twojej skrzynce.
+          Thank you for your purchase! Your detailed report is being generated and will be in your inbox shortly.
         </p>
 
         {orderId && (
           <div className="bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 p-5 rounded-2xl mb-8 text-left transition-colors">
-            <p className="text-xs font-bold tracking-widest text-slate-500 dark:text-slate-400 uppercase mb-1">ID Zamówienia</p>
+            <p className="text-xs font-bold tracking-widest text-slate-500 dark:text-slate-400 uppercase mb-1">Order ID</p>
             <p className="text-slate-900 dark:text-white font-mono text-sm break-all">{orderId}</p>
           </div>
         )}
 
         <p className="text-slate-500 dark:text-slate-400 text-sm mb-10 transition-colors">
-          Wysłaliśmy link do pobrania raportu na Twój e-mail. Sprawdź skrzynkę odbiorczą 
-          (oraz folder SPAM na wszelki wypadek).
+          We have sent the download link to your email. Please check your inbox 
+          (and the SPAM folder just in case).
         </p>
 
         {simulating && (
           <div className="flex items-center justify-center gap-2 mb-8 text-amber-600 dark:text-amber-500 text-sm font-medium bg-amber-50 dark:bg-amber-900/20 p-3 rounded-lg border border-amber-200 dark:border-amber-800/30">
             <Loader2 className="w-4 h-4 animate-spin" />
-            <span>[Lokalnie] Symulowanie płatności Stripe i generowanie PDF... Trwa to ok. 20 sek.</span>
+            <span>[Local] Simulating Stripe payment and generating PDF... This takes ~20 sec.</span>
           </div>
         )}
 
         <div className="space-y-4">
           <Link
-            href="/"
+            href="/en"
             className="flex items-center justify-center w-full bg-slate-900 dark:bg-white hover:bg-slate-800 dark:hover:bg-slate-200 text-white dark:text-slate-900 font-semibold tracking-wide py-4 px-6 rounded-xl transition-all shadow-md"
           >
-            Oblicz Nowy Portret
+            Calculate a New Portrait
           </Link>
           <Link
-            href="/"
+            href="/en"
             className="flex items-center justify-center w-full bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 font-semibold py-4 px-6 rounded-xl transition-all"
           >
-            Wróć na Stronę Główną
+            Return to Homepage
           </Link>
         </div>
 
         <p className="text-slate-400 dark:text-slate-500 text-xs mt-8 transition-colors">
-          Masz pytania? Napisz na: kontakt@getarcheya.com
+          Any questions? Reach out at: hello@getarcheya.com
         </p>
       </div>
     </div>
@@ -106,7 +106,7 @@ export default function SuccessPage() {
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.05] dark:opacity-[0.15] mix-blend-overlay transition-opacity duration-500"></div>
       </div>
 
-      <Suspense fallback={<div className="text-slate-900 dark:text-white font-serif italic text-2xl">Ładowanie...</div>}>
+      <Suspense fallback={<div className="text-slate-900 dark:text-white font-serif italic text-2xl">Loading...</div>}>
         <SuccessContent />
       </Suspense>
     </main>

@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
     const validData = CalculateRequestSchema.parse(body);
 
     if (validData.reportType === "INDIVIDUAL") {
-      const portrait = calculateIndividualPortrait(validData.date1);
+      const portrait = calculateIndividualPortrait(validData.date1, (validData.locale as "pl" | "en") || "pl");
       const allCards = Object.values(portrait.detailedCards);
 
       return NextResponse.json(
@@ -34,13 +34,13 @@ export async function POST(request: NextRequest) {
         return NextResponse.json(
           {
             success: false,
-            error: "Raport partnerski wymaga dwóch dat",
+            error: validData.locale === "en" ? "Partnership report requires two dates" : "Raport partnerski wymaga dwóch dat",
           },
           { status: 400 }
         );
       }
 
-      const portrait = calculatePartnershipPortrait(validData.date1, validData.date2);
+      const portrait = calculatePartnershipPortrait(validData.date1, validData.date2, (validData.locale as "pl" | "en") || "pl");
       const allCards = Object.values(portrait.detailedCards);
 
       return NextResponse.json(
@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       {
         success: false,
-        error: error instanceof Error ? error.message : "Nie udało się obliczyć portretu",
+        error: error instanceof Error ? error.message : "Calculation failed / Nie udało się obliczyć portretu",
       },
       { status: 400 }
     );

@@ -2,14 +2,36 @@ export interface PurchaseReceiptEmailProps {
   email: string;
   downloadLink: string;
   reportType: string;
+  baseUrl: string;
+  locale?: string;
 }
 
 export function PurchaseReceiptEmail({
   email,
   downloadLink,
   reportType,
+  baseUrl,
+  locale = "pl",
 }: PurchaseReceiptEmailProps) {
-  const reportTypeName = reportType === 'INDIVIDUAL' ? 'Portret Indywidualny' : 'Portret Partnerski';
+  const isEnglish = locale === "en";
+
+  const reportTypeNamePl = reportType === 'INDIVIDUAL' ? 'Portret Indywidualny' : 'Portret Partnerski';
+  const reportTypeNameEn = reportType === 'INDIVIDUAL' ? 'Individual Portrait' : 'Partnership Portrait';
+  const reportTypeName = isEnglish ? reportTypeNameEn : reportTypeNamePl;
+
+  const textGreeting = isEnglish ? "Thank you for your purchase!" : "Dziękujemy za zakup!";
+  const textBodyHtml = isEnglish 
+    ? `Your <strong>${reportTypeName}</strong> has been successfully generated and is ready to download.`
+    : `Twój <strong>${reportTypeName}</strong> został pomyślnie wygenerowany i jest gotowy do odbioru.`;
+  const textButton = isEnglish ? "Download My Report" : "Odbierz Mój Raport";
+  const textFallback = isEnglish 
+    ? "If the button doesn't work, copy and paste this link into your browser:"
+    : "Jeżeli przycisk nie działa, skopiuj ten link do przeglądarki:";
+  const textDisclaimer = isEnglish 
+    ? "The report was generated automatically for self-exploration purposes. Remember that final decisions and interpretations are solely yours."
+    : "Raport wygenerowano automatycznie w celach samopoznawczych. Pamiętaj, że ostateczne decyzje i interpretacje należą wyłącznie do Ciebie.";
+  const textRights = isEnglish ? "© 2026 Archeya. All rights reserved." : "© 2026 Archeya. Wszystkie prawa zastrzeżone.";
+  const textSentTo = isEnglish ? "Sent to:" : "Wysłano na adres:";
 
   return {
     html: `
@@ -38,47 +60,67 @@ export function PurchaseReceiptEmail({
           <div class="wrapper">
             <div class="container">
               <div class="header">
-                <h1>Archeya</h1>
+                <img src="${baseUrl}/Logo/PNG/archeya-logo-vertical-dark.png" alt="Archeya" style="max-width: 140px; height: auto; display: inline-block; margin: 0 auto;" />
               </div>
               
               <div class="content" style="padding: 20px 40px 40px 40px; text-align: center; color: #111827;">
-                <div class="greeting" style="font-size: 18px; font-weight: 500; margin-bottom: 16px;">Dziękujemy za zakup!</div>
+                <div class="greeting" style="font-size: 18px; font-weight: 500; margin-bottom: 16px;">${textGreeting}</div>
                 <p class="body-text" style="font-size: 15px; color: #4b5563; line-height: 1.7; margin-bottom: 24px;">
-                  Twój <strong>${reportTypeName}</strong> został pomyślnie wygenerowany i jest gotowy do odbioru.
+                  ${textBodyHtml}
                 </p>
                 
                 <center>
                   <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="margin: 10px auto 30px auto;">
                     <tr>
                       <td align="center" bgcolor="#111827" style="border-radius: 6px;">
-                        <a href="${downloadLink}" style="display: inline-block; padding: 14px 32px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 15px; color: #ffffff; text-decoration: none; font-weight: 500; letter-spacing: 0.02em; border: 1px solid #111827; border-radius: 6px;">Odbierz Mój Raport</a>
+                        <a href="${downloadLink}" style="display: inline-block; padding: 14px 32px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 15px; color: #ffffff; text-decoration: none; font-weight: 500; letter-spacing: 0.02em; border: 1px solid #111827; border-radius: 6px;">${textButton}</a>
                       </td>
                     </tr>
                   </table>
                 </center>
                 
                 <p class="link-fallback">
-                  Jeżeli przycisk nie działa, skopiuj ten link do przeglądarki:<br>
+                  ${textFallback}<br>
                   <a href="${downloadLink}" style="color: #4b5563; text-decoration: underline;">${downloadLink}</a>
                 </p>
                 
                 <hr class="divider">
                 
                 <p class="disclaimer">
-                  Raport wygenerowano automatycznie w celach samopoznawczych. Pamiętaj, że ostateczne decyzje i interpretacje należą wyłącznie do Ciebie.
+                  ${textDisclaimer}
                 </p>
               </div>
               
               <div class="footer">
-                <p class="footer-text">© 2026 Archeya. Wszystkie prawa zastrzeżone.</p>
-                <p class="footer-text">Wysłano na adres: ${email}</p>
+                <p class="footer-text">${textRights}</p>
+                <p class="footer-text">${textSentTo} ${email}</p>
               </div>
             </div>
           </div>
         </body>
       </html>
     `,
-    text: `
+    text: isEnglish ? `
+Archeya - Report Ready!
+
+Thank you for your purchase!
+
+Your report "${reportTypeName}" has been generated and is ready to download.
+
+Click the link below to download your PDF:
+${downloadLink}
+
+---
+
+If the link does not work, copy and paste the URL above into your browser.
+
+---
+
+This report was generated automatically based on your date of birth. 
+It is intended solely for self-exploration and personal development purposes.
+
+© 2026 Archeya
+    ` : `
 Archeya - Raport Gotowy!
 
 Dziękujemy za zakup!

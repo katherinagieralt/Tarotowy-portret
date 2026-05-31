@@ -18,16 +18,16 @@ interface SEOConfig {
  * export const metadata = generateMetadata({
  *   title: 'Landing Page',
  *   description: 'Your page description',
- *   ogImage: 'https://example.com/og-image.jpg',
+ *   ogImage: 'https://getarcheya.com/images/cover_bg.jpg',
  * });
  */
 export function generateMetadata(config: SEOConfig): Metadata {
   const {
     title,
     description,
-    ogImage = 'https://example.com/og-image.jpg',
-    twitterHandle = '@yourhandle',
-    url = process.env.NEXTAUTH_URL || 'http://localhost:3000',
+    ogImage = 'https://getarcheya.com/images/cover_bg.jpg',
+    twitterHandle = '@getarcheya',
+    url = process.env.NEXTAUTH_URL || 'https://getarcheya.com',
   } = config;
 
   return {

@@ -2,18 +2,18 @@ import { getAllArkanaPosts } from '@/lib/arkany';
 import Link from 'next/link';
 import Image from 'next/image';
 
-export default async function ArkanaiPage() {
-  const posts = await getAllArkanaPosts();
+export default async function ArkanaiPageEn() {
+  const posts = await getAllArkanaPosts('en');
 
   return (
     <main className="min-h-screen bg-[#F9F6EE] dark:bg-[#0A0710] py-20 px-4 transition-colors duration-500">
       <div className="max-w-6xl mx-auto">
         <header className="mb-16 text-center">
           <h1 className="text-4xl sm:text-5xl font-serif font-bold text-slate-900 dark:text-white mb-6">
-            Wielkie Arkana
+            Major Arcana
           </h1>
           <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-            Poznaj 22 archetypy podróży ludzkiej duszy. Kliknij kartę, by zanurzyć się w jej znaczenie.
+            Discover the 22 archetypes of the human soul's journey. Click a card to dive into its meaning.
           </p>
         </header>
 
@@ -60,7 +60,7 @@ export default async function ArkanaiPage() {
         ) : (
           <div className="text-center py-12">
             <p className="text-slate-600 dark:text-slate-400 mb-4">
-              Arkany są wciąż przygotowywane. Wróć wkrótce!
+              The Arcana are still being prepared. Come back soon!
             </p>
           </div>
         )}

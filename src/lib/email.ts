@@ -90,10 +90,10 @@ export async function sendLeadNotification(lead: LeadNotificationData) {
               </div>
             </div>
             
-            <a href="http://localhost:3000/api/admin/leads/${lead.id}" class="btn">Wyświetl w Panelu</a>
+            <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://getarcheya.com'}/admin/leads/${lead.id}" class="btn">Wyświetl w Panelu</a>
             
             <div class="footer">
-              <p>To jest automatyczna wiadomość z formularza kontaktowego Tarotowy Portret.</p>
+              <p>To jest automatyczna wiadomość z formularza kontaktowego Archeya.</p>
             </div>
           </div>
         </body>
@@ -101,7 +101,7 @@ export async function sendLeadNotification(lead: LeadNotificationData) {
     `;
 
     const result = await resend.emails.send({
-      from: 'noreply@tarot.pl',
+      from: 'Archeya <hello@getarcheya.com>',
       to: process.env.ADMIN_EMAIL,
       subject: `[Kontakt - ${lead.subject || 'Ogólne'}] Nowe zgłoszenie od ${lead.name}`,
       html,

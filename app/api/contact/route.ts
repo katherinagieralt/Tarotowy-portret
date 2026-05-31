@@ -10,6 +10,10 @@ import { log, requestLoggerMiddleware } from '@/lib/logger';
  */
 async function verifyTurnstile(token: string): Promise<boolean> {
   try {
+    if (process.env.NODE_ENV === 'development') {
+      return true;
+    }
+
     const response = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
       method: 'POST',
       headers: {
@@ -38,22 +42,22 @@ export async function POST(req: NextRequest) {
 
     // Rate limiting
     const ip = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip') || 'unknown';
+    const body = await req.json().catch(() => ({}));
+    const isEnglish = body.isEnglish === true;
+
     if (!checkRateLimit(ip)) {
       log.warn({ ip }, 'Rate limit exceeded for IP');
       return NextResponse.json(
-        { error: 'Zbyt wiele zgłoszeń. Spróbuj ponownie za godzinę.' },
+        { error: isEnglish ? 'Too many requests. Please try again in an hour.' : 'Zbyt wiele zgłoszeń. Spróbuj ponownie za godzinę.' },
         { status: 429 }
       );
     }
 
-    // 1. Parse request body
-    let body;
-    try {
-      body = await req.json();
-    } catch {
+    // 1. Check body
+    if (!body || Object.keys(body).length === 0) {
       log.error({ ip }, 'Invalid JSON in request body');
       return NextResponse.json(
-        { error: 'Invalid JSON in request body' },
+        { error: isEnglish ? 'Invalid request data.' : 'Nieprawidłowe dane.' },
         { status: 400 }
       );
     }
@@ -79,9 +83,12 @@ export async function POST(req: NextRequest) {
 
     log.info({ ip }, 'Turnstile verification succeeded');
 
-    // 3. Validate input with Zod (exclude turnstileToken)
-    const { turnstileToken: _, ...formData } = body;
-    const result = ContactFormSchema.safeParse(formData);
+    // 3. Validate input with Zod (exclude turnstileToken and isEnglish)
+    const { turnstileToken: _, isEnglish: __, ...formData } = body;
+    const { ContactFormSchemaEn } = await import('@/schemas/contact');
+    const schema = isEnglish ? ContactFormSchemaEn : ContactFormSchema;
+    
+    const result = schema.safeParse(formData);
     if (!result.success) {
       log.warn({ errors: result.error.flatten(), ip }, 'Contact form validation failed');
       return NextResponse.json(
@@ -142,7 +149,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(
       {
         success: true,
-        message: 'Wiadomość została pomyślnie wysłana',
+        message: isEnglish ? 'Message sent successfully' : 'Wiadomość została pomyślnie wysłana',
         leadId: lead.id,
       },
       { status: 201 }
@@ -163,7 +170,7 @@ export async function POST(req: NextRequest) {
     if (error instanceof Error) {
       if (error.message.includes('unique constraint')) {
         return NextResponse.json(
-          { error: 'Ten adres e-mail już istnieje w naszej bazie' },
+          { error: body?.isEnglish ? 'This email address already exists in our database.' : 'Ten adres e-mail już istnieje w naszej bazie' },
           { status: 400 }
         );
       }
@@ -171,7 +178,7 @@ export async function POST(req: NextRequest) {
 
     // Generic server error
     return NextResponse.json(
-      { error: 'Nie udało się przetworzyć żądania. Spróbuj ponownie.' },
+      { error: body?.isEnglish ? 'Failed to process request. Try again.' : 'Nie udało się przetworzyć żądania. Spróbuj ponownie.' },
       { status: 500 }
     );
   }

@@ -17,9 +17,10 @@ interface PositionItemProps {
   posData: { title: string; description: string };
   cards: CardType[];
   isPartner?: boolean;
+  isEnglish?: boolean;
 }
 
-export default function PositionItem({ posKey, posNum, posData, cards, isPartner = false }: PositionItemProps) {
+export default function PositionItem({ posKey, posNum, posData, cards, isPartner = false, isEnglish = false }: PositionItemProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -46,8 +47,8 @@ export default function PositionItem({ posKey, posNum, posData, cards, isPartner
           <button 
             onClick={() => setIsOpen(!isOpen)}
             className="flex items-center justify-center w-10 h-10 rounded-full bg-transparent hover:bg-amber-500/10 text-amber-600/80 hover:text-amber-700 dark:text-amber-500/80 dark:hover:text-amber-400 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/50"
-            title="Pokaż karty dla tej pozycji"
-            aria-label="Rozwiń listę kart"
+            title={isEnglish ? "Show cards for this position" : "Pokaż karty dla tej pozycji"}
+            aria-label={isEnglish ? "Expand card list" : "Rozwiń listę kart"}
           >
             <GalleryVerticalEnd className={`w-5 h-5 transition-transform duration-300 rotate-90 ${isOpen ? "opacity-100" : "opacity-80"}`} />
           </button>
@@ -73,7 +74,7 @@ export default function PositionItem({ posKey, posNum, posData, cards, isPartner
                   return (
                     <Link 
                       key={card.slug} 
-                      href={`/znaczenie/${generatePositionSlug(card.slug, isPartner, posKey)}`}
+                      href={`${isEnglish ? '' : '/pl'}/znaczenie/${generatePositionSlug(card.slug, isPartner, posKey, isEnglish)}`}
                       className="group/link flex items-center justify-center px-3 py-1 text-sm rounded-md bg-white/50 dark:bg-slate-900/60 border border-black/5 dark:border-white/5 hover:border-amber-500/40 hover:bg-amber-50 dark:hover:bg-[#1A1625] text-slate-700 dark:text-slate-300 transition-all duration-300"
                     >
                       <span className="text-amber-600 dark:text-amber-500 mr-1.5 font-bold text-xs opacity-70 group-hover/link:opacity-100">

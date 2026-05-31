@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { notFound } from 'next/navigation';
 import { getAllArkanaPosts, getArkanaPostBySlug } from '@/lib/arkany';
-import { individualPositionMeanings, partnerPositionMeanings, generatePositionSlug } from '@/lib/tarotCalculations';
+import { individualPositionMeaningsEn, partnerPositionMeaningsEn, generatePositionSlug } from '@/lib/tarotCalculations';
 import { Metadata } from 'next';
 import CardMagnifier from '@/components/CardMagnifier';
 
@@ -13,17 +13,24 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const resolvedParams = await params;
-  const post = await getArkanaPostBySlug(resolvedParams.slug);
+  const post = await getArkanaPostBySlug(resolvedParams.slug, 'en');
 
   if (!post) {
     return notFound();
   }
 
   return {
-    title: `${String(post.frontmatter.title)} - Tarotowy Portret`,
+    title: `${String(post.frontmatter.title)} - Tarot Portrait`,
     description: String(post.frontmatter.description),
+    alternates: {
+      canonical: `/arkana/${resolvedParams.slug}`,
+      languages: {
+        'en-US': `/arkana/${resolvedParams.slug}`,
+        'pl-PL': `/pl/arkana/${resolvedParams.slug}`,
+      },
+    },
     openGraph: {
-      title: String(post.frontmatter.title),
+      title: `${String(post.frontmatter.title)} - Tarot Portrait`,
       description: String(post.frontmatter.description),
       type: 'article',
     },
@@ -31,7 +38,7 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams() {
-  const posts = await getAllArkanaPosts();
+  const posts = await getAllArkanaPosts('en');
   return posts.map((post) => ({
     slug: post.slug,
   }));
@@ -79,13 +86,13 @@ export default async function ArkanaPage({
   params: Promise<{ slug: string }>;
 }) {
   const resolvedParams = await params;
-  const post = await getArkanaPostBySlug(resolvedParams.slug);
+  const post = await getArkanaPostBySlug(resolvedParams.slug, 'en');
 
   if (!post) {
     notFound();
   }
 
-  const allPosts = await getAllArkanaPosts();
+  const allPosts = await getAllArkanaPosts('en');
   const currentIndex = allPosts.findIndex(p => p.slug === resolvedParams.slug);
   
   const prevPost = currentIndex > 0 ? allPosts[currentIndex - 1] : allPosts[allPosts.length - 1];
@@ -97,14 +104,73 @@ export default async function ArkanaPage({
     <main className="min-h-screen bg-[#F9F6EE] dark:bg-[#0A0710] py-20 px-4 transition-colors duration-500">
       <div className="max-w-5xl mx-auto">
         
+        {/* Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Article',
+              headline: `${String(post.frontmatter.title)} - Tarot Portrait`,
+              description: String(post.frontmatter.description),
+              image: `https://getarcheya.com${imagePath}`,
+              author: {
+                '@type': 'Organization',
+                name: 'Archeya'
+              },
+              publisher: {
+                '@type': 'Organization',
+                name: 'Archeya',
+                logo: {
+                  '@type': 'ImageObject',
+                  url: 'https://getarcheya.com/favicon.ico'
+                }
+              },
+              mainEntityOfPage: {
+                '@type': 'WebPage',
+                '@id': `https://getarcheya.com/arkana/${resolvedParams.slug}`
+              }
+            })
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'BreadcrumbList',
+              itemListElement: [
+                {
+                  '@type': 'ListItem',
+                  position: 1,
+                  name: 'Home',
+                  item: 'https://getarcheya.com'
+                },
+                {
+                  '@type': 'ListItem',
+                  position: 2,
+                  name: 'Major Arcana',
+                  item: 'https://getarcheya.com/arkany'
+                },
+                {
+                  '@type': 'ListItem',
+                  position: 3,
+                  name: String(post.frontmatter.title),
+                  item: `https://getarcheya.com/arkana/${resolvedParams.slug}`
+                }
+              ]
+            })
+          }}
+        />
+
         {/* Breadcrumbs */}
         <nav className="mb-12 flex items-center text-sm font-medium text-slate-500 dark:text-slate-400">
           <Link href="/" className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
-            Strona główna
+            Home
           </Link>
           <span className="mx-3 text-slate-300 dark:text-slate-600">/</span>
           <Link href="/arkany" className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
-            Wielkie Arkana
+            Major Arcana
           </Link>
           <span className="mx-3 text-slate-300 dark:text-slate-600">/</span>
           <span className="text-amber-600 dark:text-amber-400">{String(post.frontmatter.title)}</span>
@@ -148,10 +214,10 @@ export default async function ArkanaPage({
               Zgłębiaj wiedzę
             </span>
             <h2 className="text-3xl md:text-4xl font-serif text-slate-900 dark:text-white mb-4">
-              Znaczenie w pozycjach Portretu
+              Meaning in Portrait Positions
             </h2>
             <p className="text-slate-600 dark:text-slate-400 font-light max-w-2xl mx-auto">
-              Wybierz konkretną pozycję, aby sprawdzić, jak energia karty <strong className="font-medium text-slate-800 dark:text-slate-200">{String(post.frontmatter.title)}</strong> manifestuje się w różnych sferach Twojego życia.
+              Select a specific position to check how the energy of the <strong className="font-medium text-slate-800 dark:text-slate-200">{String(post.frontmatter.title)}</strong> card manifests in different spheres of your life.
             </p>
           </div>
           
@@ -160,16 +226,16 @@ export default async function ArkanaPage({
             <div>
               <div className="flex items-center gap-6 mb-8">
                 <h3 className="text-xl font-serif font-bold text-slate-900 dark:text-white whitespace-nowrap">
-                  Portret Indywidualny
+                  Individual Portrait
                 </h3>
                 <div className="h-px bg-gradient-to-r from-amber-500/30 to-transparent flex-1"></div>
               </div>
               
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                {Object.entries(individualPositionMeanings).map(([key, pos]) => (
+                {Object.entries(individualPositionMeaningsEn).map(([key, pos]) => (
                   <Link 
                     key={key} 
-                    href={`/znaczenie/${generatePositionSlug(post.slug, false, key)}`}
+                    href={`/znaczenie/${generatePositionSlug(post.slug, false, key, true)}`}
                     className="group relative bg-white/40 dark:bg-slate-900/40 backdrop-blur-sm border border-black/5 dark:border-white/5 p-5 rounded-2xl hover:bg-white/80 dark:hover:bg-slate-800/80 hover:border-amber-500/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full overflow-hidden"
                   >
                     <div className="absolute -right-4 -top-4 w-16 h-16 bg-amber-500/5 rounded-full blur-xl group-hover:bg-amber-500/20 transition-all duration-500"></div>
@@ -193,16 +259,16 @@ export default async function ArkanaPage({
             <div>
               <div className="flex items-center gap-6 mb-8">
                 <h3 className="text-xl font-serif font-bold text-slate-900 dark:text-white whitespace-nowrap">
-                  Portret Partnerski
+                  Partnership Portrait
                 </h3>
                 <div className="h-px bg-gradient-to-r from-amber-500/30 to-transparent flex-1"></div>
               </div>
               
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                {Object.entries(partnerPositionMeanings).map(([key, pos]) => (
+                {Object.entries(partnerPositionMeaningsEn).map(([key, pos]) => (
                   <Link 
                     key={key} 
-                    href={`/znaczenie/${generatePositionSlug(post.slug, true, key)}`}
+                    href={`/znaczenie/${generatePositionSlug(post.slug, true, key, true)}`}
                     className="group relative bg-white/40 dark:bg-slate-900/40 backdrop-blur-sm border border-black/5 dark:border-white/5 p-5 rounded-2xl hover:bg-white/80 dark:hover:bg-slate-800/80 hover:border-amber-500/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full overflow-hidden"
                   >
                     <div className="absolute -right-4 -top-4 w-16 h-16 bg-amber-500/5 rounded-full blur-xl group-hover:bg-amber-500/20 transition-all duration-500"></div>
@@ -229,7 +295,7 @@ export default async function ArkanaPage({
           {prevPost && (
             <Link href={`/arkana/${prevPost.slug}`} className="group flex flex-col items-start bg-white/40 dark:bg-slate-900/40 hover:bg-white/80 dark:hover:bg-slate-800/80 p-6 rounded-2xl border border-transparent hover:border-amber-500/30 transition-all duration-300">
               <span className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-2 uppercase tracking-wider flex items-center gap-2">
-                <span className="group-hover:-translate-x-1 transition-transform">←</span> Poprzednia karta
+                <span className="group-hover:-translate-x-1 transition-transform">←</span> Previous card
               </span>
               <span className="text-xl font-serif font-bold text-slate-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
                 {String(prevPost.frontmatter.title)}
@@ -240,7 +306,7 @@ export default async function ArkanaPage({
           {nextPost && (
             <Link href={`/arkana/${nextPost.slug}`} className="group flex flex-col items-end text-right bg-white/40 dark:bg-slate-900/40 hover:bg-white/80 dark:hover:bg-slate-800/80 p-6 rounded-2xl border border-transparent hover:border-amber-500/30 transition-all duration-300">
               <span className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-2 uppercase tracking-wider flex items-center gap-2">
-                Następna karta <span className="group-hover:translate-x-1 transition-transform">→</span>
+                Next card <span className="group-hover:translate-x-1 transition-transform">→</span>
               </span>
               <span className="text-xl font-serif font-bold text-slate-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
                 {String(nextPost.frontmatter.title)}

@@ -57,6 +57,8 @@ export async function POST(request: NextRequest) {
         customerName = session.metadata.name1;
       }
 
+      const locale = session.metadata?.locale || "pl";
+
       // Aktualizuj status na PAID i zapisz email
       const updatedOrder = await prisma.order.update({
         where: { id: orderId },
@@ -77,7 +79,7 @@ export async function POST(request: NextRequest) {
         
         // Import i generowanie AI
         const { generatePersonalizedSummary } = await import("@/lib/generateSummary");
-        const aiSummary = await generatePersonalizedSummary(cardsArray, order.reportType as "INDIVIDUAL" | "PARTNERSHIP");
+        const aiSummary = await generatePersonalizedSummary(cardsArray, order.reportType as "INDIVIDUAL" | "PARTNERSHIP", locale);
 
         // Pierwszy przebieg (zbieranie numerów stron)
         const pageNumbers: Record<string, number> = {};
@@ -89,6 +91,7 @@ export async function POST(request: NextRequest) {
           date2: order.date2 || undefined,
           aiSummary: aiSummary,
           pageNumbers,
+          locale,
         };
 
         await renderToBuffer(React.createElement(TarotReportTemplate, templateProps) as any);
@@ -127,12 +130,16 @@ export async function POST(request: NextRequest) {
           email: customerEmail,
           downloadLink: downloadLink,
           reportType: order.reportType,
+          baseUrl: process.env.NEXT_PUBLIC_APP_URL || "https://getarcheya.com",
+          locale: locale,
         });
 
+        const subject = locale === "en" ? "Your Tarot Portrait - Report is ready!" : "Twój Tarotowy Portret, Raport gotowy!";
+
         const emailRes = await resend.emails.send({
-          from: "Archeya <onboarding@resend.dev>",
+          from: "Archeya <hello@getarcheya.com>",
           to: customerEmail,
-          subject: "Twój Tarotowy Portret – Raport gotowy!",
+          subject: subject,
           html: emailContent.html,
           text: emailContent.text,
         });
@@ -155,11 +162,16 @@ export async function POST(request: NextRequest) {
 
         // Wyślij email z informacją o błędzie
         if (customerEmail) {
+          const errorSubject = locale === "en" ? "Error generating your report" : "Błąd przy generowaniu Twojego raportu";
+          const errorText = locale === "en" 
+            ? "We're sorry, but we couldn't generate your report. Please try again or contact us."
+            : "Przepraszamy, ale nie udało nam się wygenerować Twojego raportu. Prosimy spróbować ponownie lub skontaktuj się z nami.";
+
           const errorEmailRes = await resend.emails.send({
-            from: "Archeya <onboarding@resend.dev>",
+            from: "Archeya <hello@getarcheya.com>",
             to: customerEmail,
-            subject: "Błąd przy generowaniu Twojego raportu",
-            text: "Przepraszamy, ale nie udało nam się wygenerować Twojego raportu. Prosimy spróbować ponownie lub skontaktuj się z nami.",
+            subject: errorSubject,
+            text: errorText,
           });
           if (errorEmailRes.error) {
             console.error("[webhook] Resend Error (Failure Email):", errorEmailRes.error);

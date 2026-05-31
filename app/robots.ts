@@ -1,13 +1,13 @@
 import { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://tarotowy-portret.pl';
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://getarcheya.com';
 
   return {
     rules: [
       {
         userAgent: '*',
-        allow: ['/', '/arkana/', '/arkany', '/znaczenie/', '/pozycje-portretu/', '/kalkulator', '/kontakt'],
+        allow: '/',
         disallow: ['/api/', '/admin/', '/success', '/error'],
       },
     ],

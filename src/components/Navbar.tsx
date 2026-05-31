@@ -7,18 +7,30 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Stars } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
+import { LanguageToggle } from "./LanguageToggle";
 
-const navLinks = [
-  { name: "Kalkulator", href: "/" },
-  { name: "Wielkie Arkana", href: "/arkany" },
-  { name: "Pozycje portretu", href: "/pozycje-portretu" },
-  { name: "O nas & Kontakt", href: "/kontakt" },
+const navLinksPl = [
+  { name: "Kalkulator", href: "/pl" },
+  { name: "Wielkie Arkana", href: "/pl/arkany" },
+  { name: "Pozycje portretu", href: "/pl/pozycje-portretu" },
+  { name: "O nas & Kontakt", href: "/pl/kontakt" },
+];
+
+const navLinksEn = [
+  { name: "Calculator", href: "/" },
+  { name: "Major Arcana", href: "/arkany" },
+  { name: "Portrait Positions", href: "/pozycje-portretu" },
+  { name: "About & Contact", href: "/kontakt" },
 ];
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  
+  const isPolish = pathname.startsWith('/pl');
+  const isEnglish = !isPolish;
+  const navLinks = isEnglish ? navLinksEn : navLinksPl;
 
   if (pathname.startsWith('/admin')) {
     return null;
@@ -69,20 +81,20 @@ export function Navbar() {
           >
             {/* Logo dla jasnego motywu (Czarne logo) */}
             <Image 
-              src="/Logo/PNG/archeya-logo-horizontal-dark.png" 
+              src="/Logo/PNG/archeya-logo-dark.png" 
               alt="Archeya Logo" 
-              width={400} 
-              height={120} 
-              className="h-20 w-auto md:h-24 transition-all duration-300 dark:hidden"
+              width={300} 
+              height={80} 
+              className="h-16 w-auto md:h-20 transition-all duration-300 dark:hidden"
               priority
             />
             {/* Logo dla ciemnego motywu (Białe logo) */}
             <Image 
-              src="/Logo/PNG/archeya-logo-horizontal-light.png" 
+              src="/Logo/PNG/archeya-logo-light.png" 
               alt="Archeya Logo" 
-              width={400} 
-              height={120} 
-              className="h-20 w-auto md:h-24 transition-all duration-300 hidden dark:block"
+              width={300} 
+              height={80} 
+              className="h-16 w-auto md:h-20 transition-all duration-300 hidden dark:block"
               priority
             />
           </Link>
@@ -114,13 +126,15 @@ export function Navbar() {
             })}
             
             {/* Theme Toggle in Desktop */}
-            <div className="ml-4 pl-4 border-l border-black/10 dark:border-white/10">
+            <div className="ml-4 pl-4 border-l border-black/10 dark:border-white/10 flex items-center gap-2">
+              <LanguageToggle />
               <ThemeToggle />
             </div>
           </nav>
 
           {/* Mobile Menu Toggle & Theme Toggle */}
-          <div className="flex md:hidden items-center gap-4">
+          <div className="flex md:hidden items-center gap-2">
+            <LanguageToggle />
             <ThemeToggle />
             <button
               onClick={() => setIsOpen(!isOpen)}
