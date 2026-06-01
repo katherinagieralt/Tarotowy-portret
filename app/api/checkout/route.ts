@@ -47,6 +47,7 @@ export async function POST(request: NextRequest) {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: reqCurrency === "pln" ? ["card", "blik", "p24", "link"] : ["card", "paypal", "link"],
       billing_address_collection: "required",
+      allow_promotion_codes: true,
       line_items: [
         {
           price_data: {
