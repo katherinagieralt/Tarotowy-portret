@@ -106,7 +106,7 @@ export function SalesLandingEn({ reportType, onCheckout, checkingOut }: SalesLan
   const price = isIndividual ? "39" : "49";
   const title = isIndividual ? "Uncover Your Full Self" : "Decode Your Relationship";
   const subtitle = isIndividual 
-    ? "Get your personalized, approximately 50-page deep-dive e-book into your psyche." 
+    ? "Get your personalized, approximately 40-page deep-dive e-book into your psyche." 
     : "Get your shared, approximately 30-page deep-dive e-book into your relationship.";
 
   const hookText = isIndividual 
@@ -358,7 +358,7 @@ export function SalesLandingEn({ reportType, onCheckout, checkingOut }: SalesLan
                   Investment in yourself
                 </div>
                 <span className="block text-xs font-bold uppercase tracking-widest text-amber-700 dark:text-amber-400 mb-1">
-                  E-book ({isIndividual ? "~ 50 pages" : "~ 30 pages"})
+                  E-book ({isIndividual ? "~ 40 pages" : "~ 30 pages"})
                 </span>
                 <div className="flex items-baseline justify-center gap-1">
                   <span className="font-bold text-amber-600 dark:text-amber-400">{currency === "eur" ? "€" : "$"}</span>

@@ -94,7 +94,7 @@ export function SalesLanding({ reportType, onCheckout, checkingOut }: SalesLandi
   const price = isIndividual ? "149" : "179";
   const title = isIndividual ? "Poznaj Pełen Obraz Siebie" : "Rozkoduj Waszą Relację";
   const subtitle = isIndividual 
-    ? "Odbierz swój spersonalizowany, ok. 50-stronicowy e-book po Twojej psychice." 
+    ? "Odbierz swój spersonalizowany, ok. 40-stronicowy e-book po Twojej psychice." 
     : "Odbierzcie wasz wspólny, ok. 30-stronicowy e-book po waszej relacji.";
 
   const hookText = isIndividual 
@@ -356,7 +356,7 @@ export function SalesLanding({ reportType, onCheckout, checkingOut }: SalesLandi
                   Inwestycja w siebie
                 </div>
                 <span className="block text-xs font-bold uppercase tracking-widest text-amber-700 dark:text-amber-400 mb-1">
-                  E-book ({isIndividual ? "ok. 50 stron" : "ok. 30 stron"})
+                  E-book ({isIndividual ? "ok. 40 stron" : "ok. 30 stron"})
                 </span>
                 <div className="flex items-baseline justify-center gap-1">
                   <span className="font-serif text-4xl sm:text-5xl font-bold text-amber-700 dark:text-amber-300">{price}</span>
