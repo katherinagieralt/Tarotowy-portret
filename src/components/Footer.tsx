@@ -19,9 +19,6 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
   const pathname = usePathname();
 
-  if (pathname.startsWith('/admin')) {
-    return null;
-  }
 
   const isPolish = pathname.startsWith('/pl');
   const isEnglish = !isPolish;

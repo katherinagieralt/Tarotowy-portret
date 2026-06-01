@@ -57,6 +57,9 @@ services:
       
       # Reduce noise
       NPM_CONFIG_LOGLEVEL: ${NPM_LOG_LEVEL:-warn}
+      
+      # Admin Email
+      ADMIN_EMAIL: ${ADMIN_EMAIL}
     
     ports:
       # Expose on all interfaces for Piny access from host

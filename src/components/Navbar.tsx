@@ -32,9 +32,6 @@ export function Navbar() {
   const isEnglish = !isPolish;
   const navLinks = isEnglish ? navLinksEn : navLinksPl;
 
-  if (pathname.startsWith('/admin')) {
-    return null;
-  }
 
   useEffect(() => {
     const handleScroll = () => {

@@ -90,8 +90,7 @@ export async function sendLeadNotification(lead: LeadNotificationData) {
               </div>
             </div>
             
-            <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://getarcheya.com'}/admin/leads/${lead.id}" class="btn">Wyświetl w Panelu</a>
-            
+
             <div class="footer">
               <p>To jest automatyczna wiadomość z formularza kontaktowego Archeya.</p>
             </div>

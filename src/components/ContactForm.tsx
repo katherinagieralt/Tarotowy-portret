@@ -141,7 +141,7 @@ export function ContactForm({ isEnglish = false }: { isEnglish?: boolean }) {
               {...register('subject')}
               id="subject"
               disabled={isSubmitting || submitStatus === 'loading'}
-              className="w-full px-5 py-4 appearance-none bg-white/50 dark:bg-white/[0.03] border border-black/10 dark:border-white/20 hover:border-black/20 dark:hover:border-white/30 rounded-2xl text-slate-900 dark:text-white focus:outline-none focus:bg-white dark:focus:bg-white/[0.08] focus:border-amber-500 focus:ring-2 focus:ring-amber-500/50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full px-5 py-4 appearance-none bg-white/50 dark:bg-white/[0.03] border border-black/10 dark:border-white/20 hover:border-black/20 dark:hover:border-white/30 rounded-2xl text-slate-900 dark:text-white focus:outline-none focus:bg-white dark:focus:bg-white/[0.08] focus:border-amber-500 focus:ring-2 focus:ring-amber-500/50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed dark:[color-scheme:dark]"
             >
               <option value="" disabled className="text-slate-400">{isEnglish ? 'Select the main reason for contact...' : 'Wybierz główny powód kontaktu...'}</option>
               <option value={isEnglish ? 'Email with the report didn\'t arrive' : 'Mail z raportem nie doszedł'}>{isEnglish ? 'Email with the report didn\'t arrive' : 'Mail z raportem nie doszedł'}</option>

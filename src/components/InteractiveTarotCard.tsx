@@ -15,25 +15,47 @@ interface CardProps {
     };
   };
   delay: number;
+  index: number;
 }
 
-export function InteractiveTarotCard({ card, delay }: CardProps) {
+export function InteractiveTarotCard({ card, delay, index }: CardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isTouchDevice, setIsTouchDevice] = useState(false);
+  const [globalFlipped, setGlobalFlipped] = useState(false);
 
   useEffect(() => {
-    // Proste wykrywanie urządzeń dotykowych
     setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
+    
+    // Sprawdź czy inna karta była już odwrócona
+    if (window.sessionStorage.getItem('tarot-card-flipped') === 'true') {
+      setGlobalFlipped(true);
+    }
+
+    // Nasłuchuj na globalne zdarzenie odwrócenia
+    const handleGlobalFlip = () => setGlobalFlipped(true);
+    window.addEventListener('tarot-card-flipped', handleGlobalFlip);
+    
+    return () => window.removeEventListener('tarot-card-flipped', handleGlobalFlip);
   }, []);
+
+  const triggerGlobalFlip = () => {
+    if (!globalFlipped) {
+      setGlobalFlipped(true);
+      window.sessionStorage.setItem('tarot-card-flipped', 'true');
+      window.dispatchEvent(new Event('tarot-card-flipped'));
+    }
+  };
 
   const handleInteraction = () => {
     if (isTouchDevice) {
+      triggerGlobalFlip();
       setIsFlipped(!isFlipped);
     }
   };
 
   const handleMouseEnter = () => {
     if (!isTouchDevice) {
+      triggerGlobalFlip();
       setIsFlipped(true);
     }
   };
@@ -45,11 +67,13 @@ export function InteractiveTarotCard({ card, delay }: CardProps) {
   };
 
   // Animacja podpowiedzi (wiggle) pojawiająca się tylko na urządzeniach dotykowych
-  // Odtwarza się chwilę po pojawieniu się karty
+  // Odtwarza się chwilę po pojawieniu się karty, tylko dla pierwszych 3 kart, jeśli nikt jeszcze nie kliknął
+  const shouldWiggle = isTouchDevice && index < 3 && !globalFlipped;
+
   const wiggleVariants = {
     hidden: { rotateY: 0 },
     visible: {
-      rotateY: isTouchDevice ? [0, 25, 0] : 0,
+      rotateY: shouldWiggle ? [0, 25, 0] : 0,
       transition: {
         delay: delay + 1.2, // Czekamy aż skończy się animacja wjazdu (0.7s) + mała przerwa
         duration: 0.8,

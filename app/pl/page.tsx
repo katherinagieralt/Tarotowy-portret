@@ -255,14 +255,9 @@ export default function Home() {
                       type="date"
                       lang="pl"
                       {...form.register("date1")}
-                      className={`w-full px-4 py-3 md:px-5 md:py-4 bg-white/50 dark:bg-white/[0.03] border border-black/10 dark:border-white/20 hover:border-black/20 dark:hover:border-white/30 rounded-2xl text-slate-900 dark:text-white focus:outline-none focus:bg-white dark:focus:bg-white/[0.08] focus:border-amber-500 focus:ring-2 focus:ring-amber-500/50 transition-all duration-300 dark:[color-scheme:dark] ${!form.watch("date1") ? "[&::-webkit-datetime-edit]:text-transparent" : ""}`}
+                      className="w-full px-4 py-3 md:px-5 md:py-4 bg-white/50 dark:bg-white/[0.03] border border-black/10 dark:border-white/20 hover:border-black/20 dark:hover:border-white/30 rounded-2xl text-slate-900 dark:text-white focus:outline-none focus:bg-white dark:focus:bg-white/[0.08] focus:border-amber-500 focus:ring-2 focus:ring-amber-500/50 transition-all duration-300 dark:[color-scheme:dark]"
                       aria-invalid={form.formState.errors.date1 ? "true" : "false"}
                     />
-                    {!form.watch("date1") && (
-                      <div className="absolute inset-y-0 left-4 md:left-5 flex items-center pointer-events-none text-slate-400">
-                        DD.MM.RRRR
-                      </div>
-                    )}
                   </div>
                   {form.formState.errors.date1 && <p className="text-red-500 dark:text-red-400 text-sm font-medium px-2">{form.formState.errors.date1.message}</p>}
                 </div>
@@ -297,14 +292,9 @@ export default function Home() {
                           type="date"
                           lang="pl"
                           {...form.register("date2")}
-                          className={`w-full px-4 py-3 md:px-5 md:py-4 bg-white/50 dark:bg-white/[0.03] border border-black/10 dark:border-white/20 hover:border-black/20 dark:hover:border-white/30 rounded-2xl text-slate-900 dark:text-white focus:outline-none focus:bg-white dark:focus:bg-white/[0.08] focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all duration-300 dark:[color-scheme:dark] ${!form.watch("date2") ? "[&::-webkit-datetime-edit]:text-transparent" : ""}`}
+                          className="w-full px-4 py-3 md:px-5 md:py-4 bg-white/50 dark:bg-white/[0.03] border border-black/10 dark:border-white/20 hover:border-black/20 dark:hover:border-white/30 rounded-2xl text-slate-900 dark:text-white focus:outline-none focus:bg-white dark:focus:bg-white/[0.08] focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all duration-300 dark:[color-scheme:dark]"
                           aria-invalid={form.formState.errors.date2 ? "true" : "false"}
                         />
-                        {!form.watch("date2") && (
-                          <div className="absolute inset-y-0 left-4 md:left-5 flex items-center pointer-events-none text-slate-400">
-                            DD.MM.RRRR
-                          </div>
-                        )}
                       </div>
                     </div>
                   </motion.div>
@@ -367,7 +357,7 @@ export default function Home() {
                   if (!card.positionMeaning) return null;
                   
                   return (
-                    <InteractiveTarotCard key={idx} card={card} delay={idx * 0.05} />
+                    <InteractiveTarotCard key={idx} card={card} delay={idx * 0.05} index={idx} />
                   );
                 })}
               </div>
