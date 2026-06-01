@@ -72,8 +72,8 @@ export async function POST(request: NextRequest) {
         // Obliczamy portret, żeby móc przekazać karty do AI
         const { calculateIndividualPortrait, calculatePartnershipPortrait } = await import("@/lib/tarotCalculations");
         const portrait: any = order.reportType === "INDIVIDUAL" 
-          ? calculateIndividualPortrait(order.date1)
-          : calculatePartnershipPortrait(order.date1, order.date2!);
+          ? calculateIndividualPortrait(order.date1, locale as "pl" | "en")
+          : calculatePartnershipPortrait(order.date1, order.date2!, locale as "pl" | "en");
           
         const cardsArray = Object.values(portrait.detailedCards);
         
