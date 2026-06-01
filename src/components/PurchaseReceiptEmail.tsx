@@ -60,7 +60,7 @@ export function PurchaseReceiptEmail({
           <div class="wrapper">
             <div class="container">
               <div class="header">
-                <img src="${baseUrl}/Logo/PNG/archeya-logo-vertical-dark.png" alt="Archeya" style="max-width: 140px; height: auto; display: inline-block; margin: 0 auto;" />
+                <h1 style="font-family: Georgia, serif; font-size: 28px; font-weight: bold; letter-spacing: 0.1em; color: #111827; margin: 0; text-align: center;">ARCHEYA</h1>
               </div>
               
               <div class="content" style="padding: 20px 40px 40px 40px; text-align: center; color: #111827;">

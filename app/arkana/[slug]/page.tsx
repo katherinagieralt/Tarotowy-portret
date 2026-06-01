@@ -231,25 +231,19 @@ export default async function ArkanaPage({
                 <div className="h-px bg-gradient-to-r from-amber-500/30 to-transparent flex-1"></div>
               </div>
               
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              <div className="flex flex-wrap gap-2 sm:gap-3">
                 {Object.entries(individualPositionMeaningsEn).map(([key, pos]) => (
                   <Link 
                     key={key} 
                     href={`/znaczenie/${generatePositionSlug(post.slug, false, key, true)}`}
-                    className="group relative bg-white/40 dark:bg-slate-900/40 backdrop-blur-sm border border-black/5 dark:border-white/5 p-5 rounded-2xl hover:bg-white/80 dark:hover:bg-slate-800/80 hover:border-amber-500/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full overflow-hidden"
+                    className="group flex items-center px-3 py-1.5 sm:px-4 sm:py-2 text-sm sm:text-base rounded-lg bg-white/50 dark:bg-slate-900/60 border border-black/5 dark:border-white/5 hover:border-amber-500/40 hover:bg-amber-50 dark:hover:bg-[#1A1625] text-slate-700 dark:text-slate-300 transition-all duration-300 shadow-sm hover:shadow-md"
                   >
-                    <div className="absolute -right-4 -top-4 w-16 h-16 bg-amber-500/5 rounded-full blur-xl group-hover:bg-amber-500/20 transition-all duration-500"></div>
-                    <div className="flex justify-between items-start mb-6 relative z-10">
-                      <span className="text-3xl font-serif font-bold text-slate-200 dark:text-slate-800 group-hover:text-amber-500/30 transition-colors">
-                        {key.replace('p', '').padStart(2, '0')}
-                      </span>
-                      <span className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800/80 flex items-center justify-center text-slate-400 group-hover:text-amber-600 dark:group-hover:text-amber-400 group-hover:bg-amber-50 dark:group-hover:bg-amber-900/30 transition-colors">
-                        →
-                      </span>
-                    </div>
-                    <h4 className="font-medium text-slate-800 dark:text-slate-200 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors relative z-10 pr-2 leading-snug">
+                    <span className="text-amber-600 dark:text-amber-500 mr-2 font-bold text-xs opacity-70 group-hover:opacity-100">
+                      {key.replace('p', '').padStart(2, '0')}
+                    </span>
+                    <span className="font-medium group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
                       {pos.title}
-                    </h4>
+                    </span>
                   </Link>
                 ))}
               </div>
@@ -264,25 +258,19 @@ export default async function ArkanaPage({
                 <div className="h-px bg-gradient-to-r from-amber-500/30 to-transparent flex-1"></div>
               </div>
               
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              <div className="flex flex-wrap gap-2 sm:gap-3">
                 {Object.entries(partnerPositionMeaningsEn).map(([key, pos]) => (
                   <Link 
                     key={key} 
                     href={`/znaczenie/${generatePositionSlug(post.slug, true, key, true)}`}
-                    className="group relative bg-white/40 dark:bg-slate-900/40 backdrop-blur-sm border border-black/5 dark:border-white/5 p-5 rounded-2xl hover:bg-white/80 dark:hover:bg-slate-800/80 hover:border-amber-500/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full overflow-hidden"
+                    className="group flex items-center px-3 py-1.5 sm:px-4 sm:py-2 text-sm sm:text-base rounded-lg bg-white/50 dark:bg-slate-900/60 border border-black/5 dark:border-white/5 hover:border-amber-500/40 hover:bg-amber-50 dark:hover:bg-[#1A1625] text-slate-700 dark:text-slate-300 transition-all duration-300 shadow-sm hover:shadow-md"
                   >
-                    <div className="absolute -right-4 -top-4 w-16 h-16 bg-amber-500/5 rounded-full blur-xl group-hover:bg-amber-500/20 transition-all duration-500"></div>
-                    <div className="flex justify-between items-start mb-6 relative z-10">
-                      <span className="text-3xl font-serif font-bold text-slate-200 dark:text-slate-800 group-hover:text-amber-500/30 transition-colors">
-                        {key.replace('p', '').padStart(2, '0')}
-                      </span>
-                      <span className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800/80 flex items-center justify-center text-slate-400 group-hover:text-amber-600 dark:group-hover:text-amber-400 group-hover:bg-amber-50 dark:group-hover:bg-amber-900/30 transition-colors">
-                        →
-                      </span>
-                    </div>
-                    <h4 className="font-medium text-slate-800 dark:text-slate-200 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors relative z-10 pr-2 leading-snug">
+                    <span className="text-amber-600 dark:text-amber-500 mr-2 font-bold text-xs opacity-70 group-hover:opacity-100">
+                      {key.replace('p', '').padStart(2, '0')}
+                    </span>
+                    <span className="font-medium group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
                       {pos.title}
-                    </h4>
+                    </span>
                   </Link>
                 ))}
               </div>

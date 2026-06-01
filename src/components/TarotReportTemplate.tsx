@@ -588,7 +588,7 @@ export function TarotReportTemplate({
           {Object.keys(cards).map((posKey, idx) => (
             <View key={posKey} style={styles.tocItemRow}>
               <Link src={`#card_${posKey}`} style={styles.tocLink}>
-                <Text style={styles.tocItemText}>{isEnglish ? "Chapter" : "Rozdział"} {idx + 1}: {cards[posKey].positionMeaning.title}</Text>
+                <Text style={styles.tocItemText}>{isEnglish ? "Chapter" : "Rozdział"} {posKey.replace('p', '')}: {cards[posKey].positionMeaning.title}</Text>
               </Link>
               <View style={styles.tocDots} />
               <Text style={styles.tocPageNumber}>{pageNumbers[`card_${posKey}`] || "-"}</Text>
@@ -685,7 +685,7 @@ export function TarotReportTemplate({
             <View wrap={false} style={{ width: "100%", alignItems: "center", marginTop: 40, marginBottom: 20 }}>
               <Image src={{ data: logoDarkBuffer, format: "png" }} style={{ width: 160, height: 140, objectFit: "contain" }} />
               <Text style={{ fontSize: 10, color: "#6b7280", marginTop: 15, textAlign: "center", letterSpacing: 1, textTransform: "uppercase" }}>
-                {isEnglish ? "Thank you for purchasing the portrait" : "Dziękujemy za zakup portretu"}
+                {isEnglish ? "Thank you for purchasing the portrait and we wish you success on your life path." : "Dziękujemy za zakup portretu i życzymy sukcesów na Twojej drodze życia."}
               </Text>
             </View>
           )}

@@ -110,7 +110,7 @@ export function SalesLanding({ reportType, onCheckout, checkingOut }: SalesLandi
     : '"To nie jest zwykły horoskop partnerski. To mapa drogowa, dzięki której wreszcie zrozumiecie, co naprawdę dzieje się w Waszej relacji."';
 
   return (
-    <div className="w-full flex flex-col space-y-24 sm:space-y-32 py-16 sm:py-20 overflow-hidden">
+    <div className="w-full flex flex-col space-y-20 md:space-y-24 lg:space-y-32 py-16 md:py-20 lg:py-24 overflow-hidden">
       
       {/* 1. SECTION: The Hook */}
       <motion.section 
@@ -119,21 +119,21 @@ export function SalesLanding({ reportType, onCheckout, checkingOut }: SalesLandi
           hidden: { opacity: 0 },
           whileInView: { opacity: 1, transition: { staggerChildren: 0.2 } }
         }}
-        className="max-w-4xl mx-auto px-6 text-center space-y-8"
+        className="max-w-4xl mx-auto px-4 md:px-6 text-center space-y-8"
       >
         <motion.p variants={fadeInUp} className="text-amber-600 dark:text-amber-400 font-bold tracking-widest uppercase text-sm">
           To co widzisz to tylko wierzchołek
         </motion.p>
-        <motion.h2 variants={fadeInUp} className="text-4xl sm:text-6xl font-serif font-light text-slate-900 dark:text-white leading-tight">
+        <motion.h2 variants={fadeInUp} className="text-4xl md:text-5xl lg:text-6xl font-serif font-light text-slate-900 dark:text-white leading-tight">
           Prawdziwa transformacja ukryta jest <span className="italic text-amber-600 dark:text-amber-400">głębiej</span>.
         </motion.h2>
-        <motion.p variants={fadeInUp} className="text-lg sm:text-2xl text-slate-600 dark:text-slate-300 font-light max-w-2xl mx-auto leading-relaxed">
+        <motion.p variants={fadeInUp} className="text-lg md:text-xl lg:text-2xl text-slate-600 dark:text-slate-300 font-light max-w-2xl mx-auto leading-relaxed">
           {hookText}
         </motion.p>
       </motion.section>
 
       {/* 2. SECTION: Product Visual & Core Value */}
-      <section className="max-w-7xl mx-auto px-6">
+      <section className="max-w-7xl mx-auto px-4 md:px-6">
         <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
           
           {/* Mockup on the Left */}
@@ -243,13 +243,13 @@ export function SalesLanding({ reportType, onCheckout, checkingOut }: SalesLandi
       </section>
 
       {/* 3. SECTION: Deep Dive Benefits (Large Grid) */}
-      <section className="bg-[#FDFBF7] dark:bg-[#0B0914]/50 py-32 border-y border-black/5 dark:border-white/5 relative overflow-hidden">
+      <section className="bg-[#FDFBF7] dark:bg-[#0B0914]/50 py-24 md:py-32 border-y border-black/5 dark:border-white/5 relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] dark:opacity-[0.1] mix-blend-overlay"></div>
         
         {/* Dekoracyjne, miękkie światło w tle */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-96 bg-amber-500/5 dark:bg-amber-500/10 blur-[120px] rounded-full pointer-events-none"></div>
 
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
           
           <motion.div 
             initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease: "easeOut" }}
@@ -306,7 +306,7 @@ export function SalesLanding({ reportType, onCheckout, checkingOut }: SalesLandi
       </section>
 
       {/* 3.5 SECTION: Authority / Social Proof / Risk Reversal */}
-      <section className="max-w-5xl mx-auto px-6 text-center space-y-12">
+      <section className="max-w-5xl mx-auto px-4 md:px-6 text-center space-y-12">
         <motion.div
            initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease: "easeOut" }}
            className="bg-amber-50 dark:bg-[#130F24]/80 border border-amber-100 dark:border-amber-900/30 rounded-3xl p-10 sm:p-16 relative overflow-hidden"
@@ -319,7 +319,7 @@ export function SalesLanding({ reportType, onCheckout, checkingOut }: SalesLandi
             ))}
           </div>
           
-          <h3 className="text-2xl sm:text-4xl font-serif text-slate-900 dark:text-white mb-6 leading-relaxed">
+          <h3 className="text-2xl md:text-3xl lg:text-4xl font-serif text-slate-900 dark:text-white mb-6 leading-relaxed">
             {quoteText}
           </h3>
           <p className="text-slate-600 dark:text-slate-400 text-lg font-light max-w-2xl mx-auto">
@@ -329,7 +329,7 @@ export function SalesLanding({ reportType, onCheckout, checkingOut }: SalesLandi
       </section>
 
       {/* 4. SECTION: Final CTA */}
-      <section className="max-w-4xl mx-auto px-6 text-center space-y-10">
+      <section className="max-w-4xl mx-auto px-4 md:px-6 text-center space-y-10">
         <motion.div
            initial={{ opacity: 0, scale: 0.95 }}
            whileInView={{ opacity: 1, scale: 1 }}
@@ -340,8 +340,8 @@ export function SalesLanding({ reportType, onCheckout, checkingOut }: SalesLandi
           {/* Animated gradient border */}
           <div className="absolute inset-0 bg-gradient-to-r from-amber-400/50 via-orange-400/80 to-amber-600/50 dark:from-amber-500/20 dark:via-orange-500/50 dark:to-purple-500/20 blur-xl opacity-100 dark:opacity-50 transition-opacity duration-1000"></div>
           
-          <div className="bg-white/95 dark:bg-[#0B0914]/90 backdrop-blur-2xl rounded-[3rem] border border-black/5 dark:border-white/10 p-12 sm:p-20 relative z-10 flex flex-col items-center shadow-2xl">
-            <h3 className="text-4xl sm:text-5xl font-serif font-light text-slate-900 dark:text-white mb-8 text-center">
+          <div className="bg-white/95 dark:bg-[#0B0914]/90 backdrop-blur-2xl rounded-[3rem] border border-black/5 dark:border-white/10 p-8 md:p-16 lg:p-20 relative z-10 flex flex-col items-center shadow-2xl">
+            <h3 className="text-3xl md:text-4xl lg:text-5xl font-serif font-light text-slate-900 dark:text-white mb-8 text-center">
               Czas na <span className="italic text-amber-600 dark:text-amber-400">prawdę</span>?
             </h3>
             
@@ -397,12 +397,12 @@ export function SalesLanding({ reportType, onCheckout, checkingOut }: SalesLandi
       </section>
 
       {/* 5. SECTION: FAQ */}
-      <section className="max-w-4xl mx-auto px-6 pt-24 pb-24 relative">
+      <section className="max-w-4xl mx-auto px-4 md:px-6 pt-16 md:pt-24 pb-16 md:pb-24 relative">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl h-64 bg-amber-500/5 dark:bg-amber-500/10 blur-[100px] rounded-full pointer-events-none"></div>
         
         <div className="text-center mb-16 relative z-10">
           <span className="text-amber-600 dark:text-amber-400 text-sm font-bold tracking-widest uppercase mb-4 block">Rozwiejmy Wątpliwości</span>
-          <h3 className="text-4xl sm:text-5xl font-serif font-light text-slate-900 dark:text-white mb-6">
+          <h3 className="text-3xl md:text-4xl lg:text-5xl font-serif font-light text-slate-900 dark:text-white mb-6">
             Masz <span className="italic text-amber-600 dark:text-amber-400">pytania?</span>
           </h3>
           <p className="text-lg text-slate-600 dark:text-slate-400 font-light max-w-2xl mx-auto">
@@ -427,6 +427,14 @@ export function SalesLanding({ reportType, onCheckout, checkingOut }: SalesLandi
             {
               q: "Czy plik PDF mogę wydrukować?",
               a: "Oczywiście! Raport jest sformatowany w sposób bardzo czytelny i elegancki, idealny zarówno do czytania na ekranach (telefon, tablet, komputer), jak i do tradycyjnego wydruku w domowym zaciszu."
+            },
+            {
+              q: "Czy Portret Partnerski jest tylko dla par romantycznych?",
+              a: "Nie. Portret Partnerski analizuje ogólną dynamikę i wspólną energię dwóch osób. Z powodzeniem możesz sprawdzić relację z przyjacielem, członkiem rodziny, a nawet wspólnikiem biznesowym."
+            },
+            {
+              q: "Czy moje dane do obliczeń są bezpieczne?",
+              a: "Tak. Twoje dane (imię i data urodzenia) są używane wyłącznie do wygenerowania raportu i nie są w żaden sposób wykorzystywane marketingowo ani profilowane. Cały proces płatności jest w 100% zabezpieczony i obsługiwany przez renomowany system Stripe."
             }
           ].map((faq, i) => {
             const [isOpen, setIsOpen] = useState(false);

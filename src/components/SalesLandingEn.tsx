@@ -122,7 +122,7 @@ export function SalesLandingEn({ reportType, onCheckout, checkingOut }: SalesLan
     : '"This is not just an ordinary relationship horoscope. It is a roadmap that will finally help you understand what is truly happening between you two."';
 
   return (
-    <div className="w-full flex flex-col space-y-24 sm:space-y-32 py-16 sm:py-20 overflow-hidden">
+    <div className="w-full flex flex-col space-y-20 md:space-y-24 lg:space-y-32 py-16 md:py-20 lg:py-24 overflow-hidden">
       
       {/* 1. SECTION: The Hook */}
       <motion.section 
@@ -131,21 +131,21 @@ export function SalesLandingEn({ reportType, onCheckout, checkingOut }: SalesLan
           hidden: { opacity: 0 },
           whileInView: { opacity: 1, transition: { staggerChildren: 0.2 } }
         }}
-        className="max-w-4xl mx-auto px-6 text-center space-y-8"
+        className="max-w-4xl mx-auto px-4 md:px-6 text-center space-y-8"
       >
         <motion.p variants={fadeInUp} className="text-amber-600 dark:text-amber-400 font-bold tracking-widest uppercase text-sm">
           What you see is just the tip of the iceberg
         </motion.p>
-        <motion.h2 variants={fadeInUp} className="text-4xl sm:text-6xl font-serif font-light text-slate-900 dark:text-white leading-tight">
+        <motion.h2 variants={fadeInUp} className="text-4xl md:text-5xl lg:text-6xl font-serif font-light text-slate-900 dark:text-white leading-tight">
           True transformation is hidden <span className="italic text-amber-600 dark:text-amber-400">deeper</span>.
         </motion.h2>
-        <motion.p variants={fadeInUp} className="text-lg sm:text-2xl text-slate-600 dark:text-slate-300 font-light max-w-2xl mx-auto leading-relaxed">
+        <motion.p variants={fadeInUp} className="text-lg md:text-xl lg:text-2xl text-slate-600 dark:text-slate-300 font-light max-w-2xl mx-auto leading-relaxed">
           {hookText}
         </motion.p>
       </motion.section>
 
       {/* 2. SECTION: Product Visual & Core Value */}
-      <section className="max-w-7xl mx-auto px-6">
+      <section className="max-w-7xl mx-auto px-4 md:px-6">
         <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
           
           {/* Mockup on the Left */}
@@ -249,19 +249,19 @@ export function SalesLandingEn({ reportType, onCheckout, checkingOut }: SalesLan
       </section>
 
       {/* 3. SECTION: Deep Dive Benefits (Large Grid) */}
-      <section className="bg-[#FDFBF7] dark:bg-[#0B0914]/50 py-32 border-y border-black/5 dark:border-white/5 relative overflow-hidden">
+      <section className="bg-[#FDFBF7] dark:bg-[#0B0914]/50 py-24 md:py-32 border-y border-black/5 dark:border-white/5 relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] dark:opacity-[0.1] mix-blend-overlay"></div>
         
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-96 bg-amber-500/5 dark:bg-amber-500/10 blur-[120px] rounded-full pointer-events-none"></div>
 
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
           
           <motion.div 
             initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease: "easeOut" }}
             className="text-center mb-20"
           >
             <span className="text-amber-600 dark:text-amber-500 text-xs font-bold tracking-widest uppercase mb-4 block">Take a Look Inside</span>
-            <h3 className="text-3xl sm:text-5xl font-serif text-slate-900 dark:text-white mb-6">What's in the e-book?</h3>
+            <h3 className="text-3xl md:text-4xl lg:text-5xl font-serif text-slate-900 dark:text-white mb-6">What's in the e-book?</h3>
             <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto font-light">
               It is a powerful dose of condensed knowledge. See which areas we will explore in {isIndividual ? "your personal book of shadows" : "your shared book of relationship"}.
             </p>
@@ -309,7 +309,7 @@ export function SalesLandingEn({ reportType, onCheckout, checkingOut }: SalesLan
       </section>
 
       {/* 3.5 SECTION: Authority / Social Proof / Risk Reversal */}
-      <section className="max-w-5xl mx-auto px-6 text-center space-y-12">
+      <section className="max-w-5xl mx-auto px-4 md:px-6 text-center space-y-12">
         <motion.div
            initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease: "easeOut" }}
            className="bg-amber-50 dark:bg-[#130F24]/80 border border-amber-100 dark:border-amber-900/30 rounded-3xl p-10 sm:p-16 relative overflow-hidden"
@@ -322,7 +322,7 @@ export function SalesLandingEn({ reportType, onCheckout, checkingOut }: SalesLan
             ))}
           </div>
           
-          <h3 className="text-2xl sm:text-4xl font-serif text-slate-900 dark:text-white mb-6 leading-relaxed">
+          <h3 className="text-2xl md:text-3xl lg:text-4xl font-serif text-slate-900 dark:text-white mb-6 leading-relaxed">
             {quoteText}
           </h3>
           <p className="text-slate-600 dark:text-slate-400 text-lg font-light max-w-2xl mx-auto">
@@ -332,7 +332,7 @@ export function SalesLandingEn({ reportType, onCheckout, checkingOut }: SalesLan
       </section>
 
       {/* 4. SECTION: Final CTA */}
-      <section className="max-w-4xl mx-auto px-6 text-center space-y-10">
+      <section className="max-w-4xl mx-auto px-4 md:px-6 text-center space-y-10">
         <motion.div
            initial={{ opacity: 0, scale: 0.95 }}
            whileInView={{ opacity: 1, scale: 1 }}
@@ -342,8 +342,8 @@ export function SalesLandingEn({ reportType, onCheckout, checkingOut }: SalesLan
         >
           <div className="absolute inset-0 bg-gradient-to-r from-amber-400/50 via-orange-400/80 to-amber-600/50 dark:from-amber-500/20 dark:via-orange-500/50 dark:to-purple-500/20 blur-xl opacity-100 dark:opacity-50 transition-opacity duration-1000"></div>
           
-          <div className="bg-white/95 dark:bg-[#0B0914]/90 backdrop-blur-2xl rounded-[3rem] border border-black/5 dark:border-white/10 p-12 sm:p-20 relative z-10 flex flex-col items-center shadow-2xl">
-            <h3 className="text-4xl sm:text-5xl font-serif font-light text-slate-900 dark:text-white mb-8 text-center">
+          <div className="bg-white/95 dark:bg-[#0B0914]/90 backdrop-blur-2xl rounded-[3rem] border border-black/5 dark:border-white/10 p-8 md:p-16 lg:p-20 relative z-10 flex flex-col items-center shadow-2xl">
+            <h3 className="text-3xl md:text-4xl lg:text-5xl font-serif font-light text-slate-900 dark:text-white mb-8 text-center">
               Time for the <span className="italic text-amber-600 dark:text-amber-400">truth</span>?
             </h3>
             
@@ -399,12 +399,12 @@ export function SalesLandingEn({ reportType, onCheckout, checkingOut }: SalesLan
       </section>
 
       {/* 5. SECTION: FAQ */}
-      <section className="max-w-4xl mx-auto px-6 pt-24 pb-24 relative">
+      <section className="max-w-4xl mx-auto px-4 md:px-6 pt-16 md:pt-24 pb-16 md:pb-24 relative">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl h-64 bg-amber-500/5 dark:bg-amber-500/10 blur-[100px] rounded-full pointer-events-none"></div>
         
         <div className="text-center mb-16 relative z-10">
           <span className="text-amber-600 dark:text-amber-400 text-sm font-bold tracking-widest uppercase mb-4 block">Clearing Doubts</span>
-          <h3 className="text-4xl sm:text-5xl font-serif font-light text-slate-900 dark:text-white mb-6">
+          <h3 className="text-3xl md:text-4xl lg:text-5xl font-serif font-light text-slate-900 dark:text-white mb-6">
             Got <span className="italic text-amber-600 dark:text-amber-400">questions?</span>
           </h3>
           <p className="text-lg text-slate-600 dark:text-slate-400 font-light max-w-2xl mx-auto">
@@ -429,6 +429,14 @@ export function SalesLandingEn({ reportType, onCheckout, checkingOut }: SalesLan
             {
               q: "Can I print the PDF file?",
               a: "Absolutely! The report is formatted in a highly readable and elegant layout, perfect for reading on screens (phone, tablet, computer) as well as for traditional printing at home."
+            },
+            {
+              q: "Is the Partnership Portrait only for romantic couples?",
+              a: "No. The Partnership Portrait analyzes the general dynamic and shared energy between two people. You can successfully use it to check your relationship with a friend, family member, or even a business partner."
+            },
+            {
+              q: "Are my calculation data secure?",
+              a: "Yes. Your data (name and date of birth) are used solely to generate the report and are not used for marketing or profiling in any way. The entire payment process is 100% secure and handled by the renowned Stripe system."
             }
           ].map((faq, i) => {
             const [isOpen, setIsOpen] = useState(false);

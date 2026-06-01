@@ -34,7 +34,7 @@ async function main() {
         object: "checkout.session",
         customer_details: {
           email: targetEmail,
-          name: "Anna Nowak"
+          name: "Osoba Testowa (Skrypt)"
         },
         metadata: {
           orderId: order.id

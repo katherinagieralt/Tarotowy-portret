@@ -9,6 +9,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Sparkles, User, Users, Lock, ChevronRight, Stars } from "lucide-react";
 import Image from "next/image";
 import { SalesLanding } from "@/components/SalesLanding";
+import { InteractiveTarotCard } from "@/components/InteractiveTarotCard";
 
 const formSchema = z.object({
   reportType: z.enum(["INDIVIDUAL", "PARTNERSHIP"]),
@@ -180,7 +181,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.05] dark:opacity-[0.15] mix-blend-overlay transition-opacity duration-500"></div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-6 pt-10 pb-16 sm:pt-16 sm:pb-32 relative z-10 flex flex-col items-center">
+      <div className="max-w-4xl mx-auto px-4 md:px-6 pt-10 pb-16 md:pt-16 md:pb-32 relative z-10 flex flex-col items-center">
         {/* Header */}
         <motion.div 
           initial="hidden"
@@ -188,7 +189,7 @@ export default function Home() {
           variants={fadeInUp}
           className="text-center mb-16 space-y-6"
         >
-          <h1 className="text-5xl sm:text-7xl font-light mb-6 tracking-tight font-serif text-slate-900 dark:text-white transition-colors duration-500">
+          <h1 className="text-4xl md:text-5xl lg:text-7xl font-light mb-4 md:mb-6 tracking-tight font-serif text-slate-900 dark:text-white transition-colors duration-500">
             Tarotowy <span className="italic text-transparent bg-clip-text bg-gradient-to-br from-amber-500 via-amber-600 to-amber-700 dark:from-amber-200 dark:via-amber-400 dark:to-amber-700 pr-2 pb-1">Portret</span>
           </h1>
           <p className="text-lg text-slate-600 dark:text-slate-300 max-w-xl mx-auto font-light leading-relaxed transition-colors duration-500">
@@ -203,7 +204,7 @@ export default function Home() {
           animate="visible"
           className="w-full max-w-2xl"
         >
-          <div className="bg-white/60 dark:bg-white/[0.02] backdrop-blur-2xl border border-black/5 dark:border-white/[0.05] rounded-[2rem] p-8 sm:p-12 shadow-xl dark:shadow-2xl relative overflow-hidden group transition-colors duration-500">
+          <div className="bg-white/60 dark:bg-white/[0.02] backdrop-blur-2xl border border-black/5 dark:border-white/[0.05] rounded-[2rem] p-6 md:p-10 lg:p-12 shadow-xl dark:shadow-2xl relative overflow-hidden group transition-colors duration-500">
             <div className="absolute inset-0 bg-gradient-to-b from-black/[0.02] dark:from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
             
             <form onSubmit={form.handleSubmit(onCalculate)} className="space-y-10 relative z-10">
@@ -230,7 +231,7 @@ export default function Home() {
                 </fieldset>
               </motion.div>
 
-              <motion.div variants={fadeInUp} className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <motion.div variants={fadeInUp} className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label htmlFor="name1" className="block text-xs font-bold tracking-widest text-slate-600 dark:text-slate-300 uppercase px-1 transition-colors">
                     {watchReportType === 'PARTNERSHIP' ? 'Twoje Imię' : 'Imię'}
@@ -240,22 +241,29 @@ export default function Home() {
                     type="text"
                     {...form.register("name1")}
                     placeholder="np. Anna"
-                    className="w-full px-5 py-4 bg-white/50 dark:bg-white/[0.03] border border-black/10 dark:border-white/20 hover:border-black/20 dark:hover:border-white/30 rounded-2xl text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:bg-white dark:focus:bg-white/[0.08] focus:border-amber-500 focus:ring-2 focus:ring-amber-500/50 transition-all duration-300"
+                    className="w-full px-4 py-3 md:px-5 md:py-4 bg-white/50 dark:bg-white/[0.03] border border-black/10 dark:border-white/20 hover:border-black/20 dark:hover:border-white/30 rounded-2xl text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:bg-white dark:focus:bg-white/[0.08] focus:border-amber-500 focus:ring-2 focus:ring-amber-500/50 transition-all duration-300"
                     aria-invalid={form.formState.errors.name1 ? "true" : "false"}
                   />
                   {form.formState.errors.name1 && <p className="text-red-500 dark:text-red-400 text-sm font-medium px-2">{form.formState.errors.name1.message}</p>}
                 </div>
                 
                 <div className="space-y-2">
-                  <label htmlFor="date1" className="block text-xs font-bold tracking-widest text-slate-600 dark:text-slate-300 uppercase px-1 transition-colors">Data urodzenia</label>
-                  <input
-                    id="date1"
-                    type="date"
-                    lang="pl"
-                    {...form.register("date1")}
-                    className="w-full px-5 py-4 bg-white/50 dark:bg-white/[0.03] border border-black/10 dark:border-white/20 hover:border-black/20 dark:hover:border-white/30 rounded-2xl text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:bg-white dark:focus:bg-white/[0.08] focus:border-amber-500 focus:ring-2 focus:ring-amber-500/50 transition-all duration-300 dark:[color-scheme:dark]"
-                    aria-invalid={form.formState.errors.date1 ? "true" : "false"}
-                  />
+                  <label htmlFor="date1" className="block text-xs font-bold tracking-widest text-slate-600 dark:text-slate-300 uppercase px-1 transition-colors">Data Urodzenia</label>
+                  <div className="relative w-full">
+                    <input
+                      id="date1"
+                      type="date"
+                      lang="pl"
+                      {...form.register("date1")}
+                      className={`w-full px-4 py-3 md:px-5 md:py-4 bg-white/50 dark:bg-white/[0.03] border border-black/10 dark:border-white/20 hover:border-black/20 dark:hover:border-white/30 rounded-2xl text-slate-900 dark:text-white focus:outline-none focus:bg-white dark:focus:bg-white/[0.08] focus:border-amber-500 focus:ring-2 focus:ring-amber-500/50 transition-all duration-300 dark:[color-scheme:dark] ${!form.watch("date1") ? "[&::-webkit-datetime-edit]:text-transparent" : ""}`}
+                      aria-invalid={form.formState.errors.date1 ? "true" : "false"}
+                    />
+                    {!form.watch("date1") && (
+                      <div className="absolute inset-y-0 left-4 md:left-5 flex items-center pointer-events-none text-slate-400">
+                        DD.MM.RRRR
+                      </div>
+                    )}
+                  </div>
                   {form.formState.errors.date1 && <p className="text-red-500 dark:text-red-400 text-sm font-medium px-2">{form.formState.errors.date1.message}</p>}
                 </div>
               </motion.div>
@@ -267,7 +275,7 @@ export default function Home() {
                     animate={{ opacity: 1, height: 'auto', scale: 1 }}
                     exit={{ opacity: 0, height: 0, scale: 0.95 }}
                     transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                    className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2"
+                    className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2"
                   >
                     <div className="space-y-2">
                       <label htmlFor="name2" className="block text-xs font-bold tracking-widest text-slate-600 dark:text-slate-300 uppercase px-1 transition-colors">Imię drugiej osoby</label>
@@ -276,21 +284,28 @@ export default function Home() {
                         type="text"
                         {...form.register("name2")}
                         placeholder="np. Marek"
-                        className="w-full px-5 py-4 bg-white/50 dark:bg-white/[0.03] border border-black/10 dark:border-white/20 hover:border-black/20 dark:hover:border-white/30 rounded-2xl text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:bg-white dark:focus:bg-white/[0.08] focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all duration-300"
+                        className="w-full px-4 py-3 md:px-5 md:py-4 bg-white/50 dark:bg-white/[0.03] border border-black/10 dark:border-white/20 hover:border-black/20 dark:hover:border-white/30 rounded-2xl text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:bg-white dark:focus:bg-white/[0.08] focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all duration-300"
                         aria-invalid={form.formState.errors.name2 ? "true" : "false"}
                       />
                     </div>
                     
                     <div className="space-y-2">
                       <label htmlFor="date2" className="block text-xs font-bold tracking-widest text-slate-600 dark:text-slate-300 uppercase px-1 transition-colors">Data urodzenia drugiej osoby</label>
-                      <input
-                        id="date2"
-                        type="date"
-                        lang="pl"
-                        {...form.register("date2")}
-                        className="w-full px-5 py-4 bg-white/50 dark:bg-white/[0.03] border border-black/10 dark:border-white/20 hover:border-black/20 dark:hover:border-white/30 rounded-2xl text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:bg-white dark:focus:bg-white/[0.08] focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all duration-300 dark:[color-scheme:dark]"
-                        aria-invalid={form.formState.errors.date2 ? "true" : "false"}
-                      />
+                      <div className="relative w-full">
+                        <input
+                          id="date2"
+                          type="date"
+                          lang="pl"
+                          {...form.register("date2")}
+                          className={`w-full px-4 py-3 md:px-5 md:py-4 bg-white/50 dark:bg-white/[0.03] border border-black/10 dark:border-white/20 hover:border-black/20 dark:hover:border-white/30 rounded-2xl text-slate-900 dark:text-white focus:outline-none focus:bg-white dark:focus:bg-white/[0.08] focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all duration-300 dark:[color-scheme:dark] ${!form.watch("date2") ? "[&::-webkit-datetime-edit]:text-transparent" : ""}`}
+                          aria-invalid={form.formState.errors.date2 ? "true" : "false"}
+                        />
+                        {!form.watch("date2") && (
+                          <div className="absolute inset-y-0 left-4 md:left-5 flex items-center pointer-events-none text-slate-400">
+                            DD.MM.RRRR
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </motion.div>
                 )}
@@ -325,9 +340,9 @@ export default function Home() {
             id="result-section" 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="w-full border-t border-black/5 dark:border-white/5 bg-[#FDFBF7]/80 dark:bg-[#0B0914]/80 backdrop-blur-3xl py-24 sm:py-32 relative z-10 transition-colors duration-500 scroll-mt-24"
+            className="w-full border-t border-black/5 dark:border-white/5 bg-[#FDFBF7]/80 dark:bg-[#0B0914]/80 backdrop-blur-3xl py-16 md:py-24 lg:py-32 relative z-10 transition-colors duration-500 scroll-mt-24"
           >
-            <div className="max-w-6xl mx-auto px-6">
+            <div className="max-w-6xl mx-auto px-4 md:px-6">
               
               <motion.div 
                 initial={{ opacity: 0, y: 20 }}
@@ -338,10 +353,10 @@ export default function Home() {
                 <span className="px-4 py-1.5 rounded-full bg-[#EBE5D9]/50 dark:bg-white/[0.03] border border-[#8C6D46]/20 dark:border-white/10 text-[#5C4505] dark:text-[#E8E4D9] text-xs font-semibold tracking-widest uppercase mb-6 inline-block shadow-sm transition-colors duration-500">
                   {reportType === "INDIVIDUAL" ? 'Portret Indywidualny' : 'Portret Partnerski'}
                 </span>
-                <h2 className="text-4xl sm:text-5xl font-serif font-light text-[#2A241F] dark:text-white mb-2 transition-colors duration-500">
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-light text-[#2A241F] dark:text-white mb-2 transition-colors duration-500">
                   Zarys Twojego <span className="italic text-[#8C6D46] dark:text-[#B89B72]">Przeznaczenia</span>
                 </h2>
-                <p className="text-3xl sm:text-4xl font-serif text-[#8C6D46] dark:text-[#B89B72] font-medium max-w-xl mx-auto transition-colors duration-500 mt-2 mb-6">
+                <p className="text-2xl md:text-3xl lg:text-4xl font-serif text-[#8C6D46] dark:text-[#B89B72] font-medium max-w-xl mx-auto transition-colors duration-500 mt-2 mb-6">
                   {reportType === "PARTNERSHIP" ? `${result.names.person1} & ${result.names.person2}` : result.names.person1}
                 </p>
               </motion.div>
@@ -352,68 +367,7 @@ export default function Home() {
                   if (!card.positionMeaning) return null;
                   
                   return (
-                    <motion.div 
-                      initial={{ opacity: 0, y: 30 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.7, delay: idx * 0.05 }}
-                      key={idx} 
-                      className="flex flex-col items-center"
-                    >
-                      {/* Modern Tarot Card Representation with Flip Effect */}
-                      <div className="w-52 h-[22rem] shrink-0 mb-8 [perspective:1000px] group" aria-hidden="true">
-                        {/* Translate Y wrapper */}
-                        <div className="relative w-full h-full transition-transform duration-700 group-hover:-translate-y-4">
-                          {/* 3D Rotate wrapper */}
-                          <div className="relative w-full h-full transition-transform duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
-                            
-                            {/* FRONT OF CARD */}
-                            <div className="absolute inset-0 w-full h-full [backface-visibility:hidden] rounded-xl bg-gradient-to-b from-[#FFFFFF]/80 dark:from-[#FFFFFF]/5 to-[#FFFFFF]/30 dark:to-transparent border border-black/10 dark:border-white/20 overflow-hidden shadow-xl dark:shadow-none transition-all duration-700 group-hover:border-[#D4AF37]/50 group-hover:shadow-[0_20px_60px_-15px_rgba(212,175,55,0.3)] flex flex-col items-center justify-center">
-                              <Image 
-                                src={`/arkana/${card.number}.jpg`}
-                                alt={card.name}
-                                fill
-                                sizes="(max-width: 768px) 208px, 208px"
-                                className="object-cover object-center"
-                              />
-                              
-                              {/* Internal subtle glow over image */}
-                              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-transparent via-transparent to-[#130F24]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-10"></div>
-                            </div>
-
-                            {/* BACK OF CARD */}
-                            <div className="absolute inset-0 w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-xl bg-[#F9F6EE] dark:bg-[#130F24] border border-[#D4AF37]/40 dark:border-[#B89B72]/30 overflow-hidden flex flex-col items-center justify-center p-5 text-center shadow-xl z-20">
-                              <div className="absolute inset-0 opacity-[0.03] dark:opacity-10 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] mix-blend-overlay pointer-events-none"></div>
-                              <h4 className="text-[#8C6D46] dark:text-[#B89B72] font-serif text-lg mb-2 leading-tight">{card.name}</h4>
-                              <p className="text-[0.65rem] sm:text-[0.7rem] text-slate-700 dark:text-[#E8E4D9]/80 leading-relaxed overflow-hidden line-clamp-[12]">
-                                {card.description}
-                              </p>
-                              
-                              {/* Shimmer effect on the back */}
-                              <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/5 to-transparent group-hover:animate-shimmer z-20 pointer-events-none"></div>
-                            </div>
-                            
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="text-center px-4 w-full">
-                        {/* Card Name */}
-                        <h3 className="text-lg font-serif italic text-[#8C6D46] dark:text-[#B89B72] mb-3 transition-colors">
-                          {card.number}. {card.name}
-                        </h3>
-                        
-                        {/* Position Name */}
-                        <h4 className="text-sm font-bold uppercase tracking-widest text-[#2A241F] dark:text-[#E8E4D9] mb-4 relative inline-block transition-colors">
-                          {card.positionMeaning.title}
-                          <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-px bg-[#D4AF37]/50"></div>
-                        </h4>
-                        
-                        {/* Position Description */}
-                        <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed max-w-[300px] mx-auto font-light transition-colors">
-                          {card.positionMeaning.description}
-                        </p>
-                      </div>
-                    </motion.div>
+                    <InteractiveTarotCard key={idx} card={card} delay={idx * 0.05} />
                   );
                 })}
               </div>

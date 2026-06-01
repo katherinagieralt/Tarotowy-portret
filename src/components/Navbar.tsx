@@ -70,9 +70,9 @@ export function Navbar() {
         <div className="max-w-7xl mx-auto px-6 h-24 md:h-28 flex items-center justify-between transition-all duration-300">
           {/* Logo */}
           <Link 
-            href="/" 
+            href={isEnglish ? "/" : "/pl"} 
             onClick={(e) => {
-              if (pathname === "/") {
+              if (pathname === (isEnglish ? "/" : "/pl")) {
                 e.preventDefault();
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }
