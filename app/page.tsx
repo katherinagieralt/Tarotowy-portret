@@ -234,7 +234,7 @@ export default function HomeEn() {
                     type="text"
                     {...form.register("name1")}
                     placeholder="e.g. Anna"
-                    className="w-full px-4 py-3 md:px-5 md:py-4 bg-white/50 dark:bg-white/[0.03] border border-black/10 dark:border-white/20 hover:border-black/20 dark:hover:border-white/30 rounded-2xl text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:bg-white dark:focus:bg-white/[0.08] focus:border-amber-500 focus:ring-2 focus:ring-amber-500/50 transition-all duration-300"
+                    className="w-full h-[50px] md:h-[58px] px-4 md:px-5 bg-white/50 dark:bg-white/[0.03] border border-black/10 dark:border-white/20 hover:border-black/20 dark:hover:border-white/30 rounded-2xl text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:bg-white dark:focus:bg-white/[0.08] focus:border-amber-500 focus:ring-2 focus:ring-amber-500/50 transition-all duration-300"
                     aria-invalid={form.formState.errors.name1 ? "true" : "false"}
                   />
                   {form.formState.errors.name1 && <p className="text-red-500 dark:text-red-400 text-sm font-medium px-2">{form.formState.errors.name1.message}</p>}
@@ -248,7 +248,7 @@ export default function HomeEn() {
                       type="date"
                       lang="en-GB"
                       {...form.register("date1")}
-                      className="w-full px-4 py-3 md:px-5 md:py-4 bg-white/50 dark:bg-white/[0.03] border border-black/10 dark:border-white/20 hover:border-black/20 dark:hover:border-white/30 rounded-2xl text-slate-900 dark:text-white focus:outline-none focus:bg-white dark:focus:bg-white/[0.08] focus:border-amber-500 focus:ring-2 focus:ring-amber-500/50 transition-all duration-300 dark:[color-scheme:dark]"
+                      className="w-full h-[50px] md:h-[58px] px-4 md:px-5 bg-white/50 dark:bg-white/[0.03] border border-black/10 dark:border-white/20 hover:border-black/20 dark:hover:border-white/30 rounded-2xl text-slate-900 dark:text-white focus:outline-none focus:bg-white dark:focus:bg-white/[0.08] focus:border-amber-500 focus:ring-2 focus:ring-amber-500/50 transition-all duration-300 dark:[color-scheme:dark]"
                       aria-invalid={form.formState.errors.date1 ? "true" : "false"}
                     />
                   </div>
@@ -272,7 +272,7 @@ export default function HomeEn() {
                         type="text"
                         {...form.register("name2")}
                         placeholder="e.g. Mark"
-                        className="w-full px-4 py-3 md:px-5 md:py-4 bg-white/50 dark:bg-white/[0.03] border border-black/10 dark:border-white/20 hover:border-black/20 dark:hover:border-white/30 rounded-2xl text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:bg-white dark:focus:bg-white/[0.08] focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all duration-300"
+                        className="w-full h-[50px] md:h-[58px] px-4 md:px-5 bg-white/50 dark:bg-white/[0.03] border border-black/10 dark:border-white/20 hover:border-black/20 dark:hover:border-white/30 rounded-2xl text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:bg-white dark:focus:bg-white/[0.08] focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all duration-300"
                         aria-invalid={form.formState.errors.name2 ? "true" : "false"}
                       />
                     </div>
@@ -285,7 +285,7 @@ export default function HomeEn() {
                           type="date"
                           lang="en-GB"
                           {...form.register("date2")}
-                          className="w-full px-4 py-3 md:px-5 md:py-4 bg-white/50 dark:bg-white/[0.03] border border-black/10 dark:border-white/20 hover:border-black/20 dark:hover:border-white/30 rounded-2xl text-slate-900 dark:text-white focus:outline-none focus:bg-white dark:focus:bg-white/[0.08] focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all duration-300 dark:[color-scheme:dark]"
+                          className="w-full h-[50px] md:h-[58px] px-4 md:px-5 bg-white/50 dark:bg-white/[0.03] border border-black/10 dark:border-white/20 hover:border-black/20 dark:hover:border-white/30 rounded-2xl text-slate-900 dark:text-white focus:outline-none focus:bg-white dark:focus:bg-white/[0.08] focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all duration-300 dark:[color-scheme:dark]"
                           aria-invalid={form.formState.errors.date2 ? "true" : "false"}
                         />
                       </div>

@@ -73,10 +73,10 @@ export function InteractiveTarotCard({ card, delay, index }: CardProps) {
   const wiggleVariants = {
     hidden: { rotateY: 0 },
     visible: {
-      rotateY: shouldWiggle ? [0, 25, 0] : 0,
+      rotateY: shouldWiggle ? [0, 95, 0] : 0,
       transition: {
         delay: delay + 1.2, // Czekamy aż skończy się animacja wjazdu (0.7s) + mała przerwa
-        duration: 0.8,
+        duration: 1.2,
         ease: "easeInOut"
       }
     }
@@ -134,7 +134,7 @@ export function InteractiveTarotCard({ card, delay, index }: CardProps) {
             </p>
             
             {/* Shimmer effect on the back */}
-            <div className={`absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/5 to-transparent z-20 pointer-events-none ${isFlipped ? 'animate-shimmer' : ''}`}></div>
+            <div className={`absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/60 dark:via-white/10 to-transparent z-20 pointer-events-none ${isFlipped ? 'animate-shimmer' : ''}`}></div>
           </div>
         </div>
       </motion.div>

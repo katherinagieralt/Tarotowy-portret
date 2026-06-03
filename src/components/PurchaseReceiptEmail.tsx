@@ -32,6 +32,10 @@ export function PurchaseReceiptEmail({
     : "Raport wygenerowano automatycznie w celach samopoznawczych. Pamiętaj, że ostateczne decyzje i interpretacje należą wyłącznie do Ciebie.";
   const textRights = isEnglish ? "© 2026 Archeya. All rights reserved." : "© 2026 Archeya. Wszystkie prawa zastrzeżone.";
   const textSentTo = isEnglish ? "Sent to:" : "Wysłano na adres:";
+  const textVisitUs = isEnglish ? "Visit our website:" : "Odwiedź naszą stronę:";
+  const textLinkValidity = isEnglish
+    ? "Please note: This download link will remain active for 7 days."
+    : "Ważne: Link do pobrania będzie aktywny przez 7 dni.";
 
   return {
     html: `
@@ -78,10 +82,18 @@ export function PurchaseReceiptEmail({
                     </tr>
                   </table>
                 </center>
+
+                <p class="body-text" style="font-size: 14px; margin-top: 15px; margin-bottom: 20px; font-weight: 500; color: #d97706;">
+                  ${textLinkValidity}
+                </p>
                 
                 <p class="link-fallback">
                   ${textFallback}<br>
                   <a href="${downloadLink}" style="color: #4b5563; text-decoration: underline;">${downloadLink}</a>
+                </p>
+                
+                <p class="body-text" style="font-size: 15px; margin-top: 30px; margin-bottom: 10px;">
+                  ${textVisitUs} <a href="${baseUrl}" style="color: #d97706; text-decoration: none; font-weight: bold;">ARCHEYA</a>
                 </p>
                 
                 <hr class="divider">
@@ -110,9 +122,16 @@ Your report "${reportTypeName}" has been generated and is ready to download.
 Click the link below to download your PDF:
 ${downloadLink}
 
+${textLinkValidity}
+
 ---
 
 If the link does not work, copy and paste the URL above into your browser.
+
+---
+
+Visit our website:
+${baseUrl}
 
 ---
 
@@ -130,9 +149,16 @@ Twój raport "${reportTypeName}" został wygenerowany i jest gotowy do pobrania.
 Kliknij na poniższy link, aby pobrać plik PDF:
 ${downloadLink}
 
+${textLinkValidity}
+
 ---
 
 Jeśli link nie działa, skopiuj powyższy URL do przeglądarki.
+
+---
+
+Odwiedź naszą stronę:
+${baseUrl}
 
 ---
 
