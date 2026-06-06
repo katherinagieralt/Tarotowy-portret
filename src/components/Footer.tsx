@@ -48,7 +48,7 @@ export function Footer() {
                 width={300} 
                 height={300} 
                 className="h-32 md:h-48 w-auto object-contain group-hover:scale-105 transition-transform duration-500 drop-shadow-sm dark:hidden"
-                priority
+                loading="lazy"
               />
               {/* Logo dla ciemnego motywu (Białe logo) */}
               <Image 
@@ -58,7 +58,7 @@ export function Footer() {
                 width={300} 
                 height={300} 
                 className="h-32 md:h-48 w-auto object-contain group-hover:scale-105 transition-transform duration-500 drop-shadow-sm hidden dark:block"
-                priority
+                loading="lazy"
               />
             </Link>
             <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed max-w-sm font-light">

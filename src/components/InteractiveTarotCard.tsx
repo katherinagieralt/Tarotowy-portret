@@ -73,7 +73,7 @@ export function InteractiveTarotCard({ card, delay, index }: CardProps) {
   const wiggleVariants = {
     hidden: { rotateY: 0 },
     visible: {
-      rotateY: shouldWiggle ? [0, 95, 0] : 0,
+      rotateY: shouldWiggle ? [0, 45, 0] : 0,
       transition: {
         delay: delay + 1.2, // Czekamy aż skończy się animacja wjazdu (0.7s) + mała przerwa
         duration: 1.2,

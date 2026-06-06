@@ -183,33 +183,23 @@ export default function Home() {
 
       <div className="max-w-4xl mx-auto px-4 md:px-6 pt-10 pb-16 md:pt-16 md:pb-32 relative z-10 flex flex-col items-center">
         {/* Header */}
-        <motion.div 
-          initial="hidden"
-          animate="visible"
-          variants={fadeInUp}
-          className="text-center mb-16 space-y-6"
-        >
+        <div className="text-center mb-16 space-y-6 animate-fade-in-up">
           <h1 className="text-4xl md:text-5xl lg:text-7xl font-light mb-4 md:mb-6 tracking-tight font-serif text-slate-900 dark:text-white transition-colors duration-500">
             Tarotowy <span className="italic text-transparent bg-clip-text bg-gradient-to-br from-amber-500 via-amber-600 to-amber-700 dark:from-amber-200 dark:via-amber-400 dark:to-amber-700 pr-2 pb-1">Portret</span>
           </h1>
           <p className="text-lg text-slate-600 dark:text-slate-300 max-w-xl mx-auto font-light leading-relaxed transition-colors duration-500">
             Zaawansowany kalkulator Tarota oparty na psychologii głębi. Oblicz swój Tarotowy Portret Psychologiczny, by odkryć podświadome mechanizmy i swój życiowy potencjał.
           </p>
-        </motion.div>
+        </div>
 
         {/* Minimalist Form */}
-        <motion.div 
-          variants={staggerContainer}
-          initial="hidden"
-          animate="visible"
-          className="w-full max-w-2xl"
-        >
+        <div className="w-full max-w-2xl animate-fade-in-up [animation-delay:200ms] opacity-0 [animation-fill-mode:forwards]">
           <div className="bg-white/60 dark:bg-white/[0.02] backdrop-blur-2xl border border-black/5 dark:border-white/[0.05] rounded-[2rem] p-6 md:p-10 lg:p-12 shadow-xl dark:shadow-2xl relative overflow-hidden group transition-colors duration-500">
             <div className="absolute inset-0 bg-gradient-to-b from-black/[0.02] dark:from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
             
             <form onSubmit={form.handleSubmit(onCalculate)} className="space-y-10 relative z-10">
               {/* Report Type Selector */}
-              <motion.div variants={fadeInUp} className="space-y-4">
+              <div className="space-y-4">
                 <fieldset>
                   <legend className="block text-sm font-medium text-slate-700 dark:text-slate-300 text-center mb-4 transition-colors">Rodzaj Portretu</legend>
                   <div className="grid grid-cols-2 gap-4">
@@ -229,9 +219,9 @@ export default function Home() {
                     </label>
                   </div>
                 </fieldset>
-              </motion.div>
+              </div>
 
-              <motion.div variants={fadeInUp} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label htmlFor="name1" className="block text-xs font-bold tracking-widest text-slate-600 dark:text-slate-300 uppercase px-1 transition-colors">
                     {watchReportType === 'PARTNERSHIP' ? 'Twoje Imię' : 'Imię'}
@@ -261,7 +251,7 @@ export default function Home() {
                   </div>
                   {form.formState.errors.date1 && <p className="text-red-600 dark:text-red-400 text-sm font-medium px-2">{form.formState.errors.date1.message}</p>}
                 </div>
-              </motion.div>
+              </div>
 
               <AnimatePresence mode="popLayout">
                 {watchReportType === "PARTNERSHIP" && (
@@ -301,7 +291,7 @@ export default function Home() {
                 )}
               </AnimatePresence>
 
-              <motion.div variants={fadeInUp} className="pt-2">
+              <div className="pt-2">
                 <button
                   type="submit"
                   disabled={calculating}
@@ -317,10 +307,10 @@ export default function Home() {
                     )}
                   </span>
                 </button>
-              </motion.div>
+              </div>
             </form>
           </div>
-        </motion.div>
+        </div>
       </div>
 
       {/* Result Section */}
