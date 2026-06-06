@@ -3,6 +3,14 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Regulamin Serwisu | Archeya',
   description: 'Regulamin świadczenia usług drogą elektroniczną w serwisie Archeya.',
+  alternates: {
+    canonical: '/pl/regulamin',
+    languages: {
+      'en': '/regulamin',
+      'pl': '/pl/regulamin',
+      'x-default': '/regulamin',
+    },
+  },
 };
 
 export default function TermsAndConditionsPage() {

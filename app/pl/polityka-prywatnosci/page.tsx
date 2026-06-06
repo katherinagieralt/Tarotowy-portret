@@ -3,6 +3,14 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Polityka Prywatności | Archeya',
   description: 'Zasady przetwarzania danych osobowych oraz wykorzystywania plików cookies w serwisie Archeya.',
+  alternates: {
+    canonical: '/pl/polityka-prywatnosci',
+    languages: {
+      'en': '/polityka-prywatnosci',
+      'pl': '/pl/polityka-prywatnosci',
+      'x-default': '/polityka-prywatnosci',
+    },
+  },
 };
 
 export default function PrivacyPolicyPage() {
@@ -57,7 +65,7 @@ export default function PrivacyPolicyPage() {
           </p>
           <ul className="list-disc pl-6 space-y-2 mb-6">
             <li>Dostawcy usług hostingowych i bazodanowych.</li>
-            <li>Operatorzy systemów płatności (np. Stripe, PayU) w celu realizacji transakcji.</li>
+            <li>Operatorzy systemów płatności (np. Stripe) w celu realizacji transakcji.</li>
             <li>Dostawcy usług mailingowych (do zautomatyzowanej wysyłki zamówionych plików PDF).</li>
             <li>Biura rachunkowe w celach księgowych.</li>
           </ul>

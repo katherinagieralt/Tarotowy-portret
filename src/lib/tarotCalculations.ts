@@ -169,11 +169,11 @@ export const partnerPositionMeaningsEn: Record<string, { title: string; descript
 // =========================
 
 function reduceTo22(num: number): number {
+  while (num <= 0) {
+    num += 22;
+  }
   while (num > 22) {
     num -= 22;
-  }
-  if (num === 0) {
-    return 22;
   }
   return num;
 }

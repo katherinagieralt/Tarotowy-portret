@@ -25,8 +25,9 @@ export async function generateMetadata({
     alternates: {
       canonical: `/arkana/${resolvedParams.slug}`,
       languages: {
-        'en-US': `/arkana/${resolvedParams.slug}`,
-        'pl-PL': `/pl/arkana/${resolvedParams.slug}`,
+        'en': `/arkana/${resolvedParams.slug}`,
+        'pl': `/pl/arkana/${resolvedParams.slug}`,
+        'x-default': `/arkana/${resolvedParams.slug}`,
       },
     },
     openGraph: {

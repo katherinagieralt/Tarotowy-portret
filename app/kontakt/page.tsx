@@ -5,6 +5,14 @@ import Image from 'next/image';
 export const metadata: Metadata = {
   title: 'About Us & Contact | Archeya',
   description: 'The story of the Archeya project and contact form. Reach out if you have any questions.',
+  alternates: {
+    canonical: '/kontakt',
+    languages: {
+      'en': '/kontakt',
+      'pl': '/pl/kontakt',
+      'x-default': '/kontakt',
+    },
+  },
 };
 
 export default function AboutAndContactPageEn() {

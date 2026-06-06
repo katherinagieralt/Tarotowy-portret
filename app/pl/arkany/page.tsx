@@ -1,6 +1,21 @@
 import { getAllArkanaPosts } from '@/lib/arkany';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Wielkie Arkana | Archeya',
+  description: 'Odkryj 22 archetypy ludzkiej duszy.',
+  alternates: {
+    canonical: '/pl/arkany',
+    languages: {
+      'en': '/arkany',
+      'pl': '/pl/arkany',
+      'x-default': '/arkany',
+    },
+  },
+};
+
 
 export default async function ArkanaiPage() {
   const posts = await getAllArkanaPosts();

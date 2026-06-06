@@ -3,6 +3,14 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Privacy Policy | Archeya',
   description: 'Rules for processing personal data and using cookies on the Archeya platform.',
+  alternates: {
+    canonical: '/polityka-prywatnosci',
+    languages: {
+      'en': '/polityka-prywatnosci',
+      'pl': '/pl/polityka-prywatnosci',
+      'x-default': '/polityka-prywatnosci',
+    },
+  },
 };
 
 export default function PrivacyPolicyPageEn() {

@@ -74,12 +74,14 @@ export function Navbar() {
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }
             }}
+            aria-label={isEnglish ? "Archeya Home" : "Archeya Strona Główna"}
             className="flex items-center gap-2 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 rounded-lg py-1"
           >
             {/* Logo dla jasnego motywu (Czarne logo) */}
             <Image 
               src="/Logo/PNG/archeya-logo-dark.png" 
-              alt="Archeya Logo" 
+              alt="" 
+              aria-hidden="true"
               width={300} 
               height={80} 
               className="h-20 w-auto md:h-24 transition-all duration-300 dark:hidden"
@@ -88,7 +90,8 @@ export function Navbar() {
             {/* Logo dla ciemnego motywu (Białe logo) */}
             <Image 
               src="/Logo/PNG/archeya-logo-light.png" 
-              alt="Archeya Logo" 
+              alt="" 
+              aria-hidden="true"
               width={300} 
               height={80} 
               className="h-20 w-auto md:h-24 transition-all duration-300 hidden dark:block"

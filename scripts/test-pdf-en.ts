@@ -24,7 +24,7 @@ async function testPdf() {
   };
 
   try {
-    const buffer = await renderToBuffer(React.createElement(TarotReportTemplate, props));
+    const buffer = await renderToBuffer(React.createElement(TarotReportTemplate, props) as any);
     console.log('Success, generated buffer of size', buffer.length);
   } catch(e) {
     console.error('Render error:', e);

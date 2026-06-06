@@ -52,6 +52,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     robots: {
       index: indexable,
       follow: true,
+    },
+    alternates: {
+      canonical: `/pl/znaczenie/${resolvedParams.slug}`,
+      languages: {
+        'en': `/znaczenie/${generatePositionSlug(cardSlug, !!isPartner, posKey, true)}`,
+        'pl': `/pl/znaczenie/${resolvedParams.slug}`,
+        'x-default': `/znaczenie/${generatePositionSlug(cardSlug, !!isPartner, posKey, true)}`,
+      }
     }
   };
 }
@@ -128,6 +136,43 @@ export default async function MeaningPage({ params }: { params: Promise<{ slug: 
     <main className="min-h-screen bg-[#F9F6EE] dark:bg-[#0A0710] py-24 px-6 transition-colors duration-500">
       <div className="max-w-5xl mx-auto">
         
+        {/* Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'BreadcrumbList',
+              itemListElement: [
+                {
+                  '@type': 'ListItem',
+                  position: 1,
+                  name: 'Strona główna',
+                  item: 'https://getarcheya.com/pl'
+                },
+                {
+                  '@type': 'ListItem',
+                  position: 2,
+                  name: 'Wielkie Arkana',
+                  item: 'https://getarcheya.com/pl/arkany'
+                },
+                {
+                  '@type': 'ListItem',
+                  position: 3,
+                  name: String(card.frontmatter.title),
+                  item: `https://getarcheya.com/pl/arkana/${card.slug}`
+                },
+                {
+                  '@type': 'ListItem',
+                  position: 4,
+                  name: `Pozycja ${posNum}`,
+                  item: `https://getarcheya.com/pl/znaczenie/${resolvedParams.slug}`
+                }
+              ]
+            })
+          }}
+        />
+
         {/* Breadcrumbs */}
         <nav className="mb-12 flex flex-wrap items-center text-sm font-medium text-slate-500 dark:text-slate-400 gap-2">
           <Link href="/pl" className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">

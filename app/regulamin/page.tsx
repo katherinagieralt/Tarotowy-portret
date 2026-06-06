@@ -3,6 +3,14 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Terms and Conditions | Archeya',
   description: 'Terms and conditions for providing electronic services in the Archeya platform.',
+  alternates: {
+    canonical: '/regulamin',
+    languages: {
+      'en': '/regulamin',
+      'pl': '/pl/regulamin',
+      'x-default': '/regulamin',
+    },
+  },
 };
 
 export default function TermsAndConditionsPageEn() {

@@ -6,6 +6,14 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Pozycje Portretu, Archeya',
   description: 'Dowiedz się, co oznaczają poszczególne pozycje w Twoim indywidualnym i partnerskim Portrecie Tarotowym.',
+  alternates: {
+    canonical: '/pl/pozycje-portretu',
+    languages: {
+      'en': '/pozycje-portretu',
+      'pl': '/pl/pozycje-portretu',
+      'x-default': '/pozycje-portretu',
+    },
+  },
 };
 
 export default async function PositionsPage() {

@@ -4,15 +4,15 @@
 
 @keyframes shimmer {
   0% {
-    transform: translateX(-150%);
+    transform: translateX(-100%);
   }
   100% {
-    transform: translateX(150%);
+    transform: translateX(200%);
   }
 }
 
 .animate-shimmer {
-  animation: shimmer 2.5s linear forwards;
+  animation: shimmer 0.7s ease-in-out forwards;
 }
 
 

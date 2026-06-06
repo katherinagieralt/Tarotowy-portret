@@ -50,7 +50,7 @@ export function SalesLanding({ reportType, onCheckout, checkingOut }: SalesLandi
           <CheckCircle2 className="absolute w-3.5 h-3.5 text-white opacity-0 peer-checked:opacity-100 pointer-events-none transition-opacity" />
         </div>
         <span className="text-[11px] sm:text-xs text-slate-600 dark:text-slate-400 select-none leading-relaxed">
-          Akceptuję <Link href="/regulamin" target="_blank" className="text-amber-600 dark:text-amber-400 hover:underline font-medium">Regulamin</Link> oraz <Link href="/polityka-prywatnosci" target="_blank" className="text-amber-600 dark:text-amber-400 hover:underline font-medium">Politykę Prywatności</Link>. *
+          Akceptuję <Link href="/regulamin" target="_blank" rel="noopener noreferrer" className="text-amber-600 dark:text-amber-400 hover:underline font-medium">Regulamin</Link> oraz <Link href="/polityka-prywatnosci" target="_blank" rel="noopener noreferrer" className="text-amber-600 dark:text-amber-400 hover:underline font-medium">Politykę Prywatności</Link>. *
         </span>
       </label>
 
@@ -109,8 +109,52 @@ export function SalesLanding({ reportType, onCheckout, checkingOut }: SalesLandi
     ? '"To nie jest zwykły horoskop. To lustro, w którym wreszcie zobaczysz siebie bez iluzji i upiększeń."'
     : '"To nie jest zwykły horoskop partnerski. To mapa drogowa, dzięki której wreszcie zrozumiecie, co naprawdę dzieje się w Waszej relacji."';
 
+  const faqs = [
+    {
+      q: "Czy muszę znać dokładną godzinę urodzenia?",
+      a: "Nie. W przeciwieństwie do tradycyjnej astrologii urodzeniowej, Kalkulator Tarota w Metodzie Portretu oblicza wyniki wyłącznie na podstawie Twojego dnia, miesiąca i roku urodzenia. Godzina nie jest nam potrzebna."
+    },
+    {
+      q: "Jak szybko otrzymam swój Tarotowy Portret Psychologiczny?",
+      a: "Twój Tarotowy Portret Psychologiczny jest generowany automatycznie i wysyłany na podany przez Ciebie adres e-mail natychmiast po zaksięgowaniu wpłaty (zazwyczaj trwa to kilkanaście sekund). Pamiętaj, aby sprawdzić folder SPAM, jeśli nie widzisz wiadomości w folderze głównym."
+    },
+    {
+      q: "Czym to się różni od zwykłego 'czytania tarota'?",
+      a: "To nie jest wróżba. Raport opiera się na matematyczno-numerologicznym wyliczeniu Twoich osobistych archetypów (zgodnie z psychologią C.G. Junga) i łączeniu ich z Wielkimi Arkanami Tarota. To głęboka analiza psychologiczna Twoich uwarunkowań, a nie przewidywanie przyszłości."
+    },
+    {
+      q: "Czy plik PDF z Tarotowym Portretem mogę wydrukować?",
+      a: "Oczywiście! Raport jest sformatowany w sposób bardzo czytelny i elegancki, idealny zarówno do czytania na ekranach (telefon, tablet, komputer), jak i do tradycyjnego wydruku w domowym zaciszu."
+    },
+    {
+      q: "Czy Portret Partnerski jest tylko dla par romantycznych?",
+      a: "Nie. Portret Partnerski analizuje ogólną dynamikę i wspólną energię dwóch osób. Z powodzeniem możesz sprawdzić relację z przyjacielem, członkiem rodziny, a nawet wspólnikiem biznesowym."
+    },
+    {
+      q: "Czy moje dane do obliczeń są bezpieczne?",
+      a: "Tak. Twoje dane (imię i data urodzenia) są używane wyłącznie do wygenerowania raportu i nie są w żaden sposób wykorzystywane marketingowo ani profilowane. Cały proces płatności jest w 100% zabezpieczony i obsługiwany przez renomowany system Stripe."
+    }
+  ];
+
   return (
     <div className="w-full flex flex-col space-y-20 md:space-y-24 lg:space-y-32 py-16 md:py-20 lg:py-24 overflow-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": faqs.map(f => ({
+              "@type": "Question",
+              "name": f.q,
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": f.a
+              }
+            }))
+          })
+        }}
+      />
       
       {/* 1. SECTION: The Hook */}
       <motion.section 
@@ -352,7 +396,7 @@ export function SalesLanding({ reportType, onCheckout, checkingOut }: SalesLandi
               </div>
               
               <div className="w-full sm:w-1/2 bg-amber-100 dark:bg-amber-900/30 p-6 rounded-2xl border-2 border-amber-400 dark:border-amber-500 shadow-xl sm:scale-110 relative z-10">
-                <div className="absolute -top-3 -right-3 bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-widest shadow-md">
+                <div className="absolute -top-3 -right-3 bg-red-600 text-white text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-widest shadow-md">
                   Inwestycja w siebie
                 </div>
                 <span className="block text-xs font-bold uppercase tracking-widest text-amber-700 dark:text-amber-400 mb-1">
@@ -411,44 +455,22 @@ export function SalesLanding({ reportType, onCheckout, checkingOut }: SalesLandi
         </div>
         
         <div className="space-y-4 relative z-10">
-          {[
-            {
-              q: "Czy muszę znać dokładną godzinę urodzenia?",
-              a: "Nie. W przeciwieństwie do tradycyjnej astrologii urodzeniowej, Tarotowy Portret jest obliczany wyłącznie na podstawie Twojego dnia, miesiąca i roku urodzenia. Godzina nie jest nam potrzebna."
-            },
-            {
-              q: "Jak szybko otrzymam swój raport?",
-              a: "Raport jest generowany automatycznie i wysyłany na podany przez Ciebie adres e-mail natychmiast po zaksięgowaniu wpłaty (zazwyczaj trwa to kilkanaście sekund). Pamiętaj, aby sprawdzić folder SPAM, jeśli nie widzisz wiadomości w folderze głównym."
-            },
-            {
-              q: "Czym to się różni od zwykłego 'czytania tarota'?",
-              a: "To nie jest wróżba. Raport opiera się na matematyczno-numerologicznym wyliczeniu Twoich osobistych archetypów (zgodnie z psychologią C.G. Junga) i łączeniu ich z Wielkimi Arkanami Tarota. To głęboka analiza psychologiczna Twoich uwarunkowań, a nie przewidywanie przyszłości."
-            },
-            {
-              q: "Czy plik PDF mogę wydrukować?",
-              a: "Oczywiście! Raport jest sformatowany w sposób bardzo czytelny i elegancki, idealny zarówno do czytania na ekranach (telefon, tablet, komputer), jak i do tradycyjnego wydruku w domowym zaciszu."
-            },
-            {
-              q: "Czy Portret Partnerski jest tylko dla par romantycznych?",
-              a: "Nie. Portret Partnerski analizuje ogólną dynamikę i wspólną energię dwóch osób. Z powodzeniem możesz sprawdzić relację z przyjacielem, członkiem rodziny, a nawet wspólnikiem biznesowym."
-            },
-            {
-              q: "Czy moje dane do obliczeń są bezpieczne?",
-              a: "Tak. Twoje dane (imię i data urodzenia) są używane wyłącznie do wygenerowania raportu i nie są w żaden sposób wykorzystywane marketingowo ani profilowane. Cały proces płatności jest w 100% zabezpieczony i obsługiwany przez renomowany system Stripe."
-            }
-          ].map((faq, i) => {
+          {faqs.map((faq, i) => {
             const [isOpen, setIsOpen] = useState(false);
             return (
               <div key={i} className="bg-white/60 dark:bg-[#130F24]/40 backdrop-blur-md border border-black/5 dark:border-white/10 rounded-2xl overflow-hidden transition-all duration-500 hover:border-amber-500/30 hover:shadow-lg dark:hover:shadow-[0_0_20px_rgba(212,175,55,0.05)] group">
-                <button 
-                  onClick={() => setIsOpen(!isOpen)} 
-                  className="w-full flex items-center justify-between p-6 sm:p-8 text-left focus:outline-none"
-                >
-                  <span className="font-serif font-medium text-lg sm:text-xl text-slate-900 dark:text-[#E8E4D9] pr-4 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">{faq.q}</span>
-                  <div className={`flex-shrink-0 transition-transform duration-500 ${isOpen ? "rotate-180 text-amber-500" : "text-slate-400 dark:text-slate-500 group-hover:text-amber-500"}`}>
-                    {isOpen ? <Minus className="w-5 h-5 sm:w-6 sm:h-6" /> : <Plus className="w-5 h-5 sm:w-6 sm:h-6" />}
-                  </div>
-                </button>
+                <h4 className="m-0 p-0">
+                  <button 
+                    onClick={() => setIsOpen(!isOpen)} 
+                    aria-expanded={isOpen}
+                    className="w-full flex items-center justify-between p-6 sm:p-8 text-left focus:outline-none"
+                  >
+                    <span className="font-serif font-medium text-lg sm:text-xl text-slate-900 dark:text-[#E8E4D9] pr-4 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">{faq.q}</span>
+                    <div className={`flex-shrink-0 transition-transform duration-500 ${isOpen ? "rotate-180 text-amber-500" : "text-slate-400 dark:text-slate-500 group-hover:text-amber-500"}`}>
+                      {isOpen ? <Minus className="w-5 h-5 sm:w-6 sm:h-6" /> : <Plus className="w-5 h-5 sm:w-6 sm:h-6" />}
+                    </div>
+                  </button>
+                </h4>
                 <AnimatePresence>
                   {isOpen && (
                     <motion.div

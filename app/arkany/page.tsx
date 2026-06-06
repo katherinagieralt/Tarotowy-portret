@@ -1,6 +1,21 @@
 import { getAllArkanaPosts } from '@/lib/arkany';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Major Arcana | Archeya',
+  description: 'Discover the 22 archetypes of the human soul.',
+  alternates: {
+    canonical: '/arkany',
+    languages: {
+      'en': '/arkany',
+      'pl': '/pl/arkany',
+      'x-default': '/arkany',
+    },
+  },
+};
+
 
 export default async function ArkanaiPageEn() {
   const posts = await getAllArkanaPosts('en');

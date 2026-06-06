@@ -128,13 +128,13 @@ export function InteractiveTarotCard({ card, delay, index }: CardProps) {
           {/* BACK OF CARD */}
           <div className="absolute inset-0 w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-xl bg-[#F9F6EE] dark:bg-[#130F24] border border-[#D4AF37]/40 dark:border-[#B89B72]/30 overflow-hidden flex flex-col items-center justify-center p-5 text-center shadow-xl z-20">
             <div className="absolute inset-0 opacity-[0.03] dark:opacity-10 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] mix-blend-overlay pointer-events-none"></div>
-            <h4 className="text-[#8C6D46] dark:text-[#B89B72] font-serif text-lg mb-2 leading-tight">{card.name}</h4>
-            <p className="text-[0.65rem] sm:text-[0.7rem] text-slate-700 dark:text-[#E8E4D9]/80 leading-relaxed overflow-hidden line-clamp-[12]">
+            {/* Shimmer effect on the back */}
+            <div className={`absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/60 dark:via-white/10 to-transparent z-10 pointer-events-none ${isFlipped ? 'animate-shimmer' : ''}`}></div>
+
+            <h4 className="relative z-20 text-[#8C6D46] dark:text-[#B89B72] font-serif text-lg mb-2 leading-tight">{card.name}</h4>
+            <p className="relative z-20 text-[0.65rem] sm:text-[0.7rem] text-slate-700 dark:text-[#E8E4D9]/80 leading-relaxed overflow-hidden line-clamp-[12]">
               {card.description}
             </p>
-            
-            {/* Shimmer effect on the back */}
-            <div className={`absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/60 dark:via-white/10 to-transparent z-20 pointer-events-none ${isFlipped ? 'animate-shimmer' : ''}`}></div>
           </div>
         </div>
       </motion.div>

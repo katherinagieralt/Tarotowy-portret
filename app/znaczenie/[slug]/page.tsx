@@ -52,6 +52,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     robots: {
       index: indexable,
       follow: true,
+    },
+    alternates: {
+      canonical: `/znaczenie/${resolvedParams.slug}`,
+      languages: {
+        'en': `/znaczenie/${resolvedParams.slug}`,
+        'pl': `/pl/znaczenie/${generatePositionSlug(cardSlug, !!isPartner, posKey, false)}`,
+        'x-default': `/znaczenie/${resolvedParams.slug}`,
+      }
     }
   };
 }
@@ -128,6 +136,43 @@ export default async function MeaningPage({ params }: { params: Promise<{ slug: 
     <main className="min-h-screen bg-[#F9F6EE] dark:bg-[#0A0710] py-24 px-6 transition-colors duration-500">
       <div className="max-w-5xl mx-auto">
         
+        {/* Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'BreadcrumbList',
+              itemListElement: [
+                {
+                  '@type': 'ListItem',
+                  position: 1,
+                  name: 'Home',
+                  item: 'https://getarcheya.com'
+                },
+                {
+                  '@type': 'ListItem',
+                  position: 2,
+                  name: 'Major Arcana',
+                  item: 'https://getarcheya.com/arkany'
+                },
+                {
+                  '@type': 'ListItem',
+                  position: 3,
+                  name: String(card.frontmatter.title),
+                  item: `https://getarcheya.com/arkana/${card.slug}`
+                },
+                {
+                  '@type': 'ListItem',
+                  position: 4,
+                  name: `Position ${posNum}`,
+                  item: `https://getarcheya.com/znaczenie/${resolvedParams.slug}`
+                }
+              ]
+            })
+          }}
+        />
+
         {/* Breadcrumbs */}
         <nav className="mb-12 flex flex-wrap items-center text-sm font-medium text-slate-500 dark:text-slate-400 gap-2">
           <Link href="/" className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
