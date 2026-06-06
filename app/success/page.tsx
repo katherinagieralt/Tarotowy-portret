@@ -103,7 +103,7 @@ export default function SuccessPage() {
         <div className="absolute top-[20%] right-[-10%] w-[40%] h-[40%] rounded-full bg-green-100/40 dark:bg-green-900/10 blur-[120px] mix-blend-multiply dark:mix-blend-screen transition-colors duration-500"></div>
         <div className="absolute bottom-[-10%] left-[20%] w-[60%] h-[40%] rounded-full bg-amber-100/30 dark:bg-[#110D1D]/30 blur-[150px] mix-blend-multiply dark:mix-blend-screen transition-colors duration-500"></div>
         
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.05] dark:opacity-[0.15] mix-blend-overlay transition-opacity duration-500"></div>
+        <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-[0.05] dark:opacity-[0.15] mix-blend-overlay transition-opacity duration-500"></div>
       </div>
 
       <Suspense fallback={<div className="text-slate-900 dark:text-white font-serif italic text-2xl">Loading...</div>}>

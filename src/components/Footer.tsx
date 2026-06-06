@@ -42,21 +42,23 @@ export function Footer() {
             >
               {/* Logo dla jasnego motywu (Czarne logo) */}
               <Image 
-                src="/Logo/PNG/archeya-logo-vertical-dark.png" 
+                src="/Logo/SVG/archeya-logo-vertical-dark.svg" 
                 alt="" 
                 aria-hidden="true"
-                width={300} 
-                height={300} 
+                width={150} 
+                height={150} 
+                sizes="(max-width: 768px) 128px, 192px"
                 className="h-32 md:h-48 w-auto object-contain group-hover:scale-105 transition-transform duration-500 drop-shadow-sm dark:hidden"
                 loading="lazy"
               />
               {/* Logo dla ciemnego motywu (Białe logo) */}
               <Image 
-                src="/Logo/PNG/archeya-logo-vertical-light.png" 
+                src="/Logo/SVG/archeya-logo-vertical-light.svg" 
                 alt="" 
                 aria-hidden="true"
-                width={300} 
-                height={300} 
+                width={150} 
+                height={150} 
+                sizes="(max-width: 768px) 128px, 192px"
                 className="h-32 md:h-48 w-auto object-contain group-hover:scale-105 transition-transform duration-500 drop-shadow-sm hidden dark:block"
                 loading="lazy"
               />

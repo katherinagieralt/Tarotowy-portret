@@ -79,21 +79,25 @@ export function Navbar() {
           >
             {/* Logo dla jasnego motywu (Czarne logo) */}
             <Image 
-              src="/Logo/PNG/archeya-logo-dark.png" 
+              src="/Logo/SVG/archeya-logo-dark.svg" 
               alt="" 
               aria-hidden="true"
               width={300} 
-              height={80} 
+              height={150} 
+              sizes="(max-width: 768px) 200px, 300px"
+              fetchPriority="high"
               className="h-20 w-auto md:h-24 transition-all duration-300 dark:hidden"
               priority
             />
             {/* Logo dla ciemnego motywu (Białe logo) */}
             <Image 
-              src="/Logo/PNG/archeya-logo-light.png" 
+              src="/Logo/SVG/archeya-logo-light.svg" 
               alt="" 
               aria-hidden="true"
               width={300} 
-              height={80} 
+              height={150} 
+              sizes="(max-width: 768px) 200px, 300px"
+              fetchPriority="high"
               className="h-20 w-auto md:h-24 transition-all duration-300 hidden dark:block"
               priority
             />

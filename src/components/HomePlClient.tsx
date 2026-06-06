@@ -178,7 +178,7 @@ export default function Home() {
         <div className="absolute bottom-[-10%] left-[20%] w-[60%] h-[40%] rounded-full bg-[#D4AF37]/10 dark:bg-[#110D1D]/30 blur-[150px] mix-blend-multiply dark:mix-blend-screen transition-colors duration-500"></div>
         
         {/* Noise overlay */}
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.05] dark:opacity-[0.15] mix-blend-overlay transition-opacity duration-500"></div>
+        <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-[0.05] dark:opacity-[0.15] mix-blend-overlay transition-opacity duration-500"></div>
       </div>
 
       <div className="max-w-4xl mx-auto px-4 md:px-6 pt-10 pb-16 md:pt-16 md:pb-32 relative z-10 flex flex-col items-center">

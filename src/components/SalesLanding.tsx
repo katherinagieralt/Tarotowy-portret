@@ -288,7 +288,7 @@ export function SalesLanding({ reportType, onCheckout, checkingOut }: SalesLandi
 
       {/* 3. SECTION: Deep Dive Benefits (Large Grid) */}
       <section className="bg-[#FDFBF7] dark:bg-[#0B0914]/50 py-24 md:py-32 border-y border-black/5 dark:border-white/5 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] dark:opacity-[0.1] mix-blend-overlay"></div>
+        <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-[0.03] dark:opacity-[0.1] mix-blend-overlay"></div>
         
         {/* Dekoracyjne, miękkie światło w tle */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-96 bg-amber-500/5 dark:bg-amber-500/10 blur-[120px] rounded-full pointer-events-none"></div>

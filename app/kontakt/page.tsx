@@ -47,7 +47,7 @@ export default function AboutAndContactPageEn() {
                   <path d="M14.017 21L16.44 14.41L23 12.013L16.44 9.59L14.017 3L11.59 9.59L5 12.013L11.59 14.41L14.017 21Z" />
                 </svg>
               </div>
-              <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] dark:opacity-[0.05] mix-blend-overlay"></div>
+              <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-[0.03] dark:opacity-[0.05] mix-blend-overlay"></div>
               
               <div className="relative z-20 flex flex-col justify-center h-full">
                 <blockquote className="text-slate-800 dark:text-slate-200 font-serif italic text-2xl leading-relaxed">
