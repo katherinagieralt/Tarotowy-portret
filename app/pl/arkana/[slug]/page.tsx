@@ -177,36 +177,35 @@ export default async function ArkanaPage({
           <span className="text-amber-600 dark:text-amber-400">{String(post.frontmatter.title)}</span>
         </nav>
 
-        {/* Top Section: Split layout (Text Left, Image Right) */}
-        <div className="flex flex-col md:flex-row gap-12 md:gap-16 items-center md:items-start mb-20">
+        {/* Content Section: Split layout (Image Left Sticky, Text Right) */}
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 mb-20">
           
-          {/* Left: Text Content */}
-          <div className="w-full md:w-3/5 flex flex-col pt-4 md:pt-12">
-            <h1 className="text-4xl md:text-6xl font-serif font-bold text-slate-900 dark:text-white mb-6 leading-tight">
+          {/* Left: Big Card Image with Magnifier (Sticky) */}
+          <div className="w-full lg:w-1/3 flex-shrink-0">
+            <div className="sticky top-32 flex justify-center">
+              <CardMagnifier src={imagePath} alt={String(post.frontmatter.title)} />
+            </div>
+          </div>
+
+          {/* Right: Text Content & MDX */}
+          <div className="w-full lg:w-2/3 flex flex-col pt-4">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-slate-900 dark:text-white mb-6 leading-tight">
               {String(post.frontmatter.title)}
             </h1>
             
-            <p className="text-amber-600 dark:text-amber-400 text-lg md:text-xl font-medium tracking-wide mb-8 uppercase text-sm md:text-base">
+            <p className="text-amber-600 dark:text-amber-400 text-lg md:text-xl font-medium tracking-wide mb-8 uppercase">
               {String(post.frontmatter.description)}
             </p>
 
-            <p className="text-slate-700 dark:text-slate-300 text-xl font-serif leading-relaxed italic border-l-2 border-amber-500/30 pl-6 py-1">
+            <p className="text-slate-700 dark:text-slate-300 text-xl font-serif leading-relaxed italic border-l-2 border-amber-500/30 pl-6 py-1 mb-12">
               {String(post.frontmatter.summary || "Ten archetyp czeka na swoje głębsze podsumowanie. Zwiastuje ważne procesy na poziomie psychicznym i duchowym.")}
             </p>
-          </div>
 
-          {/* Right: Big Card Image with Magnifier */}
-          <div className="w-full sm:w-2/3 md:w-2/5 flex-shrink-0 flex justify-center md:justify-end z-10">
-            <CardMagnifier src={imagePath} alt={String(post.frontmatter.title)} />
+            <article className="bg-white/60 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl border border-black/5 dark:border-white/5 p-6 sm:p-10 shadow-lg">
+              <MDXRemote source={post.content} components={mdxComponents} />
+            </article>
           </div>
         </div>
-
-        {/* Bottom Section: MDX Content inside a delicate container */}
-        <article className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-md rounded-2xl border border-black/5 dark:border-white/5 p-6 md:p-12 shadow-xl mb-16">
-          <div className="max-w-4xl mx-auto">
-            <MDXRemote source={post.content} components={mdxComponents} />
-          </div>
-        </article>
 
         {/* Pozycje portretu (SEO Long Tail) */}
         <section className="mb-20">
