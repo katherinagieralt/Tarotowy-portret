@@ -10,6 +10,7 @@ import { Sparkles, User, Users, Lock, ChevronRight, Stars } from "lucide-react";
 import Image from "next/image";
 import { SalesLanding } from "@/components/SalesLanding";
 import { InteractiveTarotCard } from "@/components/InteractiveTarotCard";
+import { HomeLanding } from "@/components/HomeLanding";
 
 const formSchema = z.object({
   reportType: z.enum(["INDIVIDUAL", "PARTNERSHIP"]),
@@ -54,6 +55,23 @@ export default function Home() {
   const watchReportType = form.watch("reportType");
 
   useEffect(() => {
+    // Przywracanie wyniku tylko jeśli wracamy z widoku karty (z kombo)
+    const restoreResult = sessionStorage.getItem('restoreTarotResult') === 'true';
+    if (restoreResult) {
+      const savedResult = sessionStorage.getItem('tarotResultState');
+      const savedType = sessionStorage.getItem('tarotReportType');
+      if (savedResult) {
+        try {
+          setResult(JSON.parse(savedResult));
+          if (savedType === "PARTNERSHIP" || savedType === "INDIVIDUAL") {
+            setReportType(savedType);
+            form.setValue("reportType", savedType);
+          }
+        } catch (e) {}
+      }
+      sessionStorage.removeItem('restoreTarotResult');
+    }
+
     const saved = localStorage.getItem("tarotFormState");
     if (saved) {
       try {
@@ -100,14 +118,18 @@ export default function Home() {
         return;
       }
 
-      setResult({
+      const finalResult = {
         ...json.data,
         names: {
           person1: data.name1,
           person2: data.name2,
         }
-      });
+      };
+
+      setResult(finalResult);
       setReportType(data.reportType);
+      sessionStorage.setItem("tarotResultState", JSON.stringify(finalResult));
+      sessionStorage.setItem("tarotReportType", data.reportType);
       
       setTimeout(() => {
         document.getElementById('result-section')?.scrollIntoView({ behavior: 'smooth' });
@@ -347,7 +369,7 @@ export default function Home() {
                   if (!card.positionMeaning) return null;
                   
                   return (
-                    <InteractiveTarotCard key={idx} card={card} delay={idx * 0.05} index={idx} />
+                    <InteractiveTarotCard key={idx} card={card} delay={idx * 0.05} index={idx} isPartner={reportType === "PARTNERSHIP"} />
                   );
                 })}
               </div>
@@ -365,6 +387,17 @@ export default function Home() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Render the landing page info when no results are active */}
+      {!result && (
+        <HomeLanding 
+          lang="pl"
+          onSelectType={(type) => {
+            form.setValue('reportType', type);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+        />
+      )}
     </main>
   );
 }

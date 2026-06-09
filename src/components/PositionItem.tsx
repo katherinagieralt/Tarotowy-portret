@@ -25,7 +25,7 @@ export default function PositionItem({ posKey, posNum, posData, cards, isPartner
 
   return (
     <div className="bg-white/60 dark:bg-[#130F24]/40 backdrop-blur-md rounded-2xl border border-black/5 dark:border-white/10 overflow-hidden transition-all duration-500 hover:shadow-lg dark:hover:shadow-[0_0_20px_rgba(212,175,55,0.05)] hover:border-amber-500/30 group">
-      
+
       {/* Position Header (Always visible) */}
       <div className="p-5 sm:p-6 pb-4">
         <div className="flex items-start gap-4 sm:gap-5 mb-2">
@@ -41,10 +41,10 @@ export default function PositionItem({ posKey, posNum, posData, cards, isPartner
             </p>
           </div>
         </div>
-        
+
         {/* Toggle Button */}
         <div className="pl-0 sm:pl-[3.5rem] mt-3">
-          <button 
+          <button
             onClick={() => setIsOpen(!isOpen)}
             className="flex items-center justify-center w-10 h-10 rounded-full bg-transparent hover:bg-amber-500/10 text-amber-600/80 hover:text-amber-700 dark:text-amber-500/80 dark:hover:text-amber-400 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/50"
             title={isEnglish ? "Show cards for this position" : "Pokaż karty dla tej pozycji"}
@@ -67,13 +67,13 @@ export default function PositionItem({ posKey, posNum, posData, cards, isPartner
           >
             <div className="px-5 pb-5 sm:px-6 sm:pb-6 pt-0">
               <div className="w-full h-px bg-gradient-to-r from-amber-500/20 to-transparent mb-4"></div>
-              
+
               <div className="flex flex-wrap gap-2">
                 {cards.map(card => {
                   const urlKey = isPartner ? `part-${posKey}` : posKey;
                   return (
-                    <Link 
-                      key={card.slug} 
+                    <Link
+                      key={card.slug}
                       href={`${isEnglish ? '' : '/pl'}/znaczenie/${generatePositionSlug(card.slug, isPartner, posKey, isEnglish)}`}
                       className="group/link flex items-center justify-center px-3 py-1 text-sm rounded-md bg-white/50 dark:bg-slate-900/60 border border-black/5 dark:border-white/5 hover:border-amber-500/40 hover:bg-amber-50 dark:hover:bg-[#1A1625] text-slate-700 dark:text-slate-300 transition-all duration-300"
                     >

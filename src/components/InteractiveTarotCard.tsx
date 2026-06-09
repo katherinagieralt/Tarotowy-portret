@@ -2,7 +2,9 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
+import { generatePositionSlug } from "@/lib/tarotCalculations";
 
 interface CardProps {
   card: {
@@ -13,15 +15,20 @@ interface CardProps {
       title: string;
       description: string;
     };
+    posKey?: string;
+    slug?: string;
   };
   delay: number;
   index: number;
+  isPartner?: boolean;
+  isEnglish?: boolean;
 }
 
-export function InteractiveTarotCard({ card, delay, index }: CardProps) {
+export function InteractiveTarotCard({ card, delay, index, isPartner = false, isEnglish = false }: CardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isTouchDevice, setIsTouchDevice] = useState(false);
   const [globalFlipped, setGlobalFlipped] = useState(false);
+  const [hasClickedCombo, setHasClickedCombo] = useState(false);
 
   useEffect(() => {
     setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
@@ -30,13 +37,34 @@ export function InteractiveTarotCard({ card, delay, index }: CardProps) {
     if (window.sessionStorage.getItem('tarot-card-flipped') === 'true') {
       setGlobalFlipped(true);
     }
+    
+    // Sprawdź czy użytkownik kliknął już jakikolwiek link kombinacji
+    if (window.sessionStorage.getItem('combo-link-clicked') === 'true') {
+      setHasClickedCombo(true);
+    }
 
     // Nasłuchuj na globalne zdarzenie odwrócenia
     const handleGlobalFlip = () => setGlobalFlipped(true);
     window.addEventListener('tarot-card-flipped', handleGlobalFlip);
     
-    return () => window.removeEventListener('tarot-card-flipped', handleGlobalFlip);
+    // Nasłuchuj na zdarzenie kliknięcia linku
+    const handleComboLinkClick = () => setHasClickedCombo(true);
+    window.addEventListener('combo-link-clicked', handleComboLinkClick);
+    
+    return () => {
+      window.removeEventListener('tarot-card-flipped', handleGlobalFlip);
+      window.removeEventListener('combo-link-clicked', handleComboLinkClick);
+    };
   }, []);
+
+  const handleComboClick = () => {
+    window.sessionStorage.setItem('restoreTarotResult', 'true');
+    if (!hasClickedCombo) {
+      setHasClickedCombo(true);
+      window.sessionStorage.setItem('combo-link-clicked', 'true');
+      window.dispatchEvent(new Event('combo-link-clicked'));
+    }
+  };
 
   const triggerGlobalFlip = () => {
     if (!globalFlipped) {
@@ -155,6 +183,55 @@ export function InteractiveTarotCard({ card, delay, index }: CardProps) {
         <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed max-w-[300px] mx-auto font-light transition-colors">
           {card.positionMeaning.description}
         </p>
+
+        {/* Simple Horizontal Ornament Link */}
+        {card.slug && card.posKey && (
+          <div className="mt-3 flex justify-center pb-2">
+            <Link 
+              href={`${isEnglish ? '' : '/pl'}/znaczenie/${generatePositionSlug(card.slug, isPartner, card.posKey, isEnglish)}`}
+              onClick={handleComboClick}
+              className="group/sigil relative flex items-center justify-center w-32 h-10 transition-transform duration-500 hover:scale-105 focus:outline-none"
+              title={isEnglish ? "Read full interpretation" : "Przeczytaj pełną interpretację"}
+            >
+              <div className="relative w-full h-full flex items-center justify-center">
+                {/* Horizontal SVG Ornament with strictly constrained internal light sweep */}
+                <svg viewBox="0 0 120 24" className="w-24 h-6 transition-all duration-300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id={`sweep-${index}`} x1="-100%" y1="0%" x2="0%" y2="0%">
+                      <stop offset="0%" stopColor="white" stopOpacity="0" />
+                      <stop offset="50%" stopColor="white" stopOpacity="0.8" />
+                      <stop offset="100%" stopColor="white" stopOpacity="0" />
+                      <animate attributeName="x1" from="-100%" to="200%" dur="3s" repeatCount="indefinite" />
+                      <animate attributeName="x2" from="0%" to="300%" dur="3s" repeatCount="indefinite" />
+                    </linearGradient>
+                  </defs>
+
+                  {/* BASE LAYER (Amber) */}
+                  <g className="text-amber-600/80 dark:text-amber-500/80 group-hover/sigil:text-amber-500 dark:group-hover/sigil:text-amber-400 transition-colors duration-300">
+                    <line x1="5" y1="12" x2="35" y2="12" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" opacity="0.8" />
+                    <line x1="85" y1="12" x2="115" y2="12" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" opacity="0.8" />
+                    <path d="M 35 12 C 45 4, 55 4, 60 12 C 65 20, 75 20, 85 12" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+                    <path d="M 35 12 C 45 20, 55 20, 60 12 C 65 4, 75 4, 85 12" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+                    <circle cx="60" cy="12" r="3.5" fill="currentColor" />
+                    <circle cx="20" cy="12" r="2.5" fill="currentColor" opacity="0.8" />
+                    <circle cx="100" cy="12" r="2.5" fill="currentColor" opacity="0.8" />
+                  </g>
+
+                  {/* SWEEP LAYER (White Gradient restricted purely to the lines) */}
+                  <g className={`transition-opacity duration-700 pointer-events-none ${hasClickedCombo ? 'opacity-30 group-hover/sigil:opacity-80' : 'opacity-70 group-hover/sigil:opacity-100'}`}>
+                    <line x1="5" y1="12" x2="35" y2="12" stroke={`url(#sweep-${index})`} strokeWidth="2.5" strokeLinecap="round" />
+                    <line x1="85" y1="12" x2="115" y2="12" stroke={`url(#sweep-${index})`} strokeWidth="2.5" strokeLinecap="round" />
+                    <path d="M 35 12 C 45 4, 55 4, 60 12 C 65 20, 75 20, 85 12" stroke={`url(#sweep-${index})`} strokeWidth="2.5" strokeLinecap="round" fill="none" />
+                    <path d="M 35 12 C 45 20, 55 20, 60 12 C 65 4, 75 4, 85 12" stroke={`url(#sweep-${index})`} strokeWidth="2.5" strokeLinecap="round" fill="none" />
+                    <circle cx="60" cy="12" r="3.5" fill={`url(#sweep-${index})`} />
+                    <circle cx="20" cy="12" r="2.5" fill={`url(#sweep-${index})`} />
+                    <circle cx="100" cy="12" r="2.5" fill={`url(#sweep-${index})`} />
+                  </g>
+                </svg>
+              </div>
+            </Link>
+          </div>
+        )}
       </div>
     </motion.div>
   );

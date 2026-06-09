@@ -27,6 +27,31 @@ export const ARCANA: Record<number, string> = {
   22: "Głupiec",
 };
 
+export const ARCANA_SLUGS: Record<number, string> = {
+  1: "1-mag",
+  2: "2-kaplanka",
+  3: "3-cesarzowa",
+  4: "4-cesarz",
+  5: "5-kaplan",
+  6: "6-kochankowie",
+  7: "7-rydwan",
+  8: "8-sprawiedliwosc",
+  9: "9-eremita",
+  10: "10-kolo-fortuny",
+  11: "11-sila",
+  12: "12-wisielec",
+  13: "13-smierc",
+  14: "14-umiarkowanie",
+  15: "15-diabel",
+  16: "16-wieza",
+  17: "17-gwiazda",
+  18: "18-ksiezyc",
+  19: "19-slonce",
+  20: "20-sad",
+  21: "21-swiat",
+  22: "22-glupiec",
+};
+
 export const ARCANA_EN: Record<number, string> = {
   1: "The Magician",
   2: "The High Priestess",
@@ -37,7 +62,7 @@ export const ARCANA_EN: Record<number, string> = {
   7: "The Chariot",
   8: "Justice",
   9: "The Hermit",
-  10: "Wheel of Fortune",
+  10: "The Wheel of Fortune",
   11: "Strength",
   12: "The Hanged Man",
   13: "Death",
@@ -228,6 +253,8 @@ export function calculateIndividualPortrait(dateInput: Date | string, locale: "p
     name: locale === "en" ? ARCANA_EN[val] : ARCANA[val],
     description: locale === "en" ? ARCANA_DESCRIPTIONS_EN[val] : ARCANA_DESCRIPTIONS[val],
     positionMeaning: positionMeanings[posKey],
+    posKey,
+    slug: ARCANA_SLUGS[val]
   });
 
   return {
@@ -288,6 +315,8 @@ export function calculatePartnershipPortrait(
     name: locale === "en" ? ARCANA_EN[val] : ARCANA[val],
     description: locale === "en" ? ARCANA_DESCRIPTIONS_EN[val] : ARCANA_DESCRIPTIONS[val],
     positionMeaning: positionMeanings[posKey],
+    posKey,
+    slug: ARCANA_SLUGS[val]
   });
 
   return {

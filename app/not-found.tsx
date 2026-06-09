@@ -2,8 +2,11 @@
 
 import Link from "next/link";
 import { Search } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 export default function NotFound() {
+  const pathname = usePathname();
+  const isPolish = pathname?.startsWith('/pl') || pathname === '/';
   return (
     <main className="min-h-[80vh] flex items-center justify-center bg-[#F9F6EE] dark:bg-[#0A0710] py-20 px-4 transition-colors duration-500">
       <div className="max-w-2xl w-full bg-white/60 dark:bg-slate-900/60 backdrop-blur-md rounded-3xl border border-amber-500/20 p-8 md:p-16 text-center shadow-2xl relative overflow-hidden">
@@ -16,29 +19,30 @@ export default function NotFound() {
           </div>
           
           <h1 className="text-4xl md:text-5xl font-serif font-bold text-slate-900 dark:text-white mb-4">
-            Card not drawn
+            {isPolish ? "Karta nie została wyciągnięta" : "Card not drawn"}
           </h1>
           <h2 className="text-xl font-medium text-amber-600 dark:text-amber-400 mb-6 uppercase tracking-widest">
-            Error 404
+            {isPolish ? "Błąd 404" : "Error 404"}
           </h2>
           
           <p className="text-lg text-slate-600 dark:text-slate-400 font-light leading-relaxed mb-10 max-w-lg mx-auto">
-            It looks like the page you are looking for has been lost in the fog of archetypes.
-            It might have been moved, deleted, or simply never existed in this space.
+            {isPolish 
+              ? "Wygląda na to, że strona, której szukasz, zgubiła się w mgle archetypów. Mogła zostać przeniesiona, usunięta lub po prostu nigdy nie istniała w tej przestrzeni."
+              : "It looks like the page you are looking for has been lost in the fog of archetypes. It might have been moved, deleted, or simply never existed in this space."}
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link 
-              href="/"
+              href={isPolish ? "/pl" : "/"}
               className="px-8 py-4 bg-amber-500 hover:bg-amber-600 text-white rounded-full font-medium transition-all shadow-lg hover:shadow-amber-500/25 w-full sm:w-auto"
             >
-              Return to Homepage
+              {isPolish ? "Wróć na stronę główną" : "Return to Homepage"}
             </Link>
             <Link 
-              href="/kontakt"
+              href={isPolish ? "/pl/kontakt" : "/kontakt"}
               className="px-8 py-4 bg-white/50 dark:bg-slate-800/50 hover:bg-white dark:hover:bg-slate-800 text-slate-800 dark:text-white border border-black/10 dark:border-white/10 hover:border-amber-500/50 rounded-full font-medium transition-all w-full sm:w-auto"
             >
-              Report a Problem
+              {isPolish ? "Zgłoś problem" : "Report a Problem"}
             </Link>
           </div>
         </div>
