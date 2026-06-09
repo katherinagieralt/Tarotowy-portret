@@ -373,7 +373,7 @@ export default async function MeaningPage({ params }: { params: Promise<{ slug: 
               </li>
             </ul>
 
-            <CheckoutLink isPartner={isPartner} lang="en">
+            <CheckoutLink isPartner={!!isPartner} lang="en">
               {isPartner ? "Calculate Partnership Portrait" : "Calculate Individual Portrait"}
             </CheckoutLink>
           </div>
