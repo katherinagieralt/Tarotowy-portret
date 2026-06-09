@@ -6,6 +6,7 @@ import { individualPositionMeanings, partnerPositionMeanings, ARCANA, ARCANA_DES
 import interpretationsData from '@/content/interpretations.json';
 import CardMagnifier from '@/components/CardMagnifier';
 import { ChevronRight, Sparkles, User, Users } from 'lucide-react';
+import { CheckoutLink } from '@/components/CheckoutLink';
 
 function toRoman(num: number): string {
   if (num === 0) return '0';
@@ -372,11 +373,9 @@ export default async function MeaningPage({ params }: { params: Promise<{ slug: 
               </li>
             </ul>
 
-            <a href="/pl" className={`group relative inline-flex items-center justify-center gap-3 px-10 py-5 text-white font-bold rounded-2xl overflow-hidden transition-all hover:scale-[1.02] ${isPartner ? 'bg-gradient-to-r from-purple-500 to-indigo-600 shadow-[0_0_20px_rgba(168,85,247,0.2)] dark:shadow-[0_0_40px_rgba(168,85,247,0.3)] hover:shadow-[0_0_30px_rgba(168,85,247,0.4)] dark:hover:shadow-[0_0_60px_rgba(168,85,247,0.5)]' : 'bg-gradient-to-r from-amber-500 to-amber-600 shadow-[0_0_20px_rgba(245,158,11,0.2)] dark:shadow-[0_0_40px_rgba(245,158,11,0.3)] hover:shadow-[0_0_30px_rgba(245,158,11,0.4)] dark:hover:shadow-[0_0_60px_rgba(245,158,11,0.5)]'}`}>
-              <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
-              <span className="relative z-10 text-xl tracking-wide">{isPartner ? "Oblicz Portret Partnerski" : "Oblicz Portret Indywidualny"}</span>
-              <ChevronRight className="relative z-10 w-6 h-6 group-hover:translate-x-1.5 transition-transform" />
-            </a>
+            <CheckoutLink isPartner={isPartner} lang="pl">
+              {isPartner ? "Oblicz Portret Partnerski" : "Oblicz Portret Indywidualny"}
+            </CheckoutLink>
           </div>
         </div>
 

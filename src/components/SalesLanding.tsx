@@ -137,7 +137,7 @@ export function SalesLanding({ reportType, onCheckout, checkingOut }: SalesLandi
   ];
 
   return (
-    <div className="w-full flex flex-col space-y-20 md:space-y-24 lg:space-y-32 py-16 md:py-20 lg:py-24 overflow-hidden">
+    <div id="checkout-section" className="w-full flex flex-col space-y-20 md:space-y-24 lg:space-y-32 py-16 md:py-20 lg:py-24 overflow-hidden scroll-mt-24">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -257,7 +257,11 @@ export function SalesLanding({ reportType, onCheckout, checkingOut }: SalesLandi
                 <div className="mt-1 bg-amber-100 dark:bg-amber-900/30 p-1 rounded-full">
                   <CheckCircle2 className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0" />
                 </div>
-                <span><strong className="text-slate-900 dark:text-white">Konkret zamiast iluzji:</strong> Zero sztywnych przepowiedni. Czysta psychologia.</span>
+                <span>
+                  <strong className="text-slate-900 dark:text-white">Kompleksowa analiza:</strong> {isIndividual 
+                    ? "Od potencjału i życiowej misji, przez blokady, aż po lekcje karmiczne w jednym miejscu." 
+                    : "Od dynamiki komunikacji, przez ukryte potrzeby, aż po wspólny cel Waszego spotkania."}
+                </span>
               </li>
             </motion.ul>
 

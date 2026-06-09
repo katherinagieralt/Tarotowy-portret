@@ -67,6 +67,17 @@ export default function HomeEn() {
             setReportType(savedType);
             form.setValue("reportType", savedType);
           }
+          
+          // Zapewnienie przewinięcia do sekcji płatności lub po prostu do wyników
+          setTimeout(() => {
+            if (window.location.hash === '#checkout-section') {
+              const el = document.getElementById('checkout-section');
+              if (el) el.scrollIntoView({ behavior: 'smooth' });
+            } else {
+              const el = document.getElementById('result-section');
+              if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }
+          }, 100);
         } catch (e) {}
       }
       sessionStorage.removeItem('restoreTarotResult');
